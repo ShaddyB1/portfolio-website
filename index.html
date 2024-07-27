@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shadrack Boateng Addo - Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
@@ -178,6 +177,77 @@
             40% { transform: translateY(-20px); }
             60% { transform: translateY(-10px); }
         }
+
+        .interactive-icon {
+            cursor: pointer;
+            color: var(--secondary-color);
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .interactive-icon:hover {
+            color: var(--highlight-color);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(14, 14, 82, 0.9);
+        }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid var(--highlight-color);
+            border-radius: 15px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: var(--highlight-color);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--accent-color);
+        }
+
+        .demo-container textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--secondary-color);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+        }
+
+        .demo-container button {
+            background-color: var(--highlight-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -203,7 +273,7 @@
             <h2>Technical Projects</h2>
             <div class="projects">
                 <div class="project-card">
-                    <h3>AI-Driven Paragraph Quality Classifier</h3>
+                    <h3>AI-Driven Paragraph Quality Classifier <span class="interactive-icon" onclick="openModal('paragraphClassifier')">&#9881;</span></h3>
                     <p>A machine learning model using PyTorch to classify paragraph quality, incorporating BERT for natural language processing.</p>
                     <p><strong>Technologies:</strong> PyTorch, BERT, spaCy, Optuna, Matplotlib, Seaborn</p>
                     <p><a href="https://github.com/ShaddyB1/praragraph_quality_validator" target="_blank" style="color: var(--highlight-color);">View on GitHub</a></p>
@@ -251,35 +321,101 @@
                 </a>
                 <a href="https://github.com/ShaddyB1" target="_blank" title="Check out my GitHub">
                     <svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
                     </svg>
                 </a>
             </div>
         </section>
     </div>
 
-    <script>
-        // Floating animation for objects
-        document.querySelectorAll('.floating-object').forEach(obj => {
-            obj.style.animation = `float ${15 + Math.random() * 10}s ease-in-out infinite`;
-            obj.style.left = `${Math.random() * 80}%`;
-            obj.style.top = `${Math.random() * 80}%`;
-        });
 
-        // Fade-in effect for sections
-        function checkFade() {
-            var sections = document.querySelectorAll('.section');
-            var windowHeight = window.innerHeight;
-            sections.forEach(function(section) {
-                var position = section.getBoundingClientRect().top;
-                if (position < windowHeight * 0.9) {
+    <div id="paragraphClassifierModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('paragraphClassifier')">&times;</span>
+            <h2>Try the Paragraph Quality Classifier</h2>
+            <div class="demo-container">
+                <textarea id="paragraph-input" placeholder="Enter a paragraph to classify..."></textarea>
+                <button onclick="classifyParagraph()">Classify</button>
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+  
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        function handleScrollAnimations() {
+            document.querySelectorAll('.section').forEach((section) => {
+                if (isInViewport(section)) {
                     section.classList.add('visible');
                 }
             });
         }
 
-        window.addEventListener('scroll', checkFade);
-        window.addEventListener('load', checkFade);
+       
+        window.addEventListener('scroll', handleScrollAnimations);
+
+       
+        handleScrollAnimations();
+
+        
+        function openModal(modalName) {
+            document.getElementById(modalName + 'Modal').style.display = 'block';
+        }
+
+       
+        function closeModal(modalName) {
+            document.getElementById(modalName + 'Modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+            }
+        }
+
+       
+        async function classifyParagraph() {
+            const paragraph = document.getElementById('paragraph-input').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (paragraph.trim() === '') {
+                resultDiv.textContent = 'Please enter a paragraph.';
+                return;
+            }
+
+            resultDiv.textContent = 'Classifying...';
+
+            try {
+                
+                const response = await fetch('http://127.0.0.1:62492/classify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ paragraph }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                const data = await response.json();
+                resultDiv.textContent = `Paragraph Quality: ${data.quality}`;
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.textContent = 'An error occurred. Please try again.';
+            }
+        }
     </script>
 </body>
 </html>
