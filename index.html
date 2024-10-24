@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shadrack Boateng Addo - Portfolio</title>
@@ -55,6 +54,8 @@
     0% { transform: scale(1); }
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
+
+   
 }
 
 .interactive-icon {
@@ -374,6 +375,13 @@
                     <p><strong>Technologies:</strong> MySQL, SQL Server Management Studio, Power BI</p>
                     <p><a href="https://github.com/ShaddyB1/Local-e-commerce" target="_blank" style="color: var(--highlight-color);">View on GitHub</a></p>
                 </div>
+                <div class="project-card">
+                    <h3>EEG-Based Seizure Detection System <span class="interactive-icon" onclick="openModal('eegDemo')">⚙️</span></h3>
+                    <div class="tooltip">Click the gear to see the demo!</div>
+                    <p>A real-time EEG signal processing and seizure detection system using advanced machine learning techniques and interactive visualization.</p>
+                    <p><strong>Technologies:</strong> Python, TensorFlow, Scikit-learn, Dash, Plotly, Signal Processing</p>
+                    <p><a href="https://github.com/ShaddyB1/EEG-Based-Seizure-Prediction" target="_blank" style="color: var(--highlight-color);">View on GitHub</a></p>
+                </div>
             </div>
         </section>
 
@@ -450,6 +458,31 @@
             </div>
         </div>
     </div>
+
+    <div id="eegDemoModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <span class="close" onclick="closeModal('eegDemo')">&times;</span>
+            <h2>EEG Seizure Detection System Demo</h2>
+            <div class="demo-container">
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: var(--secondary-color);">Real-time EEG Monitoring</h3>
+                    <div id="eeg-visualization" style="height: 400px; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 10px; margin-bottom: 20px;">
+                        <div id="eeg-signal-plot"></div>
+                    </div>
+                    <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                        <button id="start-button" onclick="startEEGDemo()">Start Monitoring</button>
+                        <button id="stop-button" onclick="stopEEGDemo()" style="background-color: #e74c3c;">Stop Monitoring</button>
+                    </div>
+                    <div id="eeg-status" style="color: var(--accent-color);"></div>
+                </div>
+                <div id="model-predictions">
+                    <h3 style="color: var(--secondary-color);">Model Predictions</h3>
+                    <div id="prediction-results" style="margin-top: 10px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -638,5 +671,154 @@
             }
         }
     </script>
+
+    
+    <script>
+    let eegInterval;
+let eegData = [];
+const sampleRate = 256;
+let timeCounter = 0;
+let eegPlot = null;
+
+function generateEEGSignal(t) {
+    const alpha = 0.5 * Math.sin(2 * Math.PI * 10 * t);
+    const beta = 0.2 * Math.sin(2 * Math.PI * 20 * t);
+    const theta = 0.3 * Math.sin(2 * Math.PI * 6 * t);
+    const delta = 0.4 * Math.sin(2 * Math.PI * 2 * t);
+    
+    const seizureComponent = (timeCounter % 1000 < 100) ? 
+        2.0 * Math.sin(2 * Math.PI * 3 * t) * Math.exp(-t % 1) : 0;
+    
+    const noise = 0.1 * (Math.random() * 2 - 1);
+    
+    return alpha + beta + theta + delta + seizureComponent + noise;
+}
+
+function initializePlots() {
+    const timeArray = Array.from({length: sampleRate * 5}, (_, i) => i / sampleRate);
+    const initialData = Array(sampleRate * 5).fill(0);
+    
+    const trace = {
+        x: timeArray,
+        y: initialData,
+        mode: 'lines',
+        line: { color: '#2ecc71', width: 2 },
+        type: 'scatter'
+    };
+
+    const layout = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0.1)',
+        showlegend: false,
+        margin: { t: 20, r: 20, b: 50, l: 50 },
+        xaxis: {
+            showgrid: true,
+            gridcolor: 'rgba(255,255,255,0.1)',
+            title: 'Time (s)',
+            color: '#fff',
+            range: [0, 5]
+        },
+        yaxis: {
+            showgrid: true,
+            gridcolor: 'rgba(255,255,255,0.1)',
+            title: 'Amplitude',
+            range: [-4, 4],
+            color: '#fff'
+        },
+        font: { color: '#fff' },
+        height: 350,
+        responsive: true
+    };
+
+    Plotly.newPlot('eeg-signal-plot', [trace], layout);
+}
+
+function startEEGDemo() {
+    if (eegInterval) {
+        clearInterval(eegInterval);
+    }
+
+    eegData = Array(sampleRate * 5).fill(0);
+    timeCounter = 0;
+
+    const eegStatus = document.getElementById('eeg-status');
+    eegStatus.textContent = 'Monitoring active...';
+    eegStatus.style.color = '#2ecc71';
+
+    document.getElementById('model-predictions').style.display = 'block';
+
+    eegInterval = setInterval(() => {
+        timeCounter++;
+        const newSample = generateEEGSignal(timeCounter / sampleRate);
+        eegData.push(newSample);
+        if (eegData.length > sampleRate * 5) {
+            eegData.shift();
+        }
+
+        updateEEGPlot();
+        updatePredictions();
+    }, 1000/60);
+}
+
+function stopEEGDemo() {
+    if (eegInterval) {
+        clearInterval(eegInterval);
+        eegInterval = null;
+    }
+    const eegStatus = document.getElementById('eeg-status');
+    eegStatus.textContent = 'Monitoring stopped';
+    eegStatus.style.color = '#e74c3c';
+}
+
+function updateEEGPlot() {
+    const timeArray = Array.from({length: eegData.length}, (_, i) => i / sampleRate);
+    
+    Plotly.update('eeg-signal-plot', {
+        x: [timeArray],
+        y: [eegData]
+    });
+}
+
+function updatePredictions() {
+    if (eegData.length >= sampleRate) {
+        const predictionResults = document.getElementById('prediction-results');
+        const recentData = eegData.slice(-sampleRate);
+        const variance = recentData.reduce((acc, val) => acc + val * val, 0) / recentData.length;
+        const seizureProbability = Math.min(0.95, Math.max(0.05, variance / 4));
+
+        predictionResults.innerHTML = `
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                <div style="margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Seizure Probability:</span>
+                        <span style="color: ${seizureProbability > 0.6 ? '#e74c3c' : '#2ecc71'}">
+                            ${(seizureProbability * 100).toFixed(1)}%
+                        </span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); height: 20px; border-radius: 10px; margin-top: 8px; overflow: hidden;">
+                        <div style="background: ${
+                            seizureProbability > 0.6 ? '#e74c3c' : '#2ecc71'
+                        }; width: ${seizureProbability * 100}%; height: 100%; border-radius: 10px; transition: all 0.3s ease;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+}
+
+
+document.querySelector('[onclick="openModal(\'eegDemo\')"]').addEventListener('click', () => {
+    setTimeout(() => {
+        initializePlots();
+        
+        if (eegInterval) {
+            stopEEGDemo();
+        }
+    }, 100);
+});
+    </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 </body>
 </html>
