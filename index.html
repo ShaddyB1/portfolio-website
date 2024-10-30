@@ -34,6 +34,8 @@
             padding: 0 var(--space-2);
             margin: 0 auto;
             max-width: 100%;
+            position: relative;  
+            z-index: 1;  
         }
 
         @media (min-width: 640px) {
@@ -857,6 +859,225 @@
     </style>
 </head>
 <body>
+    <div class="animated-background">
+        
+        <div class="gradient-overlay"></div>
+        
+        
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+        
+        
+        <div class="light-effects">
+            <div class="light light-1"></div>
+            <div class="light light-2"></div>
+            <div class="light light-3"></div>
+        </div>
+    </div>
+    
+    <style>
+    
+    .animated-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+        background: linear-gradient(
+            45deg,
+            var(--bg-primary),
+            var(--bg-secondary),
+            #1e40af,
+            #1e3a8a
+        );
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+    }
+    
+    
+    .gradient-overlay {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at 50% 50%,
+            transparent 0%,
+            var(--bg-primary) 100%
+        );
+        opacity: 0.7;
+    }
+    
+    
+    .shapes {
+        position: absolute;
+        inset: 0;
+        filter: blur(2px);
+    }
+    
+    
+    .shape {
+        position: absolute;
+        background: linear-gradient(
+            45deg,
+            var(--accent-primary),
+            var(--accent-secondary)
+        );
+        border-radius: 50%;
+        opacity: 0.15;
+    }
+    
+    .shape-1 {
+        width: 300px;
+        height: 300px;
+        top: -150px;
+        left: -150px;
+        animation: floatShape1 20s ease-in-out infinite;
+    }
+    
+    .shape-2 {
+        width: 400px;
+        height: 400px;
+        top: 60%;
+        right: -200px;
+        animation: floatShape2 25s ease-in-out infinite;
+    }
+    
+    .shape-3 {
+        width: 200px;
+        height: 200px;
+        bottom: -100px;
+        left: 30%;
+        animation: floatShape3 18s ease-in-out infinite;
+    }
+    
+    .shape-4 {
+        width: 250px;
+        height: 250px;
+        top: 20%;
+        right: 20%;
+        animation: floatShape4 22s ease-in-out infinite;
+    }
+    
+    .shape-5 {
+        width: 350px;
+        height: 350px;
+        bottom: 20%;
+        left: -175px;
+        animation: floatShape5 23s ease-in-out infinite;
+    }
+    
+    
+    .light-effects {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+    
+    .light {
+        position: absolute;
+        background: radial-gradient(
+            circle at center,
+            rgba(96, 165, 250, 0.15) 0%,
+            transparent 70%
+        );
+        border-radius: 50%;
+        mix-blend-mode: screen;
+    }
+    
+    .light-1 {
+        width: 800px;
+        height: 800px;
+        top: -400px;
+        right: -400px;
+        animation: pulseLight 8s ease-in-out infinite;
+    }
+    
+    .light-2 {
+        width: 600px;
+        height: 600px;
+        bottom: -300px;
+        left: -300px;
+        animation: pulseLight 12s ease-in-out infinite reverse;
+    }
+    
+    .light-3 {
+        width: 700px;
+        height: 700px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: pulseLight 10s ease-in-out infinite;
+    }
+    
+  
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes floatShape1 {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(100px, 100px) rotate(90deg); }
+        50% { transform: translate(50px, 200px) rotate(180deg); }
+        75% { transform: translate(-50px, 100px) rotate(270deg); }
+    }
+    
+    @keyframes floatShape2 {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(-100px, -100px) rotate(-120deg); }
+        66% { transform: translate(-50px, -200px) rotate(-240deg); }
+    }
+    
+    @keyframes floatShape3 {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(100px, -100px) rotate(120deg); }
+        66% { transform: translate(200px, -50px) rotate(240deg); }
+    }
+    
+    @keyframes floatShape4 {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(-100px, 50px) rotate(-90deg); }
+        50% { transform: translate(-150px, -50px) rotate(-180deg); }
+        75% { transform: translate(-50px, -100px) rotate(-270deg); }
+    }
+    
+    @keyframes floatShape5 {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(150px, 100px) rotate(120deg); }
+        66% { transform: translate(100px, 200px) rotate(240deg); }
+    }
+    
+    @keyframes pulseLight {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.2); }
+    }
+    
+    
+    .animated-background,
+    .shape,
+    .light {
+        will-change: transform, opacity;
+    }
+    
+    
+    @media (prefers-reduced-motion: reduce) {
+        .animated-background {
+            animation: none;
+        }
+        .shape,
+        .light {
+            animation: none;
+            opacity: 0.1;
+        }
+    }
+    </style>
     <div class="loading-screen">
         <div class="loader"></div>
     </div>
