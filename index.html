@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Shadrack Boateng Addo - Computer Science Student and Software Developer Portfolio">
+    <meta name="description" content="Shadrack Boateng Addo - Software Developer and Data Analyst Portfolio showcasing projects, skills, and professional experience">
+    <meta name="keywords" content="Shadrack Boateng Addo, Software Developer, Data Analyst, Portfolio, Python, JavaScript, Data Science, Web Development">
+    <meta name="author" content="Shadrack Boateng Addo">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0a0f1c">
+    <meta property="og:title" content="Shadrack Boateng Addo | Portfolio">
+    <meta property="og:description" content="Software Developer and Data Analyst showcasing projects and professional experience">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shadrackaddo.com">
+    <meta property="og:image" content="https://shadrackaddo.com/profile-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Shadrack Boateng Addo | Portfolio">
+    <meta name="twitter:description" content="Software Developer and Data Analyst showcasing projects and professional experience">
     <title>Shadrack Boateng Addo | Portfolio</title>
     
     <!-- Preload key resources -->
@@ -13,6 +25,28 @@
     <!-- Fonts and Scripts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script defer src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Shadrack Boateng Addo",
+      "url": "https://shadrackaddo.com",
+      "jobTitle": "Software Developer",
+      "description": "Software Developer and Data Analyst with experience in Python, JavaScript, and data science",
+      "knowsAbout": ["Software Development", "Data Analysis", "Python", "JavaScript", "Web Development"],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Karrio"
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "University of Ghana"
+      }
+    }
+    </script>
     
     <style>
         /* Core Variables */
@@ -90,27 +124,25 @@
             top: 0;
             left: 0;
             right: 0;
+            background: var(--color-bg-primary);
             z-index: 1000;
-            backdrop-filter: var(--blur-backdrop);
-            background: rgba(10, 15, 28, 0.8);
-            border-bottom: 1px solid var(--color-border);
-            transition: var(--transition-smooth);
+            padding: var(--spacing-sm) var(--spacing-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 80px;
-            padding: 0 var(--spacing-sm);
+            max-width: var(--max-width);
+            margin: 0 auto;
         }
 
-        .nav-logo {
-            font-size: 1.5rem;
+        .logo {
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--color-accent-primary);
             text-decoration: none;
-            letter-spacing: -0.5px;
         }
 
         .nav-links {
@@ -119,11 +151,12 @@
         }
 
         .nav-link {
-            color: var(--color-text-secondary);
+            color: var(--color-text-primary);
             text-decoration: none;
+            position: relative;
+            padding: var(--spacing-xs) 0;
             font-weight: 500;
             transition: var(--transition-smooth);
-            position: relative;
         }
 
         .nav-link::after {
@@ -228,6 +261,14 @@
             transition: var(--transition-bounce);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .project-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
         .project-card::before {
@@ -298,22 +339,34 @@
             font-weight: 500;
             transition: var(--transition-smooth);
             text-decoration: none;
-        }
-
-        .link-primary {
-            background: var(--color-accent-primary);
-            color: var(--color-bg-primary);
-        }
-
-        .link-secondary {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             background: transparent;
             color: var(--color-accent-primary);
+            border: 1px solid var(--color-accent-primary);
+            cursor: pointer;
+        }
+
+        .project-link i {
+            font-size: 0.9rem;
+        }
+
+        .demo-btn {
+            background: var(--color-accent-primary);
+            color: var(--color-bg-primary);
             border: 1px solid var(--color-accent-primary);
         }
 
         .project-link:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-sm);
+            background: rgba(100, 255, 218, 0.1);
+        }
+
+        .demo-btn:hover {
+            background: var(--color-accent-primary);
+            color: var(--color-bg-primary);
         }
 
         /* Modal Styles */
@@ -580,28 +633,6 @@
             margin: var(--spacing-xs) 0;
         }
 
-        .add-experience {
-            display: flex;
-            justify-content: center;
-            margin-top: var(--spacing-md);
-        }
-
-        .add-experience-btn {
-            background: transparent;
-            color: var(--color-accent-primary);
-            border: 1px dashed var(--color-accent-primary);
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-weight: 500;
-        }
-
-        .add-experience-btn:hover {
-            background: rgba(100, 255, 218, 0.1);
-            transform: translateY(-2px);
-        }
-
         /* Contact Section */
         .contact {
             padding: var(--spacing-lg) 0;
@@ -772,14 +803,14 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="nav-container">
+    <nav class="nav-container" role="navigation" aria-label="Main Navigation">
         <div class="container nav-content">
-            <a href="#" class="nav-logo">SBA</a>
+            <a href="#" class="logo" aria-label="Home">SBA</a>
             <div class="nav-links">
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#education" class="nav-link">Education</a>
-                <a href="#experience" class="nav-link">Experience</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#projects" class="nav-link" aria-label="View Projects">Projects</a>
+                <a href="#experience" class="nav-link" aria-label="View Experience">Experience</a>
+                <a href="#education" class="nav-link" aria-label="View Education">Education</a>
+                <a href="#contact" class="nav-link" aria-label="Contact Me">Contact</a>
             </div>
         </div>
     </nav>
@@ -796,29 +827,53 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects">
+    <section id="projects" class="projects" aria-labelledby="projects-title">
         <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
+            <h2 class="section-title" id="projects-title">Featured Projects</h2>
             <div class="projects-grid">
                 <!-- AI Classifier Project -->
-                <div class="project-card">
-                    <h3 class="project-title">AI-Driven Paragraph Quality Classifier</h3>
+                <div class="project-card" tabindex="0" aria-labelledby="ai-classifier-title">
+                    <h3 class="project-title" id="ai-classifier-title">AI-Driven Paragraph Quality Classifier</h3>
                     <p class="project-description">A machine learning model using PyTorch to classify paragraph quality, incorporating BERT for natural language processing.</p>
                     <div class="project-tech">
                         <span class="tech-tag">PyTorch</span>
                         <span class="tech-tag">BERT</span>
                         <span class="tech-tag">spaCy</span>
-                        <span class="tech-tag">Optuna</span>
+                        <span class="tech-tag">Python</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://github.com/ShaddyB1/praragraph_quality_validator" class="project-link link-secondary" target="_blank">View Code</a>
-                        <button class="project-link link-primary" onclick="openModal('classifier')">Try Demo</button>
+                        <a href="#" class="project-link" aria-label="View AI Classifier source code on GitHub">
+                            <i class="fas fa-code"></i> Code
+                        </a>
+                        <button class="project-link demo-btn" onclick="openModal('aiModal')" aria-label="View AI Classifier demo">
+                            <i class="fas fa-play"></i> Demo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- EEG Analysis Project -->
+                <div class="project-card" tabindex="0" aria-labelledby="eeg-analysis-title">
+                    <h3 class="project-title" id="eeg-analysis-title">EEG Signal Analysis Dashboard</h3>
+                    <p class="project-description">Interactive dashboard for analyzing EEG signals with real-time visualization and frequency domain analysis.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Plotly.js</span>
+                        <span class="tech-tag">Signal Processing</span>
+                        <span class="tech-tag">WebSockets</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link" aria-label="View EEG Analysis source code on GitHub">
+                            <i class="fas fa-code"></i> Code
+                        </a>
+                        <button class="project-link demo-btn" onclick="openModal('eegModal')" aria-label="View EEG Analysis demo">
+                            <i class="fas fa-play"></i> Demo
+                        </button>
                     </div>
                 </div>
 
                 <!-- Cryptography Tool -->
-                <div class="project-card">
-                    <h3 class="project-title">Cryptography Tool</h3>
+                <div class="project-card" tabindex="0" aria-labelledby="crypto-tool-title">
+                    <h3 class="project-title" id="crypto-tool-title">Cryptography Tool</h3>
                     <p class="project-description">A Python-based cryptography tool implementing various cipher methods including Caesar, Vigenère, Playfair, Rail Fence, and Atbash.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
@@ -826,29 +881,18 @@
                         <span class="tech-tag">Algorithms</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://github.com/ShaddyB1/Cypher_Unload" class="project-link link-secondary" target="_blank">View Code</a>
-                        <button class="project-link link-primary" onclick="openModal('crypto')">Try Demo</button>
-                    </div>
-                </div>
-
-                <!-- EEG Project -->
-                <div class="project-card">
-                    <h3 class="project-title">EEG-Based Seizure Detection</h3>
-                    <p class="project-description">A real-time EEG signal processing and seizure detection system using advanced machine learning techniques.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">TensorFlow</span>
-                        <span class="tech-tag">Signal Processing</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/ShaddyB1/EEG-Based-Seizure-Prediction" class="project-link link-secondary" target="_blank">View Code</a>
-                        <button class="project-link link-primary" onclick="openModal('eeg')">Try Demo</button>
+                        <a href="https://github.com/ShaddyB1/Cypher_Unload" class="project-link" aria-label="View Cryptography Tool source code on GitHub" target="_blank">
+                            <i class="fas fa-code"></i> Code
+                        </a>
+                        <button class="project-link demo-btn" onclick="openModal('cryptoModal')" aria-label="View Cryptography Tool demo">
+                            <i class="fas fa-play"></i> Demo
+                        </button>
                     </div>
                 </div>
 
                 <!-- Spotify Project -->
-                <div class="project-card">
-                    <h3 class="project-title">Spotify Playlist Manager</h3>
+                <div class="project-card" tabindex="0" aria-labelledby="spotify-manager-title">
+                    <h3 class="project-title" id="spotify-manager-title">Spotify Playlist Manager</h3>
                     <p class="project-description">Automated solution for managing Spotify playlists, removing old songs and maintaining fresh content.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
@@ -856,13 +900,15 @@
                         <span class="tech-tag">Web API</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://spotify-playlist-manager.onrender.com" class="project-link link-primary" target="_blank">Explore Site</a>
+                        <a href="https://spotify-playlist-manager.onrender.com" class="project-link" aria-label="Explore Spotify Playlist Manager site" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Site
+                        </a>
                     </div>
                 </div>
 
                 <!-- E-commerce Project -->
-                <div class="project-card">
-                    <h3 class="project-title">E-commerce Database</h3>
+                <div class="project-card" tabindex="0" aria-labelledby="ecommerce-db-title">
+                    <h3 class="project-title" id="ecommerce-db-title">E-commerce Database</h3>
                     <p class="project-description">Designed and implemented a MySQL database for an e-commerce platform, optimizing query performance and providing insights through customer segmentation.</p>
                     <div class="project-tech">
                         <span class="tech-tag">MySQL</span>
@@ -870,7 +916,9 @@
                         <span class="tech-tag">Power BI</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://github.com/ShaddyB1/Local-e-commerce" class="project-link link-secondary" target="_blank">View Code</a>
+                        <a href="https://github.com/ShaddyB1/Local-e-commerce" class="project-link" aria-label="View E-commerce Database source code on GitHub" target="_blank">
+                            <i class="fas fa-code"></i> Code
+                        </a>
                     </div>
                 </div>
             </div>
@@ -896,122 +944,85 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="experience">
+    <section id="experience" class="experience" aria-labelledby="experience-title">
         <div class="container">
-            <h2 class="section-title">Experience</h2>
-            
-            <!-- Karrio Experience -->
-            <div class="experience-card">
-                <div class="experience-header" onclick="toggleExperience('karrio')">
-                    <div>
-                        <h3 class="experience-title">Software Developer</h3>
-                        <h4 class="experience-subtitle">Karrio</h4>
-                        <div class="experience-duration">February 2025 - Present</div>
-                        <p class="experience-summary">Multi-carrier shipping API platform development focusing on environment configuration and troubleshooting</p>
-                    </div>
-                    <button class="experience-toggle" id="karrio-toggle">+</button>
-                </div>
-                
-                <div class="experience-content" id="karrio-content">
-                    <div class="experience-blog">
-                        <h4 class="blog-title">My Professional Journey at Karrio</h4>
-                        
-                        <p class="blog-paragraph">
-                            My professional experience as a Software Developer at Karrio has been transformative. 
-                            Karrio, a multi-carrier shipping API platform, provides me with an incredible opportunity to 
-                            apply my theoretical knowledge to real-world challenges in the logistics technology space.
-                        </p>
-                        
-                        <p class="blog-paragraph">
-                            At Karrio, I work closely with a talented team of developers on enhancing the 
-                            platform's core functionality. My primary responsibilities include setting up and configuring the 
-                            development environment, troubleshooting complex dependency issues, and contributing to the platform's 
-                            core functionality. This hands-on experience allows me to strengthen my skills in Python, environment 
-                            configuration, and debugging while gaining valuable insights into modern development workflows.
-                        </p>
-                        
-                        <p class="blog-paragraph">
-                            One of my key contributions has been resolving critical environment setup issues. I've tackled challenges 
-                            with package dependencies, particularly with the pycairo library that was causing installation failures. 
-                            After thorough investigation, I implemented a solution using Homebrew to install py3cairo and created 
-                            symbolic links to ensure proper integration with the virtual environment. This approach resolved the 
-                            dependency conflicts that were blocking the team's progress.
-                        </p>
-                        
-                        <p class="blog-paragraph">
-                            I also work extensively with the platform's command-line tools, executing and troubleshooting 
-                            commands like <code>chmod +x ./bin/install-binaries</code>, <code>./bin/install-binaries</code>, 
-                            and <code>karrio migrate</code>. When faced with errors such as the AttributeError related to the 
-                            gateway module, I systematically debug the issues by examining log files and tracing through 
-                            the codebase to identify the root causes.
-                        </p>
-                        
-                        <p class="blog-paragraph">
-                            My work extends to managing Python environments using pyenv, specifically configuring Python 3.12 
-                            to ensure compatibility with the codebase. I also install and configure dependencies for connectors 
-                            and modules, which are critical components of the Karrio platform that enable integration with 
-                            various shipping carriers.
-                        </p>
-                        
-                        <p class="blog-paragraph">
-                            Beyond technical implementation, I contribute to improving documentation, updating website 
-                            information, and ensuring that setup procedures are clear and reproducible for other team members. 
-                            This ongoing experience is teaching me the importance of clear documentation and the value of systematic 
-                            troubleshooting in a complex software ecosystem.
-                        </p>
+            <h2 class="section-title" id="experience-title">Professional Experience</h2>
+            <div class="experience-grid">
+                <!-- Karrio Experience -->
+                <div class="experience-card">
+                    <div class="experience-header" onclick="toggleExperience('karrio')" role="button" aria-expanded="false" aria-controls="karrio-content" tabindex="0">
+                        <div>
+                            <h3 class="experience-title">Software Developer</h3>
+                            <h4 class="experience-subtitle">Karrio</h4>
+                            <div class="experience-duration">February 2025 - Present</div>
+                            <p class="experience-summary">Focusing on environment configuration and troubleshooting for the Karrio shipping platform.</p>
+                        </div>
+                        <button class="experience-toggle" id="karrio-toggle" aria-label="Toggle Karrio experience details">+</button>
                     </div>
                     
-                    <div class="experience-skills">
-                        <h4 class="skills-title">Skills Being Developed</h4>
-                        <div class="skills-tags">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Environment Configuration</span>
-                            <span class="tech-tag">Dependency Management</span>
-                            <span class="tech-tag">Debugging</span>
-                            <span class="tech-tag">Shell Scripting</span>
-                            <span class="tech-tag">Documentation</span>
+                    <div class="experience-content" id="karrio-content" aria-labelledby="karrio-blog-title">
+                        <div class="experience-blog">
+                            <h4 class="blog-title" id="karrio-blog-title">My Professional Journey at Karrio</h4>
+                            
+                            <p class="blog-paragraph">
+                                My professional experience as a Software Developer at Karrio has been transformative. 
+                                Karrio, a multi-carrier shipping API platform, provides me with an incredible opportunity to 
+                                apply my theoretical knowledge to real-world challenges in the logistics technology space.
+                            </p>
+                            
+                            <p class="blog-paragraph">
+                                At Karrio, I work closely with a talented team of developers on enhancing the 
+                                platform's core functionality. My primary responsibilities include setting up and configuring the 
+                                development environment, troubleshooting complex dependency issues, and contributing to the platform's 
+                                core functionality. This hands-on experience allows me to strengthen my skills in Python, environment 
+                                configuration, and debugging while gaining valuable insights into modern development workflows.
+                            </p>
+                            
+                            <p class="blog-paragraph">
+                                One of my key contributions has been resolving critical environment setup issues. I've tackled challenges 
+                                with package dependencies, particularly with the pycairo library that was causing installation failures. 
+                                After thorough investigation, I implemented a solution using Homebrew to install py3cairo and created 
+                                symbolic links to ensure proper integration with the virtual environment. This approach resolved the 
+                                dependency conflicts that were blocking the team's progress.
+                            </p>
+                            
+                            <p class="blog-paragraph">
+                                I also work extensively with the platform's command-line tools, executing and troubleshooting 
+                                commands like <code>chmod +x ./bin/install-binaries</code>, <code>./bin/install-binaries</code>, 
+                                and <code>karrio migrate</code>. When faced with errors such as the AttributeError related to the 
+                                gateway module, I systematically debug the issues by examining log files and tracing through 
+                                the codebase to identify the root causes.
+                            </p>
+                            
+                            <p class="blog-paragraph">
+                                My work extends to managing Python environments using pyenv, specifically configuring Python 3.12 
+                                to ensure compatibility with the codebase. I also install and configure dependencies for connectors 
+                                and modules, which are critical components of the Karrio platform that enable integration with 
+                                various shipping carriers.
+                            </p>
+                            
+                            <p class="blog-paragraph">
+                                Beyond technical implementation, I contribute to improving documentation, updating website 
+                                information, and ensuring that setup procedures are clear and reproducible for other team members. 
+                                This ongoing experience is teaching me the importance of clear documentation and the value of systematic 
+                                troubleshooting in a complex software ecosystem.
+                            </p>
+                        </div>
+                        
+                        <div class="experience-skills">
+                            <h4 class="skills-title">Skills Being Developed</h4>
+                            <div class="skills-tags">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Environment Configuration</span>
+                                <span class="tech-tag">Dependency Management</span>
+                                <span class="tech-tag">Debugging</span>
+                                <span class="tech-tag">Shell Scripting</span>
+                                <span class="tech-tag">Documentation</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Template for adding new experiences -->
-            <!-- Uncomment and modify this template to add a new experience
-            <div class="experience-card">
-                <div class="experience-header" onclick="toggleExperience('company-id')">
-                    <div>
-                        <h3 class="experience-title">Job Title</h3>
-                        <h4 class="experience-subtitle">Company Name</h4>
-                        <div class="experience-duration">Start Date - End Date</div>
-                        <p class="experience-summary">Brief summary of your role and responsibilities</p>
-                    </div>
-                    <button class="experience-toggle" id="company-id-toggle">+</button>
-                </div>
-                
-                <div class="experience-content" id="company-id-content">
-                    <div class="experience-blog">
-                        <h4 class="blog-title">My Journey at Company Name</h4>
-                        
-                        <p class="blog-paragraph">
-                            First paragraph about your experience...
-                        </p>
-                        
-                        <p class="blog-paragraph">
-                            Second paragraph about your experience...
-                        </p>
-                    </div>
-                    
-                    <div class="experience-skills">
-                        <h4 class="skills-title">Skills Developed</h4>
-                        <div class="skills-tags">
-                            <span class="tech-tag">Skill 1</span>
-                            <span class="tech-tag">Skill 2</span>
-                            <span class="tech-tag">Skill 3</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
         </div>
     </section>
 
@@ -1038,81 +1049,91 @@
     </section>
 
     <!-- Modals -->
-    <!-- Classifier Modal -->
-    <div id="classifierModal" class="modal">
+    <!-- AI Classifier Modal -->
+    <div id="aiModal" class="modal" role="dialog" aria-labelledby="ai-modal-title" aria-hidden="true">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('classifier')">&times;</button>
-            <h2 class="modal-title">Paragraph Quality Classifier</h2>
-            <div class="demo-container">
-                <textarea 
-                    id="paragraph-input" 
-                    class="demo-input" 
-                    rows="6" 
-                    placeholder="Enter a paragraph to classify..."
-                ></textarea>
-                <button class="project-link link-primary" onclick="classifyParagraph()">Classify</button>
-                <div id="result" class="result-container"></div>
+            <div class="modal-header">
+                <h3 id="ai-modal-title">AI Classifier Demo</h3>
+                <span class="close-modal" onclick="closeModal('aiModal')" aria-label="Close AI Classifier demo">&times;</span>
             </div>
-        </div>
-    </div>
-
-    <!-- Crypto Modal -->
-    <div id="cryptoModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('crypto')">&times;</button>
-            <h2 class="modal-title">Cryptography Tool</h2>
-            <div class="demo-container">
-                <select id="cipher-type" class="demo-select">
-                    <option value="caesar">Caesar Cipher</option>
-                    <option value="vigenere">Vigenère Cipher</option>
-                    <option value="playfair">Playfair Cipher</option>
-                    <option value="rail_fence">Rail Fence Cipher</option>
-                    <option value="atbash">Atbash Cipher</option>
-                </select>
-                <select id="operation-type" class="demo-select">
-                    <option value="encode">Encode</option>
-                    <option value="decode">Decode</option>
-                </select>
-                <textarea 
-                    id="crypto-input" 
-                    class="demo-input" 
-                    rows="4" 
-                    placeholder="Enter text to encode/decode..."
-                ></textarea>
-                <input 
-                    type="text" 
-                    id="crypto-key" 
-                    class="demo-input" 
-                    placeholder="Enter key (if required)"
-                >
-                <input 
-                    type="number" 
-                    id="crypto-rails" 
-                    class="demo-input" 
-                    placeholder="Enter number of rails (for Rail Fence)" 
-                    style="display: none;"
-                >
-                <button class="project-link link-primary" onclick="performCryptoOperation()">Process</button>
-                <div id="crypto-result" class="result-container"></div>
+            <div class="modal-body">
+                <p>Enter a paragraph to classify its quality:</p>
+                <textarea class="demo-input" placeholder="Enter a paragraph here..." aria-label="Enter paragraph for classification"></textarea>
+                <button class="demo-btn" onclick="runAIDemo()" aria-label="Run AI classification">Classify</button>
+                <div class="result-container" aria-live="polite">
+                    <p>Classification result will appear here...</p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- EEG Modal -->
-    <div id="eegModal" class="modal">
+    <div id="eegModal" class="modal" role="dialog" aria-labelledby="eeg-modal-title" aria-hidden="true">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('eeg')">&times;</button>
-            <h2 class="modal-title">EEG Seizure Detection Demo</h2>
-            <div class="demo-container">
-                <div id="eeg-visualization">
-                    <div id="eeg-signal-plot"></div>
+            <div class="modal-header">
+                <h3 id="eeg-modal-title">EEG Signal Analysis Demo</h3>
+                <span class="close-modal" onclick="closeModal('eegModal')" aria-label="Close EEG Analysis demo">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Select a sample EEG recording:</p>
+                <select class="demo-select" aria-label="Select EEG recording sample">
+                    <option value="alpha">Alpha Waves (Relaxed)</option>
+                    <option value="beta">Beta Waves (Alert)</option>
+                    <option value="theta">Theta Waves (Drowsy)</option>
+                </select>
+                <button class="demo-btn" onclick="runEEGDemo()" aria-label="Run EEG analysis">Analyze</button>
+                <div id="eegPlot" class="demo-plot" aria-label="EEG signal visualization"></div>
+                <div id="freqPlot" class="demo-plot" aria-label="Frequency domain visualization"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crypto Modal -->
+    <div id="cryptoModal" class="modal" role="dialog" aria-labelledby="crypto-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="crypto-modal-title">Cryptography Tool Demo</h3>
+                <span class="close-modal" onclick="closeModal('cryptoModal')" aria-label="Close Cryptography demo">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Enter text to encrypt or decrypt:</p>
+                <textarea id="crypto-input" class="demo-input" placeholder="Enter text here..." aria-label="Enter text for encryption or decryption"></textarea>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <div style="flex: 1;">
+                        <label for="cipher-type">Cipher Method:</label>
+                        <select id="cipher-type" class="demo-select" aria-label="Select cipher method">
+                            <option value="caesar">Caesar Cipher</option>
+                            <option value="vigenere">Vigenère Cipher</option>
+                            <option value="atbash">Atbash Cipher</option>
+                            <option value="rail_fence">Rail Fence</option>
+                            <option value="playfair">Playfair Cipher</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="operation-type">Operation:</label>
+                        <select id="operation-type" class="demo-select" aria-label="Select operation">
+                            <option value="encode">Encrypt</option>
+                            <option value="decode">Decrypt</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="project-links">
-                    <button class="project-link link-primary" onclick="startEEGDemo()">Start Monitoring</button>
-                    <button class="project-link link-secondary" onclick="stopEEGDemo()">Stop</button>
+                
+                <div id="crypto-key-container" style="margin-bottom: 15px;">
+                    <label for="crypto-key">Key:</label>
+                    <input type="text" id="crypto-key" class="demo-input" placeholder="Enter key" aria-label="Enter encryption key">
                 </div>
-                <div id="eeg-status" class="result-container">Status: Waiting to start...</div>
-                <div id="prediction-results"></div>
+                
+                <div id="crypto-rails-container" style="display: none; margin-bottom: 15px;">
+                    <label for="crypto-rails">Number of Rails:</label>
+                    <input type="number" id="crypto-rails" class="demo-input" value="3" min="2" max="10" aria-label="Enter number of rails">
+                </div>
+                
+                <button class="demo-btn" onclick="performCryptoOperation()" aria-label="Process cryptography operation">Process</button>
+                
+                <div id="crypto-result" class="result-container" aria-live="polite">
+                    <p>Result will appear here...</p>
+                </div>
             </div>
         </div>
     </div>
@@ -1130,7 +1151,24 @@
             
             // Initialize project cards animation
             initializeProjectCards();
+            
+            // Initialize cipher type select
+            initializeCipherTypeSelect();
         });
+
+        // Initialize cipher type select
+        function initializeCipherTypeSelect() {
+            const cipherTypeSelect = document.getElementById('cipher-type');
+            if (cipherTypeSelect) {
+                cipherTypeSelect.addEventListener('change', function() {
+                    const railsContainer = document.getElementById('crypto-rails-container');
+                    const keyContainer = document.getElementById('crypto-key-container');
+                    
+                    railsContainer.style.display = this.value === 'rail_fence' ? 'block' : 'none';
+                    keyContainer.style.display = ['caesar', 'vigenere', 'playfair'].includes(this.value) ? 'block' : 'none';
+                });
+            }
+        }
 
         // Scroll behavior initialization
         function initializeScrollBehavior() {
@@ -1179,19 +1217,32 @@
             });
         }
 
-        // Modal functionality
-        function openModal(type) {
-            document.getElementById(`${type}Modal`).style.display = 'block';
+        // Open modal function
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'block';
+            modal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
-            if (type === 'eeg') {
-                initializeEEGDemo();
+            
+            // Set focus on the first focusable element
+            const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (focusableElements.length > 0) {
+                focusableElements[0].focus();
+            }
+            
+            if (modalId === 'eegModal') {
+                initEEGDemo();
             }
         }
-
-        function closeModal(type) {
-            document.getElementById(`${type}Modal`).style.display = 'none';
+        
+        // Close modal function
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = 'auto';
-            if (type === 'eeg') {
+            
+            if (modalId === 'eegModal') {
                 stopEEGDemo();
             }
         }
@@ -1242,17 +1293,6 @@
         }
 
         // Cryptography functionality
-        const cipherTypeSelect = document.getElementById('cipher-type');
-        if (cipherTypeSelect) {
-            cipherTypeSelect.addEventListener('change', function() {
-                const railsInput = document.getElementById('crypto-rails');
-                const keyInput = document.getElementById('crypto-key');
-                
-                railsInput.style.display = this.value === 'rail_fence' ? 'block' : 'none';
-                keyInput.style.display = ['caesar', 'vigenere', 'playfair'].includes(this.value) ? 'block' : 'none';
-            });
-        }
-
         function performCryptoOperation() {
             const input = document.getElementById('crypto-input').value;
             const method = document.getElementById('cipher-type').value;
@@ -1333,6 +1373,81 @@
                     return isUpper ? result : result.toLowerCase();
                 })
                 .join('');
+        }
+
+        function playfairCipher(text, key, encode) {
+            // Prepare the key and create the 5x5 matrix
+            key = key.toUpperCase().replace(/[^A-Z]/g, '').replace(/J/g, 'I');
+            let matrix = [];
+            let used = {};
+            
+            // Fill the matrix with the key first
+            for (let char of key) {
+                if (!used[char]) {
+                    matrix.push(char);
+                    used[char] = true;
+                }
+            }
+            
+            // Fill the rest of the matrix with unused letters
+            for (let i = 65; i <= 90; i++) {
+                let char = String.fromCharCode(i);
+                if (char === 'J') continue; // Skip J (use I instead)
+                if (!used[char]) {
+                    matrix.push(char);
+                    used[char] = true;
+                }
+            }
+            
+            // Prepare the text
+            text = text.toUpperCase().replace(/[^A-Z]/g, '').replace(/J/g, 'I');
+            
+            // Split text into digraphs
+            let digraphs = [];
+            for (let i = 0; i < text.length; i += 2) {
+                if (i + 1 >= text.length) {
+                    digraphs.push(text[i] + 'X');
+                } else if (text[i] === text[i + 1]) {
+                    digraphs.push(text[i] + 'X');
+                    i--; // Process the second character again
+                } else {
+                    digraphs.push(text[i] + text[i + 1]);
+                }
+            }
+            
+            // Process each digraph
+            let result = '';
+            for (let digraph of digraphs) {
+                let a = digraph[0];
+                let b = digraph[1];
+                let aPos = matrix.indexOf(a);
+                let bPos = matrix.indexOf(b);
+                
+                let aRow = Math.floor(aPos / 5);
+                let aCol = aPos % 5;
+                let bRow = Math.floor(bPos / 5);
+                let bCol = bPos % 5;
+                
+                let newA, newB;
+                
+                if (aRow === bRow) {
+                    // Same row
+                    newA = matrix[aRow * 5 + ((aCol + (encode ? 1 : 4)) % 5)];
+                    newB = matrix[bRow * 5 + ((bCol + (encode ? 1 : 4)) % 5)];
+                } else if (aCol === bCol) {
+                    // Same column
+                    newA = matrix[((aRow + (encode ? 1 : 4)) % 5) * 5 + aCol];
+                    newB = matrix[((bRow + (encode ? 1 : 4)) % 5) * 5 + bCol];
+                } else {
+                    // Rectangle
+                    newA = matrix[aRow * 5 + bCol];
+                    newB = matrix[bRow * 5 + aCol];
+                }
+                
+                result += newA + newB;
+            }
+            
+            return result;
         }
 
         function railFenceCipher(text, rails, encode) {
@@ -1602,10 +1717,39 @@
         function toggleExperience(id) {
             const content = document.getElementById(`${id}-content`);
             const toggle = document.getElementById(`${id}-toggle`);
+            const header = toggle.closest('.experience-header');
             
             content.classList.toggle('expanded');
-            toggle.textContent = content.classList.contains('expanded') ? '−' : '+';
+            const isExpanded = content.classList.contains('expanded');
+            toggle.textContent = isExpanded ? '−' : '+';
+            
+            // Update ARIA attributes
+            header.setAttribute('aria-expanded', isExpanded);
         }
+
+        // Animate project cards when they come into view
+        const observeProjectCards = () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.project-card').forEach(card => {
+                observer.observe(card);
+            });
+        };
+
+        // Initialize animations when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            observeProjectCards();
+        });
 
     </script>
 </body>
