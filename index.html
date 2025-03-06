@@ -515,6 +515,29 @@
         /* Experience Section */
         .experience {
             padding: var(--spacing-lg) 0;
+            position: relative;
+        }
+
+        .experience-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-left: 30px;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 2px;
+            background: linear-gradient(
+                to bottom,
+                rgba(100, 255, 218, 0.2),
+                var(--color-accent-primary),
+                rgba(100, 255, 218, 0.2)
+            );
         }
 
         .experience-card {
@@ -524,6 +547,23 @@
             border: 1px solid var(--color-border);
             margin-bottom: var(--spacing-md);
             transition: var(--transition-smooth);
+            position: relative;
+            margin-left: 15px;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 30px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--color-accent-primary);
+            border: 3px solid var(--color-bg-primary);
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.3);
+            z-index: 1;
+            transition: var(--transition-bounce);
         }
 
         .experience-card:hover {
@@ -531,11 +571,30 @@
             border-color: var(--color-accent-primary);
         }
 
+        .experience-card:hover::before {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 5px rgba(100, 255, 218, 0.3);
+        }
+
+        .experience-year {
+            position: absolute;
+            left: -80px;
+            top: 25px;
+            color: var(--color-accent-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: var(--color-bg-secondary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--color-border);
+        }
+
         .experience-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
+            position: relative;
         }
 
         .experience-title {
@@ -882,6 +941,15 @@
                 width: 95%;
                 margin: 10% auto;
             }
+            
+            .experience-timeline {
+                padding-left: 20px;
+            }
+            
+            .experience-year {
+                left: -60px;
+                font-size: 0.8rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -929,6 +997,28 @@
             
             .milestone-content {
                 padding-left: 0;
+            }
+            
+            .experience-timeline {
+                padding-left: 15px;
+            }
+            
+            .experience-card {
+                margin-left: 10px;
+            }
+            
+            .experience-card::before {
+                left: -18px;
+                width: 12px;
+                height: 12px;
+            }
+            
+            .experience-year {
+                position: relative;
+                left: 0;
+                top: 0;
+                margin-bottom: var(--spacing-xs);
+                display: inline-block;
             }
         }
 
@@ -1183,9 +1273,10 @@
     <section id="experience" class="experience" aria-labelledby="experience-title">
         <div class="container">
             <h2 class="section-title" id="experience-title">Professional Experience</h2>
-            <div class="experience-grid">
+            <div class="experience-timeline">
                 <!-- Karrio Experience -->
                 <div class="experience-card">
+                    <div class="experience-year">2025</div>
                     <div class="experience-header" onclick="toggleExperience('karrio')" role="button" aria-expanded="false" aria-controls="karrio-content" tabindex="0">
                         <div>
                             <h3 class="experience-title">Software Developer</h3>
@@ -1288,6 +1379,26 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Example of a future experience (hidden by default) -->
+                <div class="experience-card future-experience" style="display: none;">
+                    <div class="experience-year">2024</div>
+                    <div class="experience-header" onclick="toggleExperience('future-role')" role="button" aria-expanded="false" aria-controls="future-role-content" tabindex="0">
+                        <div>
+                            <h3 class="experience-title">Future Role Title</h3>
+                            <h4 class="experience-subtitle">Future Company</h4>
+                            <div class="experience-duration">Month 2024 - Month 2025</div>
+                            <p class="experience-summary">Brief description of responsibilities and achievements.</p>
+                        </div>
+                        <button class="experience-toggle" id="future-role-toggle" aria-label="Toggle future role experience details">+</button>
+                    </div>
+                    
+                    <div class="experience-content" id="future-role-content">
+                        <!-- Content will be added when you have a new role -->
+                    </div>
+                </div>
+                
+                <!-- Add more experience cards here as your career progresses -->
             </div>
         </div>
     </section>
@@ -1423,6 +1534,9 @@
             
             // Initialize mobile navigation
             initializeMobileNavigation();
+            
+            // Note: To add new experiences in the future, use the addNewExperience() function
+            // See the function definition for details on required parameters
         });
 
         // Initialize mobile navigation
@@ -2038,6 +2152,98 @@
             
             // Update ARIA attributes
             header.setAttribute('aria-expanded', isExpanded);
+        }
+
+        // Helper function to add a new experience (for future use)
+        function addNewExperience(options) {
+            // Options should include: id, year, title, company, duration, summary, content
+            const { id, year, title, company, duration, summary, content } = options;
+            
+            const experienceTimeline = document.querySelector('.experience-timeline');
+            
+            // Create the new experience card
+            const experienceCard = document.createElement('div');
+            experienceCard.className = 'experience-card';
+            
+            // Add the year badge
+            const yearBadge = document.createElement('div');
+            yearBadge.className = 'experience-year';
+            yearBadge.textContent = year;
+            experienceCard.appendChild(yearBadge);
+            
+            // Create the header
+            const header = document.createElement('div');
+            header.className = 'experience-header';
+            header.setAttribute('onclick', `toggleExperience('${id}')`);
+            header.setAttribute('role', 'button');
+            header.setAttribute('aria-expanded', 'false');
+            header.setAttribute('aria-controls', `${id}-content`);
+            header.setAttribute('tabindex', '0');
+            
+            // Create the header content
+            const headerContent = document.createElement('div');
+            
+            const titleEl = document.createElement('h3');
+            titleEl.className = 'experience-title';
+            titleEl.textContent = title;
+            headerContent.appendChild(titleEl);
+            
+            const subtitleEl = document.createElement('h4');
+            subtitleEl.className = 'experience-subtitle';
+            subtitleEl.textContent = company;
+            headerContent.appendChild(subtitleEl);
+            
+            const durationEl = document.createElement('div');
+            durationEl.className = 'experience-duration';
+            durationEl.textContent = duration;
+            headerContent.appendChild(durationEl);
+            
+            const summaryEl = document.createElement('p');
+            summaryEl.className = 'experience-summary';
+            summaryEl.textContent = summary;
+            headerContent.appendChild(summaryEl);
+            
+            header.appendChild(headerContent);
+            
+            // Create the toggle button
+            const toggleBtn = document.createElement('button');
+            toggleBtn.className = 'experience-toggle';
+            toggleBtn.id = `${id}-toggle`;
+            toggleBtn.setAttribute('aria-label', `Toggle ${company} experience details`);
+            toggleBtn.textContent = '+';
+            header.appendChild(toggleBtn);
+            
+            experienceCard.appendChild(header);
+            
+            // Create the content section
+            const contentEl = document.createElement('div');
+            contentEl.className = 'experience-content';
+            contentEl.id = `${id}-content`;
+            
+            // Set the inner HTML of the content section
+            contentEl.innerHTML = content;
+            
+            experienceCard.appendChild(contentEl);
+            
+            // Add the new experience card to the timeline
+            // Insert at the beginning to maintain chronological order (newest first)
+            experienceTimeline.insertBefore(experienceCard, experienceTimeline.firstChild);
+            
+            // Initialize any event listeners or animations for the new card
+            initializeExperienceCard(experienceCard);
+        }
+        
+        // Initialize a new experience card
+        function initializeExperienceCard(card) {
+            // Add any animations or event listeners specific to experience cards
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
         }
 
         // Animate project cards when they come into view
