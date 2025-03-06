@@ -818,8 +818,8 @@
 
         /* Journal Entry Styles */
         .journal-milestone {
-            display: flex;
-            margin-bottom: var(--spacing-lg);
+            display: none;
+            margin-bottom: var(--spacing-md);
             position: relative;
             padding-left: 10px;
             border-left: 3px solid var(--color-accent-primary);
@@ -828,122 +828,10 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            animation: journalPulse 8s infinite alternate;
         }
         
-        @keyframes journalPulse {
-            0% {
-                border-left-color: var(--color-accent-primary);
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-            50% {
-                border-left-color: var(--color-accent-secondary);
-                box-shadow: 0 4px 12px rgba(100, 255, 218, 0.2);
-            }
-            100% {
-                border-left-color: var(--color-accent-primary);
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-        }
-        
-        /* Timeline Month Container Styles */
-        .timeline-month-container {
-            margin-bottom: var(--spacing-lg);
-            padding: var(--spacing-md);
-            background: rgba(20, 28, 47, 0.2);
-            border-radius: 12px;
-            border: 1px solid var(--color-border);
-            position: relative;
-            max-height: 500px;
+        .journal-milestone.active {
             display: flex;
-            flex-direction: column;
-        }
-        
-        .latest-month {
-            background: rgba(30, 38, 57, 0.4);
-            border: 1px solid rgba(255, 165, 0, 0.3);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        
-        .timeline-month-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: var(--spacing-md);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            padding-bottom: 10px;
-            background: inherit;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-        }
-        
-        .month-title {
-            font-size: 1.5rem;
-            color: var(--color-text-primary);
-            margin-right: var(--spacing-sm);
-        }
-        
-        .latest-month .month-title {
-            color: #ffa500;
-        }
-        
-        .month-divider {
-            flex-grow: 1;
-            height: 1px;
-            background: linear-gradient(to right, var(--color-border), transparent);
-        }
-        
-        .latest-month .month-divider {
-            background: linear-gradient(to right, rgba(255, 165, 0, 0.5), transparent);
-        }
-        
-        .latest-badge {
-            background: #ffa500;
-            color: var(--color-bg-primary);
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-left: var(--spacing-sm);
-            animation: badgePulse 2s infinite alternate;
-        }
-        
-        .journal-entries-container {
-            overflow-y: auto;
-            padding-right: 10px; /* Add padding for the scrollbar */
-            /* Custom scrollbar for the entries container */
-            scrollbar-width: thin;
-            scrollbar-color: var(--color-accent-secondary) var(--color-bg-secondary);
-        }
-        
-        .journal-entries-container::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .journal-entries-container::-webkit-scrollbar-track {
-            background: var(--color-bg-secondary);
-            border-radius: 10px;
-        }
-        
-        .journal-entries-container::-webkit-scrollbar-thumb {
-            background: var(--color-accent-secondary);
-            border-radius: 10px;
-        }
-        
-        .journal-entries-container::-webkit-scrollbar-thumb:hover {
-            background: var(--color-accent-primary);
-        }
-        
-        @keyframes badgePulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.9;
-            }
-            100% {
-                transform: scale(1.1);
-                opacity: 1;
-            }
         }
         
         .march-milestone {
@@ -1041,6 +929,144 @@
         
         .journal-milestone:hover .journal-title::after {
             width: 100%;
+        }
+
+        /* Timeline Month Container Styles */
+        .timeline-month-container {
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-md);
+            background: rgba(20, 28, 47, 0.2);
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+            position: relative;
+            max-height: none;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .latest-month {
+            background: rgba(30, 38, 57, 0.4);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .timeline-month-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            padding-bottom: 10px;
+            background: inherit;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        
+        .month-title {
+            font-size: 1.5rem;
+            color: var(--color-text-primary);
+            margin-right: var(--spacing-sm);
+        }
+        
+        .latest-month .month-title {
+            color: #ffa500;
+        }
+        
+        .month-divider {
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--color-border), transparent);
+        }
+        
+        .latest-month .month-divider {
+            background: linear-gradient(to right, rgba(255, 165, 0, 0.5), transparent);
+        }
+        
+        .latest-badge {
+            background: #ffa500;
+            color: var(--color-bg-primary);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: var(--spacing-sm);
+            animation: badgePulse 2s infinite alternate;
+        }
+        
+        .journal-entries-container {
+            position: relative;
+        }
+        
+        .journal-milestone {
+            display: none;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .journal-milestone.active {
+            display: flex;
+        }
+        
+        .journal-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--spacing-sm);
+            padding-top: var(--spacing-sm);
+            border-top: 1px solid var(--color-border);
+        }
+        
+        .journal-nav-button {
+            background: transparent;
+            border: 1px solid var(--color-accent-primary);
+            color: var(--color-accent-primary);
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .latest-month .journal-nav-button {
+            border-color: #ffa500;
+            color: #ffa500;
+        }
+        
+        .journal-nav-button:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .latest-month .journal-nav-button:hover {
+            background: rgba(255, 165, 0, 0.1);
+        }
+        
+        .journal-nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .entry-counter {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            text-align: center;
+            margin-top: var(--spacing-xs);
+        }
+        
+        .latest-month .entry-counter {
+            color: rgba(255, 165, 0, 0.7);
+        }
+        
+        @keyframes badgePulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
         }
 
         /* Mobile Navigation */
@@ -1629,8 +1655,8 @@
                                     <div class="month-divider"></div>
                                 </div>
                                 
-                                <div class="journal-entries-container">
-                                    <div class="journal-milestone">
+                                <div class="journal-entries-container" id="feb-entries">
+                                    <div class="journal-milestone active" data-entry="1" id="feb-entry-1">
                                         <div class="journal-icon">📓</div>
                                         <div class="journal-content">
                                             <span class="journal-date">February 2025</span>
@@ -1644,7 +1670,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="journal-milestone">
+                                    <div class="journal-milestone" data-entry="2" id="feb-entry-2">
                                         <div class="journal-icon">📓</div>
                                         <div class="journal-content">
                                             <span class="journal-date">February 2025</span>
@@ -1657,7 +1683,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="journal-milestone">
+                                    <div class="journal-milestone" data-entry="3" id="feb-entry-3">
                                         <div class="journal-icon">📓</div>
                                         <div class="journal-content">
                                             <span class="journal-date">February 2025</span>
@@ -1669,7 +1695,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="journal-milestone">
+                                    <div class="journal-milestone" data-entry="4" id="feb-entry-4">
                                         <div class="journal-icon">📓</div>
                                         <div class="journal-content">
                                             <span class="journal-date">February 2025</span>
@@ -1681,7 +1707,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="journal-milestone">
+                                    <div class="journal-milestone" data-entry="5" id="feb-entry-5">
                                         <div class="journal-icon">📓</div>
                                         <div class="journal-content">
                                             <span class="journal-date">February 2025</span>
@@ -1691,6 +1717,16 @@
                                             that make onboarding smoother for new team members. This has taught me that great software isn't 
                                             just about working code—it's about creating an ecosystem that others can easily navigate.</p>
                                         </div>
+                                    </div>
+                                    
+                                    <div class="entry-counter" id="feb-counter">Entry 1 of 5</div>
+                                    <div class="journal-navigation">
+                                        <button class="journal-nav-button" id="feb-prev" disabled>
+                                            <span>❮</span> Previous
+                                        </button>
+                                        <button class="journal-nav-button" id="feb-next">
+                                            Next <span>❯</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -1702,8 +1738,8 @@
                                     <span class="latest-badge">Latest</span>
                                 </div>
                                 
-                                <div class="journal-entries-container">
-                                    <div class="journal-milestone march-milestone">
+                                <div class="journal-entries-container" id="mar-entries">
+                                    <div class="journal-milestone march-milestone active" data-entry="1" id="mar-entry-1">
                                         <div class="journal-icon">📅</div>
                                         <div class="journal-content">
                                             <span class="journal-date">March 2025</span>
@@ -1718,6 +1754,16 @@
                                             <p>These contributions have not only improved my technical skills but also deepened my understanding of 
                                             how startup shipping platforms evolve and scale rapidly.</p>
                                         </div>
+                                    </div>
+                                    
+                                    <div class="entry-counter" id="mar-counter">Entry 1 of 1</div>
+                                    <div class="journal-navigation">
+                                        <button class="journal-nav-button" id="mar-prev" disabled>
+                                            <span>❮</span> Previous
+                                        </button>
+                                        <button class="journal-nav-button" id="mar-next" disabled>
+                                            Next <span>❯</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -2631,11 +2677,122 @@
             });
         };
 
+        // Initialize journal navigation
+        function initializeJournalNavigation() {
+            // Set up February entries navigation
+            const febEntries = document.querySelectorAll('#feb-entries .journal-milestone');
+            const febCounter = document.getElementById('feb-counter');
+            const febPrev = document.getElementById('feb-prev');
+            const febNext = document.getElementById('feb-next');
+            let febCurrentEntry = 1;
+            const febTotalEntries = febEntries.length;
+            
+            // Set up March entries navigation
+            const marEntries = document.querySelectorAll('#mar-entries .journal-milestone');
+            const marCounter = document.getElementById('mar-counter');
+            const marPrev = document.getElementById('mar-prev');
+            const marNext = document.getElementById('mar-next');
+            let marCurrentEntry = 1;
+            const marTotalEntries = marEntries.length;
+            
+            // February navigation
+            if (febPrev && febNext) {
+                febPrev.addEventListener('click', () => {
+                    if (febCurrentEntry > 1) {
+                        document.querySelector(`#feb-entry-${febCurrentEntry}`).classList.remove('active');
+                        febCurrentEntry--;
+                        document.querySelector(`#feb-entry-${febCurrentEntry}`).classList.add('active');
+                        febCounter.textContent = `Entry ${febCurrentEntry} of ${febTotalEntries}`;
+                        
+                        // Update button states
+                        febNext.disabled = false;
+                        if (febCurrentEntry === 1) {
+                            febPrev.disabled = true;
+                        }
+                    }
+                });
+                
+                febNext.addEventListener('click', () => {
+                    if (febCurrentEntry < febTotalEntries) {
+                        document.querySelector(`#feb-entry-${febCurrentEntry}`).classList.remove('active');
+                        febCurrentEntry++;
+                        document.querySelector(`#feb-entry-${febCurrentEntry}`).classList.add('active');
+                        febCounter.textContent = `Entry ${febCurrentEntry} of ${febTotalEntries}`;
+                        
+                        // Update button states
+                        febPrev.disabled = false;
+                        if (febCurrentEntry === febTotalEntries) {
+                            febNext.disabled = true;
+                        }
+                    }
+                });
+            }
+            
+            // March navigation (if needed in the future when more entries are added)
+            if (marPrev && marNext) {
+                marPrev.addEventListener('click', () => {
+                    if (marCurrentEntry > 1) {
+                        document.querySelector(`#mar-entry-${marCurrentEntry}`).classList.remove('active');
+                        marCurrentEntry--;
+                        document.querySelector(`#mar-entry-${marCurrentEntry}`).classList.add('active');
+                        marCounter.textContent = `Entry ${marCurrentEntry} of ${marTotalEntries}`;
+                        
+                        // Update button states
+                        marNext.disabled = false;
+                        if (marCurrentEntry === 1) {
+                            marPrev.disabled = true;
+                        }
+                    }
+                });
+                
+                marNext.addEventListener('click', () => {
+                    if (marCurrentEntry < marTotalEntries) {
+                        document.querySelector(`#mar-entry-${marCurrentEntry}`).classList.remove('active');
+                        marCurrentEntry++;
+                        document.querySelector(`#mar-entry-${marCurrentEntry}`).classList.add('active');
+                        marCounter.textContent = `Entry ${marCurrentEntry} of ${marTotalEntries}`;
+                        
+                        // Update button states
+                        marPrev.disabled = false;
+                        if (marCurrentEntry === marTotalEntries) {
+                            marNext.disabled = true;
+                        }
+                    }
+                });
+            }
+        }
+
         // Initialize animations when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             observeProjectCards();
+            initializeJournalNavigation();
         });
 
     </script>
+    
+    <!-- Local Server Instructions (For development only, remove in production) -->
+    <!--
+    HOW TO HOST THIS SITE LOCALLY:
+    
+    Option 1: Python Simple HTTP Server
+    1. Open your terminal
+    2. Navigate to the folder containing this HTML file:
+       cd /path/to/portfolio-website-2
+    3. Run one of these commands:
+       - Python 3: python -m http.server 8000
+       - Python 2: python -m SimpleHTTPServer 8000
+    4. Open a browser and go to: http://localhost:8000
+    
+    Option 2: Node.js with http-server
+    1. If you don't have it installed, run: npm install -g http-server
+    2. Navigate to the folder containing this HTML file
+    3. Run: http-server -p 8000
+    4. Open a browser and go to: http://localhost:8000
+    
+    Option 3: VS Code Live Server Extension
+    1. Install the "Live Server" extension in VS Code
+    2. Right-click on this HTML file in VS Code
+    3. Select "Open with Live Server"
+    -->
 </body>
 </html>
