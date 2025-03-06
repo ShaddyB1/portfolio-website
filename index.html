@@ -692,10 +692,166 @@
             }
         }
 
+        /* Experience Milestone Styles */
+        .experience-milestone {
+            display: flex;
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            padding-left: 10px;
+            border-left: 2px solid var(--color-accent-primary);
+            transition: var(--transition-smooth);
+        }
+
+        .experience-milestone:hover {
+            transform: translateX(5px);
+        }
+
+        .milestone-icon {
+            font-size: 1.5rem;
+            margin-right: var(--spacing-sm);
+            background: var(--color-bg-secondary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color-border);
+            position: absolute;
+            left: -20px;
+            top: 0;
+            transition: var(--transition-bounce);
+        }
+
+        .experience-milestone:hover .milestone-icon {
+            transform: scale(1.1);
+        }
+
+        .milestone-content {
+            padding-left: var(--spacing-sm);
+        }
+
+        .milestone-title {
+            color: var(--color-accent-primary);
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-accent-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: var(--color-bg-secondary);
+            z-index: 1000;
+            padding: var(--spacing-lg) var(--spacing-md);
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            width: 100%;
+        }
+
+        .mobile-nav-link {
+            color: var(--color-text-primary);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: var(--spacing-xs) 0;
+            border-bottom: 1px solid var(--color-border);
+            transition: var(--transition-smooth);
+            width: 100%;
+            display: block;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--color-accent-primary);
+            transform: translateX(5px);
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: var(--spacing-sm);
+            right: var(--spacing-sm);
+            background: none;
+            border: none;
+            color: var(--color-text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .mobile-nav-close:hover {
+            color: var(--color-accent-primary);
+            transform: rotate(90deg);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 15, 28, 0.8);
+            backdrop-filter: blur(3px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 var(--spacing-md);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-title {
+                font-size: clamp(2rem, 6vw, 3.5rem);
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
+            }
+            
+            .mobile-nav-toggle {
+                display: block;
             }
 
             .hero-content {
@@ -709,6 +865,70 @@
             .contact-links {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .experience-toggle {
+                position: absolute;
+                top: var(--spacing-md);
+                right: var(--spacing-md);
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+        }
+
+        @media (max-width: 576px) {
+            :root {
+                --spacing-xs: 0.5rem;
+                --spacing-sm: 0.75rem;
+                --spacing-md: 1.5rem;
+                --spacing-lg: 2.5rem;
+            }
+            
+            .hero-title {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .project-title, .experience-title, .education-title {
+                font-size: 1.3rem;
+            }
+            
+            .project-tech {
+                flex-wrap: wrap;
+            }
+            
+            .tech-tag {
+                font-size: 0.7rem;
+                padding: 3px 8px;
+            }
+            
+            .experience-milestone {
+                flex-direction: column;
+            }
+            
+            .milestone-icon {
+                position: relative;
+                left: -10px;
+                margin-bottom: var(--spacing-xs);
+            }
+            
+            .milestone-content {
+                padding-left: 0;
             }
         }
 
@@ -812,8 +1032,24 @@
                 <a href="#education" class="nav-link" aria-label="View Education">Education</a>
                 <a href="#contact" class="nav-link" aria-label="Contact Me">Contact</a>
             </div>
+            <button class="mobile-nav-toggle" aria-label="Toggle mobile navigation" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" aria-hidden="true">
+        <button class="mobile-nav-close" aria-label="Close mobile navigation">&times;</button>
+        <div class="mobile-nav-links">
+            <a href="#" class="mobile-nav-link" aria-label="Home">Home</a>
+            <a href="#projects" class="mobile-nav-link" aria-label="View Projects">Projects</a>
+            <a href="#experience" class="mobile-nav-link" aria-label="View Experience">Experience</a>
+            <a href="#education" class="mobile-nav-link" aria-label="View Education">Education</a>
+            <a href="#contact" class="mobile-nav-link" aria-label="Contact Me">Contact</a>
+        </div>
+    </div>
+    <div class="overlay" aria-hidden="true"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -962,62 +1198,92 @@
                     
                     <div class="experience-content" id="karrio-content" aria-labelledby="karrio-blog-title">
                         <div class="experience-blog">
-                            <h4 class="blog-title" id="karrio-blog-title">My Professional Journey at Karrio</h4>
+                            <h4 class="blog-title" id="karrio-blog-title">My Journey Through the Shipping API Ecosystem</h4>
                             
                             <p class="blog-paragraph">
-                                My professional experience as a Software Developer at Karrio has been transformative. 
-                                Karrio, a multi-carrier shipping API platform, provides me with an incredible opportunity to 
-                                apply my theoretical knowledge to real-world challenges in the logistics technology space.
+                                Working at Karrio has been like navigating a complex shipping network – challenging, 
+                                intricate, but incredibly rewarding. As a Software Developer at this multi-carrier 
+                                shipping API platform, I've found myself at the intersection of logistics and technology, 
+                                where every solved problem directly impacts real-world shipping operations.
                             </p>
                             
-                            <p class="blog-paragraph">
-                                At Karrio, I work directly on enhancing the platform's core functionality. My primary 
-                                responsibilities include setting up and configuring the development environment, troubleshooting 
-                                complex dependency issues, and contributing to the platform's core functionality. This hands-on 
-                                experience allows me to strengthen my skills in Python, environment configuration, and debugging 
-                                while gaining valuable insights into modern development workflows in a startup environment.
-                            </p>
+                            <div class="experience-milestone">
+                                <div class="milestone-icon">🔍</div>
+                                <div class="milestone-content">
+                                    <h5 class="milestone-title">The Dependency Detective</h5>
+                                    <p>My first major challenge came when our team faced persistent installation failures with the 
+                                    pycairo library. After days of investigation, I discovered that the issue stemmed from 
+                                    incompatible binary dependencies. By implementing a custom solution using Homebrew and 
+                                    creating symbolic links to the virtual environment, I unblocked our entire development team. 
+                                    This experience taught me that sometimes the most valuable solutions aren't in the documentation 
+                                    but require creative problem-solving and persistence.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="experience-milestone">
+                                <div class="milestone-icon">⚙️</div>
+                                <div class="milestone-content">
+                                    <h5 class="milestone-title">Command Line Mastery</h5>
+                                    <p>I've become intimately familiar with the platform's command-line interface, mastering commands like 
+                                    <code>chmod +x ./bin/install-binaries</code>, <code>./bin/install-binaries</code>, and 
+                                    <code>karrio migrate</code>. When encountering the dreaded AttributeError related to the gateway 
+                                    module, I developed a systematic debugging approach that involved tracing through log files and 
+                                    codebase exploration. This methodical approach has become my signature troubleshooting style.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="experience-milestone">
+                                <div class="milestone-icon">🐍</div>
+                                <div class="milestone-content">
+                                    <h5 class="milestone-title">Python Environment Wizardry</h5>
+                                    <p>Managing Python environments with pyenv has become second nature. I've configured Python 3.12 
+                                    environments that ensure compatibility across our diverse codebase. The satisfaction of seeing 
+                                    a clean installation process after days of troubleshooting is unmatched. This experience has 
+                                    deepened my understanding of dependency management in complex Python applications.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="experience-milestone">
+                                <div class="milestone-icon">🔌</div>
+                                <div class="milestone-content">
+                                    <h5 class="milestone-title">Connector Configuration Champion</h5>
+                                    <p>Perhaps my most impactful contribution has been installing and configuring dependencies for 
+                                    various shipping carrier connectors. Each connector presents unique challenges, from API 
+                                    authentication quirks to specific formatting requirements. Solving these puzzles has given me 
+                                    a comprehensive understanding of how modern API ecosystems interact in the logistics industry.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="experience-milestone">
+                                <div class="milestone-icon">📝</div>
+                                <div class="milestone-content">
+                                    <h5 class="milestone-title">Documentation Advocate</h5>
+                                    <p>Beyond code, I've become passionate about improving documentation. After experiencing firsthand 
+                                    the frustration of unclear setup procedures, I've dedicated time to creating comprehensive guides 
+                                    that make onboarding smoother for new team members. This has taught me that great software isn't 
+                                    just about working code—it's about creating an ecosystem that others can easily navigate.</p>
+                                </div>
+                            </div>
                             
                             <p class="blog-paragraph">
-                                One of my key contributions has been resolving critical environment setup issues. I've tackled challenges 
-                                with package dependencies, particularly with the pycairo library that was causing installation failures. 
-                                After thorough investigation, I implemented a solution using Homebrew to install py3cairo and created 
-                                symbolic links to ensure proper integration with the virtual environment. This approach resolved the 
-                                dependency conflicts that were blocking the team's progress.
-                            </p>
-                            
-                            <p class="blog-paragraph">
-                                I also work extensively with the platform's command-line tools, executing and troubleshooting 
-                                commands like <code>chmod +x ./bin/install-binaries</code>, <code>./bin/install-binaries</code>, 
-                                and <code>karrio migrate</code>. When faced with errors such as the AttributeError related to the 
-                                gateway module, I systematically debug the issues by examining log files and tracing through 
-                                the codebase to identify the root causes.
-                            </p>
-                            
-                            <p class="blog-paragraph">
-                                My work extends to managing Python environments using pyenv, specifically configuring Python 3.12 
-                                to ensure compatibility with the codebase. I also install and configure dependencies for connectors 
-                                and modules, which are critical components of the Karrio platform that enable integration with 
-                                various shipping carriers.
-                            </p>
-                            
-                            <p class="blog-paragraph">
-                                Beyond technical implementation, I contribute to improving documentation, updating website 
-                                information, and ensuring that setup procedures are clear and reproducible for other team members. 
-                                This ongoing experience is teaching me the importance of clear documentation and the value of systematic 
-                                troubleshooting in a complex software ecosystem.
+                                Each day at Karrio brings new challenges that push me to expand my technical skills while developing 
+                                a deeper appreciation for the complex logistics that power global commerce. The experience has transformed 
+                                me from a theoretical programmer into a practical problem solver who can navigate the intricate 
+                                relationship between code and real-world shipping operations.
                             </p>
                         </div>
                         
                         <div class="experience-skills">
-                            <h4 class="skills-title">Skills Being Developed</h4>
+                            <h4 class="skills-title">Technical Toolkit Expanded</h4>
                             <div class="skills-tags">
                                 <span class="tech-tag">Python</span>
                                 <span class="tech-tag">Environment Configuration</span>
                                 <span class="tech-tag">Dependency Management</span>
+                                <span class="tech-tag">API Integration</span>
                                 <span class="tech-tag">Debugging</span>
                                 <span class="tech-tag">Shell Scripting</span>
                                 <span class="tech-tag">Documentation</span>
+                                <span class="tech-tag">CI/CD</span>
                             </div>
                         </div>
                     </div>
@@ -1154,7 +1420,54 @@
             
             // Initialize cipher type select
             initializeCipherTypeSelect();
+            
+            // Initialize mobile navigation
+            initializeMobileNavigation();
         });
+
+        // Initialize mobile navigation
+        function initializeMobileNavigation() {
+            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+            const mobileNavClose = document.querySelector('.mobile-nav-close');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const overlay = document.querySelector('.overlay');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            
+            // Toggle mobile navigation
+            mobileNavToggle.addEventListener('click', () => {
+                mobileNav.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                mobileNavToggle.setAttribute('aria-expanded', 'true');
+                mobileNav.setAttribute('aria-hidden', 'false');
+                overlay.setAttribute('aria-hidden', 'false');
+            });
+            
+            // Close mobile navigation
+            function closeMobileNav() {
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                mobileNavToggle.setAttribute('aria-expanded', 'false');
+                mobileNav.setAttribute('aria-hidden', 'true');
+                overlay.setAttribute('aria-hidden', 'true');
+            }
+            
+            mobileNavClose.addEventListener('click', closeMobileNav);
+            overlay.addEventListener('click', closeMobileNav);
+            
+            // Close mobile navigation when clicking on a link
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', closeMobileNav);
+            });
+            
+            // Close mobile navigation on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+                    closeMobileNav();
+                }
+            });
+        }
 
         // Initialize cipher type select
         function initializeCipherTypeSelect() {
