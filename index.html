@@ -846,6 +846,87 @@
             }
         }
         
+        /* Timeline Month Container Styles */
+        .timeline-month-container {
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-md);
+            background: rgba(20, 28, 47, 0.2);
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+            position: relative;
+        }
+        
+        .latest-month {
+            background: rgba(30, 38, 57, 0.4);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .timeline-month-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+            position: relative;
+        }
+        
+        .month-title {
+            font-size: 1.5rem;
+            color: var(--color-text-primary);
+            margin-right: var(--spacing-sm);
+        }
+        
+        .latest-month .month-title {
+            color: #ffa500;
+        }
+        
+        .month-divider {
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--color-border), transparent);
+        }
+        
+        .latest-month .month-divider {
+            background: linear-gradient(to right, rgba(255, 165, 0, 0.5), transparent);
+        }
+        
+        .latest-badge {
+            background: #ffa500;
+            color: var(--color-bg-primary);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: var(--spacing-sm);
+            animation: badgePulse 2s infinite alternate;
+        }
+        
+        @keyframes badgePulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+        
+        .march-milestone {
+            border-left-color: #ffa500;
+        }
+        
+        .march-milestone .journal-icon {
+            border-color: #ffa500;
+        }
+        
+        .march-milestone .journal-title {
+            color: #ffa500;
+        }
+        
+        .march-milestone .journal-title::after {
+            background: #ffa500;
+        }
+        
         .journal-milestone::before {
             content: '';
             position: absolute;
@@ -855,6 +936,10 @@
             height: 100%;
             background: linear-gradient(to right, rgba(100, 255, 218, 0.05), transparent);
             pointer-events: none;
+        }
+        
+        .march-milestone::before {
+            background: linear-gradient(to right, rgba(255, 165, 0, 0.05), transparent);
         }
         
         .journal-milestone:hover {
@@ -1092,6 +1177,19 @@
             .journal-title {
                 font-size: 1.2rem;
             }
+            
+            .timeline-month-container {
+                padding: var(--spacing-sm);
+            }
+            
+            .month-title {
+                font-size: 1.3rem;
+            }
+            
+            .latest-badge {
+                padding: 1px 6px;
+                font-size: 0.7rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1182,6 +1280,25 @@
             
             .journal-title {
                 font-size: 1.1rem;
+            }
+            
+            .timeline-month-container {
+                padding: var(--spacing-xs);
+                margin-bottom: var(--spacing-md);
+            }
+            
+            .timeline-month-header {
+                margin-bottom: var(--spacing-sm);
+            }
+            
+            .month-title {
+                font-size: 1.1rem;
+                margin-right: var(--spacing-xs);
+            }
+            
+            .latest-badge {
+                font-size: 0.6rem;
+                padding: 1px 4px;
             }
         }
 
@@ -1461,83 +1578,98 @@
                                 where every solved problem directly impacts real-world shipping operations.
                             </p>
                             
-                            <div class="journal-milestone">
-                                <div class="journal-icon">📓</div>
-                                <div class="journal-content">
-                                    <span class="journal-date">February 2025</span>
-                                    <h5 class="journal-title">The Dependency Detective</h5>
-                                    <p>My first major challenge at Karrio came when our team faced persistent installation failures with the 
-                                    pycairo library. After days of investigation, I discovered that the issue stemmed from 
-                                    incompatible binary dependencies. By implementing a custom solution using Homebrew and 
-                                    creating symbolic links to the virtual environment, I unblocked our entire development team. 
-                                    This experience taught me that sometimes the most valuable solutions aren't in the documentation 
-                                    but require creative problem-solving and persistence.</p>
+                            <div class="timeline-month-container">
+                                <div class="timeline-month-header">
+                                    <h4 class="month-title">February 2025</h4>
+                                    <div class="month-divider"></div>
+                                </div>
+                                
+                                <div class="journal-milestone">
+                                    <div class="journal-icon">📓</div>
+                                    <div class="journal-content">
+                                        <span class="journal-date">February 2025</span>
+                                        <h5 class="journal-title">The Dependency Detective</h5>
+                                        <p>My first major challenge at Karrio came when our team faced persistent installation failures with the 
+                                        pycairo library. After days of investigation, I discovered that the issue stemmed from 
+                                        incompatible binary dependencies. By implementing a custom solution using Homebrew and 
+                                        creating symbolic links to the virtual environment, I unblocked our entire development team. 
+                                        This experience taught me that sometimes the most valuable solutions aren't in the documentation 
+                                        but require creative problem-solving and persistence.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="journal-milestone">
+                                    <div class="journal-icon">📓</div>
+                                    <div class="journal-content">
+                                        <span class="journal-date">February 2025</span>
+                                        <h5 class="journal-title">Command Line Mastery</h5>
+                                        <p>I've become intimately familiar with the platform's command-line interface, mastering commands like 
+                                        <code>chmod +x ./bin/install-binaries</code>, <code>./bin/install-binaries</code>, and 
+                                        <code>karrio migrate</code>. When encountering the dreaded AttributeError related to the gateway 
+                                        module, I developed a systematic debugging approach that involved tracing through log files and 
+                                        codebase exploration. This methodical approach has become my signature troubleshooting style.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="journal-milestone">
+                                    <div class="journal-icon">📓</div>
+                                    <div class="journal-content">
+                                        <span class="journal-date">February 2025</span>
+                                        <h5 class="journal-title">Python Environment Wizardry</h5>
+                                        <p>Managing Python environments with pyenv has become second nature. I've configured Python 3.12 
+                                        environments that ensure compatibility across our diverse codebase. The satisfaction of seeing 
+                                        a clean installation process after days of troubleshooting is unmatched. This experience has 
+                                        deepened my understanding of dependency management in complex Python applications.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="journal-milestone">
+                                    <div class="journal-icon">📓</div>
+                                    <div class="journal-content">
+                                        <span class="journal-date">February 2025</span>
+                                        <h5 class="journal-title">Connector Configuration Champion</h5>
+                                        <p>Perhaps my most impactful contribution has been installing and configuring dependencies for 
+                                        various shipping carrier connectors. Each connector presents unique challenges, from API 
+                                        authentication quirks to specific formatting requirements. Solving these puzzles has given me 
+                                        a comprehensive understanding of how modern API ecosystems interact in the logistics industry.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="journal-milestone">
+                                    <div class="journal-icon">📓</div>
+                                    <div class="journal-content">
+                                        <span class="journal-date">February 2025</span>
+                                        <h5 class="journal-title">Documentation Advocate</h5>
+                                        <p>Beyond code, I've become passionate about improving documentation. After experiencing firsthand 
+                                        the frustration of unclear setup procedures, I've dedicated time to creating comprehensive guides 
+                                        that make onboarding smoother for new team members. This has taught me that great software isn't 
+                                        just about working code—it's about creating an ecosystem that others can easily navigate.</p>
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="journal-milestone">
-                                <div class="journal-icon">📓</div>
-                                <div class="journal-content">
-                                    <span class="journal-date">February 2025</span>
-                                    <h5 class="journal-title">Command Line Mastery</h5>
-                                    <p>I've become intimately familiar with the platform's command-line interface, mastering commands like 
-                                    <code>chmod +x ./bin/install-binaries</code>, <code>./bin/install-binaries</code>, and 
-                                    <code>karrio migrate</code>. When encountering the dreaded AttributeError related to the gateway 
-                                    module, I developed a systematic debugging approach that involved tracing through log files and 
-                                    codebase exploration. This methodical approach has become my signature troubleshooting style.</p>
+                            <div class="timeline-month-container latest-month">
+                                <div class="timeline-month-header">
+                                    <h4 class="month-title">March 2025</h4>
+                                    <div class="month-divider"></div>
+                                    <span class="latest-badge">Latest</span>
                                 </div>
-                            </div>
-                            
-                            <div class="journal-milestone">
-                                <div class="journal-icon">📓</div>
-                                <div class="journal-content">
-                                    <span class="journal-date">February 2025</span>
-                                    <h5 class="journal-title">Python Environment Wizardry</h5>
-                                    <p>Managing Python environments with pyenv has become second nature. I've configured Python 3.12 
-                                    environments that ensure compatibility across our diverse codebase. The satisfaction of seeing 
-                                    a clean installation process after days of troubleshooting is unmatched. This experience has 
-                                    deepened my understanding of dependency management in complex Python applications.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="journal-milestone">
-                                <div class="journal-icon">📓</div>
-                                <div class="journal-content">
-                                    <span class="journal-date">February 2025</span>
-                                    <h5 class="journal-title">Connector Configuration Champion</h5>
-                                    <p>Perhaps my most impactful contribution has been installing and configuring dependencies for 
-                                    various shipping carrier connectors. Each connector presents unique challenges, from API 
-                                    authentication quirks to specific formatting requirements. Solving these puzzles has given me 
-                                    a comprehensive understanding of how modern API ecosystems interact in the logistics industry.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="journal-milestone">
-                                <div class="journal-icon">📓</div>
-                                <div class="journal-content">
-                                    <span class="journal-date">February 2025</span>
-                                    <h5 class="journal-title">Documentation Advocate</h5>
-                                    <p>Beyond code, I've become passionate about improving documentation. After experiencing firsthand 
-                                    the frustration of unclear setup procedures, I've dedicated time to creating comprehensive guides 
-                                    that make onboarding smoother for new team members. This has taught me that great software isn't 
-                                    just about working code—it's about creating an ecosystem that others can easily navigate.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="journal-milestone" style="border-left-color: #ffa500; background: rgba(30, 38, 57, 0.4);">
-                                <div class="journal-icon" style="border-color: #ffa500; background: rgba(30, 38, 57, 0.7);">📅</div>
-                                <div class="journal-content">
-                                    <span class="journal-date" style="color: #ffa500;">March 2025</span>
-                                    <h5 class="journal-title" style="color: #ffa500;">Growth & Innovation</h5>
-                                    <p>This month at Karrio has been particularly productive. I've tackled several challenging issues including:</p>
-                                    <ul>
-                                        <li>Resolved critical dependency conflicts in the core application that were preventing successful builds</li>
-                                        <li>Implemented a more efficient environment configuration process, reducing setup time by 30%</li>
-                                        <li>Enhanced connector integration for major shipping carriers, improving API response times</li>
-                                        <li>Documented common troubleshooting procedures that have already helped two new team members</li>
-                                    </ul>
-                                    <p>These contributions have not only improved my technical skills but also deepened my understanding of 
-                                    how startup shipping platforms evolve and scale rapidly.</p>
+                                
+                                <div class="journal-milestone march-milestone">
+                                    <div class="journal-icon">📅</div>
+                                    <div class="journal-content">
+                                        <span class="journal-date">March 2025</span>
+                                        <h5 class="journal-title">Growth & Innovation</h5>
+                                        <p>This month at Karrio has been particularly productive. I've tackled several challenging issues including:</p>
+                                        <ul>
+                                            <li>Resolved critical dependency conflicts in the core application that were preventing successful builds</li>
+                                            <li>Implemented a more efficient environment configuration process, reducing setup time by 30%</li>
+                                            <li>Enhanced connector integration for major shipping carriers, improving API response times</li>
+                                            <li>Documented common troubleshooting procedures that have already helped two new team members</li>
+                                        </ul>
+                                        <p>These contributions have not only improved my technical skills but also deepened my understanding of 
+                                        how startup shipping platforms evolve and scale rapidly.</p>
+                                    </div>
                                 </div>
                             </div>
                             
