@@ -670,6 +670,36 @@
         .blog-paragraph:last-child {
             margin-bottom: 0;
         }
+        
+        .blog-link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--color-bg-secondary);
+            color: var(--color-accent-primary);
+            border: 1px solid var(--color-accent-primary);
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            margin-top: var(--spacing-sm);
+            font-size: 0.95rem;
+        }
+        
+        .blog-link-button:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .blog-link-icon {
+            font-size: 1.1rem;
+            transition: var(--transition-bounce);
+        }
+        
+        .blog-link-button:hover .blog-link-icon {
+            transform: translateX(3px);
+        }
 
         .experience-skills {
             margin-top: var(--spacing-md);
@@ -1643,137 +1673,15 @@
                             <h4 class="blog-title" id="karrio-blog-title">My Journey Through the Shipping API Ecosystem</h4>
                             
                             <p class="blog-paragraph">
-                                Working at Karrio has been like navigating a complex shipping network – challenging, 
-                                intricate, but incredibly rewarding. As a Software Developer at this multi-carrier 
-                                shipping API platform, I've found myself at the intersection of logistics and technology, 
-                                where every solved problem directly impacts real-world shipping operations.
+                                Working at Karrio has been a journey of growth and technical advancement, where I've tackled complex environment configuration challenges and shipping API integrations. 
+                                I've developed expertise in dependency management, troubleshooting Python applications, and creating developer-friendly documentation. 
+                                My recent contributions have reduced setup time by 30% and improved API response times for major shipping carriers.
                             </p>
                             
-                            <div class="timeline-month-container">
-                                <div class="timeline-month-header">
-                                    <h4 class="month-title">February 2025</h4>
-                                    <div class="month-divider"></div>
-                                </div>
-                                
-                                <div class="journal-entries-container" id="feb-entries">
-                                    <div class="journal-milestone active" data-entry="1" id="feb-entry-1">
-                                        <div class="journal-icon">📓</div>
-                                        <div class="journal-content">
-                                            <span class="journal-date">February 2025</span>
-                                            <h5 class="journal-title">The Dependency Detective</h5>
-                                            <p>My first major challenge at Karrio came when our team faced persistent installation failures with the 
-                                            pycairo library. After days of investigation, I discovered that the issue stemmed from 
-                                            incompatible binary dependencies. By implementing a custom solution using Homebrew and 
-                                            creating symbolic links to the virtual environment, I unblocked our entire development team. 
-                                            This experience taught me that sometimes the most valuable solutions aren't in the documentation 
-                                            but require creative problem-solving and persistence.</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="journal-milestone" data-entry="2" id="feb-entry-2">
-                                        <div class="journal-icon">📓</div>
-                                        <div class="journal-content">
-                                            <span class="journal-date">February 2025</span>
-                                            <h5 class="journal-title">Command Line Mastery</h5>
-                                            <p>I've become intimately familiar with the platform's command-line interface, mastering commands like 
-                                            <code>chmod +x ./bin/install-binaries</code>, <code>./bin/install-binaries</code>, and 
-                                            <code>karrio migrate</code>. When encountering the dreaded AttributeError related to the gateway 
-                                            module, I developed a systematic debugging approach that involved tracing through log files and 
-                                            codebase exploration. This methodical approach has become my signature troubleshooting style.</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="journal-milestone" data-entry="3" id="feb-entry-3">
-                                        <div class="journal-icon">📓</div>
-                                        <div class="journal-content">
-                                            <span class="journal-date">February 2025</span>
-                                            <h5 class="journal-title">Python Environment Wizardry</h5>
-                                            <p>Managing Python environments with pyenv has become second nature. I've configured Python 3.12 
-                                            environments that ensure compatibility across our diverse codebase. The satisfaction of seeing 
-                                            a clean installation process after days of troubleshooting is unmatched. This experience has 
-                                            deepened my understanding of dependency management in complex Python applications.</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="journal-milestone" data-entry="4" id="feb-entry-4">
-                                        <div class="journal-icon">📓</div>
-                                        <div class="journal-content">
-                                            <span class="journal-date">February 2025</span>
-                                            <h5 class="journal-title">Connector Configuration Champion</h5>
-                                            <p>Perhaps my most impactful contribution has been installing and configuring dependencies for 
-                                            various shipping carrier connectors. Each connector presents unique challenges, from API 
-                                            authentication quirks to specific formatting requirements. Solving these puzzles has given me 
-                                            a comprehensive understanding of how modern API ecosystems interact in the logistics industry.</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="journal-milestone" data-entry="5" id="feb-entry-5">
-                                        <div class="journal-icon">📓</div>
-                                        <div class="journal-content">
-                                            <span class="journal-date">February 2025</span>
-                                            <h5 class="journal-title">Documentation Advocate</h5>
-                                            <p>Beyond code, I've become passionate about improving documentation. After experiencing firsthand 
-                                            the frustration of unclear setup procedures, I've dedicated time to creating comprehensive guides 
-                                            that make onboarding smoother for new team members. This has taught me that great software isn't 
-                                            just about working code—it's about creating an ecosystem that others can easily navigate.</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="entry-counter" id="feb-counter">Entry 1 of 5</div>
-                                    <div class="journal-navigation">
-                                        <button class="journal-nav-button" id="feb-prev" disabled>
-                                            <span>❮</span> Previous
-                                        </button>
-                                        <button class="journal-nav-button" id="feb-next">
-                                            Next <span>❯</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="timeline-month-container latest-month">
-                                <div class="timeline-month-header">
-                                    <h4 class="month-title">March 2025</h4>
-                                    <div class="month-divider"></div>
-                                    <span class="latest-badge">Latest</span>
-                                </div>
-                                
-                                <div class="journal-entries-container" id="mar-entries">
-                                    <div class="journal-milestone march-milestone active" data-entry="1" id="mar-entry-1">
-                                        <div class="journal-icon">📅</div>
-                                        <div class="journal-content">
-                                            <span class="journal-date">March 2025</span>
-                                            <h5 class="journal-title">Growth & Innovation</h5>
-                                            <p>This month at Karrio has been particularly productive. I've tackled several challenging issues including:</p>
-                                            <ul>
-                                                <li>Resolved critical dependency conflicts in the core application that were preventing successful builds</li>
-                                                <li>Implemented a more efficient environment configuration process, reducing setup time by 30%</li>
-                                                <li>Enhanced connector integration for major shipping carriers, improving API response times</li>
-                                                <li>Documented common troubleshooting procedures that have already helped two new team members</li>
-                                            </ul>
-                                            <p>These contributions have not only improved my technical skills but also deepened my understanding of 
-                                            how startup shipping platforms evolve and scale rapidly.</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="entry-counter" id="mar-counter">Entry 1 of 1</div>
-                                    <div class="journal-navigation">
-                                        <button class="journal-nav-button" id="mar-prev" disabled>
-                                            <span>❮</span> Previous
-                                        </button>
-                                        <button class="journal-nav-button" id="mar-next" disabled>
-                                            Next <span>❯</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <p class="blog-paragraph">
-                                Each day at Karrio brings new challenges that push me to expand my technical skills while developing 
-                                a deeper appreciation for the complex logistics that power global commerce. The experience has transformed 
-                                me from a theoretical programmer into a practical problem solver who can navigate the intricate 
-                                relationship between code and real-world shipping operations.
-                            </p>
+                            <a href="blog.html" class="blog-link-button">
+                                Read My Developer Journey
+                                <span class="blog-link-icon">📝</span>
+                            </a>
                         </div>
                         
                         <div class="experience-skills">

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shadrack Boateng Addo - Developer Journal and Experiences at Karrio">
+    <meta name="keywords" content="Shadrack Boateng Addo, Software Developer, Blog, Journal, Karrio, Development Experience">
+    <meta name="author" content="Shadrack Boateng Addo">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0a0f1c">
+    <meta property="og:title" content="Shadrack Boateng Addo | Developer Journal">
+    <meta property="og:description" content="My journey through the shipping API ecosystem at Karrio">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shadrackaddo.com/blog">
+    <title>Shadrack Boateng Addo | Developer Journal</title>
+    
+    <!-- Preload key resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    
+    <!-- Fonts and Scripts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        /* Core Variables */
+        :root {
+            --color-bg-primary: #0a0f1c;
+            --color-bg-secondary: #141c2f;
+            --color-accent-primary: #64ffda;
+            --color-accent-secondary: #3d7e71;
+            --color-text-primary: #e2e8f0;
+            --color-text-secondary: #94a3b8;
+            --color-border: rgba(100, 255, 218, 0.1);
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-march: #ffa500;
+            
+            --spacing-xs: clamp(0.5rem, 1vw, 0.75rem);
+            --spacing-sm: clamp(1rem, 2vw, 1.5rem);
+            --spacing-md: clamp(2rem, 4vw, 3rem);
+            --spacing-lg: clamp(3rem, 6vw, 4.5rem);
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            
+            --blur-backdrop: blur(10px);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        a {
+            color: var(--color-accent-primary);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+        
+        a:hover {
+            opacity: 0.8;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-accent-secondary);
+            border-radius: 4px;
+        }
+
+        /* Layout & Container */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--color-bg-primary);
+            z-index: 1000;
+            padding: var(--spacing-sm) var(--spacing-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-accent-primary);
+            text-decoration: none;
+        }
+
+        .back-to-portfolio {
+            color: var(--color-text-primary);
+            text-decoration: none;
+            position: relative;
+            padding: var(--spacing-xs) 0;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-to-portfolio::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent-primary);
+            transition: var(--transition-smooth);
+        }
+
+        .back-to-portfolio:hover {
+            color: var(--color-accent-primary);
+        }
+
+        .back-to-portfolio:hover::after {
+            width: 100%;
+        }
+        
+        /* Blog Header */
+        .blog-header {
+            padding-top: 120px;
+            padding-bottom: var(--spacing-md);
+            text-align: center;
+        }
+        
+        .blog-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .blog-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--color-accent-primary);
+        }
+        
+        .blog-subtitle {
+            color: var(--color-text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: var(--spacing-md) auto;
+        }
+        
+        /* Main Content */
+        .blog-content {
+            padding: var(--spacing-md) 0 var(--spacing-lg);
+        }
+        
+        /* Month Section */
+        .month-section {
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+        }
+        
+        .month-header {
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .month-icon {
+            font-size: 2rem;
+            background: var(--color-bg-secondary);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--color-accent-primary);
+            box-shadow: 0 0 0 4px rgba(100, 255, 218, 0.1);
+        }
+        
+        .march-section .month-icon {
+            border-color: var(--color-march);
+        }
+        
+        .month-title-container {
+            flex-grow: 1;
+        }
+        
+        .month-title {
+            font-size: 1.8rem;
+            color: var(--color-accent-primary);
+            margin-bottom: 4px;
+        }
+        
+        .march-section .month-title {
+            color: var(--color-march);
+        }
+        
+        .month-date {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+        }
+        
+        .latest-tag {
+            background: var(--color-march);
+            color: var(--color-bg-primary);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        /* Journal Entry */
+        .journal-entry {
+            background: var(--color-bg-secondary);
+            border-radius: 12px;
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            border: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .journal-entry::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--color-accent-primary);
+        }
+        
+        .march-section .journal-entry::before {
+            background: var(--color-march);
+        }
+        
+        .entry-title {
+            font-size: 1.6rem;
+            color: var(--color-accent-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .march-section .entry-title {
+            color: var(--color-march);
+        }
+        
+        .entry-content {
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+        
+        .entry-content p {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .entry-content ul {
+            list-style-type: none;
+            margin: var(--spacing-sm) 0;
+            padding-left: 20px;
+        }
+        
+        .entry-content li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+        }
+        
+        .entry-content li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent-primary);
+        }
+        
+        .march-section .entry-content li::before {
+            color: var(--color-march);
+        }
+        
+        /* Code styling */
+        code {
+            background: rgba(20, 28, 47, 0.5);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        /* Footer */
+        .blog-footer {
+            text-align: center;
+            padding: var(--spacing-md) 0;
+            border-top: 1px solid var(--color-border);
+            margin-top: var(--spacing-lg);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .month-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--spacing-xs);
+            }
+            
+            .month-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .month-title {
+                font-size: 1.5rem;
+            }
+            
+            .entry-title {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            :root {
+                --spacing-xs: 0.5rem;
+                --spacing-sm: 0.75rem;
+                --spacing-md: 1.5rem;
+                --spacing-lg: 2.5rem;
+            }
+            
+            .blog-header {
+                padding-top: 100px;
+            }
+            
+            .blog-title {
+                font-size: 1.8rem;
+            }
+            
+            .blog-subtitle {
+                font-size: 1rem;
+            }
+            
+            .month-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .journal-entry {
+                padding: var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container" role="navigation" aria-label="Main Navigation">
+        <div class="nav-content">
+            <a href="index.html" class="logo" aria-label="Home">SBA</a>
+            <a href="index.html" class="back-to-portfolio" aria-label="Back to Portfolio">
+                <span class="back-icon">←</span>
+                Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Blog Header -->
+    <header class="blog-header">
+        <div class="container">
+            <h1 class="blog-title">My Journey Through the Shipping API Ecosystem</h1>
+            <p class="blog-subtitle">A detailed account of my experiences, challenges, and growth as a Software Developer at Karrio</p>
+        </div>
+    </header>
+
+    <!-- Blog Content -->
+    <main class="blog-content">
+        <div class="container">
+            <section class="month-section february-section">
+                <div class="month-header">
+                    <div class="month-icon">📓</div>
+                    <div class="month-title-container">
+                        <h2 class="month-title">February 2025</h2>
+                        <p class="month-date">First Month at Karrio</p>
+                    </div>
+                </div>
+                
+                <!-- Journal Entry 1 -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">The Dependency Detective</h3>
+                    <div class="entry-content">
+                        <p>
+                            My first major challenge at Karrio came when our team faced persistent installation failures with the 
+                            pycairo library. After days of investigation, I discovered that the issue stemmed from 
+                            incompatible binary dependencies. By implementing a custom solution using Homebrew and 
+                            creating symbolic links to the virtual environment, I unblocked our entire development team.
+                        </p>
+                        <p>
+                            The issue began when several developers reported identical error messages: 
+                            <code>ImportError: No module named 'cairo'</code> followed by several cascade failures. 
+                            At first glance, it seemed like a simple pip installation issue, but the standard 
+                            <code>pip install pycairo</code> consistently failed with obscure compilation errors.
+                        </p>
+                        <p>
+                            After several deep dives into system logs and build processes, I identified that the root cause was a mismatch between 
+                            the Cairo graphics library versions provided by the system and those expected by the Python binding. To solve this, 
+                            I created a compound approach:
+                        </p>
+                        <ul>
+                            <li>Used Homebrew to install the correct version of Cairo (<code>brew install cairo</code>)</li>
+                            <li>Located the Homebrew-installed binary libraries in <code>/usr/local/lib</code></li>
+                            <li>Created symbolic links to these libraries in our virtual environment's site-packages directory</li>
+                            <li>Added a custom initialization script to our project that adjusted the <code>LD_LIBRARY_PATH</code> environment variable</li>
+                        </ul>
+                        <p>
+                            This experience taught me that sometimes the most valuable solutions aren't in the documentation 
+                            but require creative problem-solving and persistence. More importantly, it showed me how deeply interconnected 
+                            modern software dependencies are, and how solving one core issue can unblock an entire team's productivity.
+                        </p>
+                    </div>
+                </article>
+                
+                <!-- Journal Entry 2 -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">Command Line Mastery</h3>
+                    <div class="entry-content">
+                        <p>
+                            I've become intimately familiar with the platform's command-line interface, mastering commands like 
+                            <code>chmod +x ./bin/install-binaries</code>, <code>./bin/install-binaries</code>, and 
+                            <code>karrio migrate</code>. When encountering the dreaded AttributeError related to the gateway 
+                            module, I developed a systematic debugging approach that involved tracing through log files and 
+                            codebase exploration.
+                        </p>
+                        <p>
+                            The most challenging part was diagnosing the AttributeError that appeared when initializing 
+                            carrier connections. The error message <code>AttributeError: module 'karrio.gateway' has no attribute 'get_carrier'</code> 
+                            was misleading because the function clearly existed in the codebase. After methodical investigation, I discovered 
+                            that the error occurred due to circular imports combined with a Python path resolution quirk when using the CLI.
+                        </p>
+                        <p>
+                            To solve this, I created a debugging script that:
+                        </p>
+                        <ul>
+                            <li>Traced all imports step by step using Python's import hooks</li>
+                            <li>Logged the module search paths at each stage</li>
+                            <li>Identified exactly where the circular dependency was breaking</li>
+                        </ul>
+                        <p>
+                            This methodical approach has become my signature troubleshooting style. Rather than making random changes 
+                            and hoping for different results, I now approach every problem with a systematic strategy:
+                        </p>
+                        <ul>
+                            <li>Gather all available logs and error messages</li>
+                            <li>Reproduce the issue in a controlled environment</li>
+                            <li>Trace step by step through the execution path</li>
+                            <li>Document both the issue and solution for future reference</li>
+                        </ul>
+                    </div>
+                </article>
+                
+                <!-- Journal Entry 3 -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">Python Environment Wizardry</h3>
+                    <div class="entry-content">
+                        <p>
+                            Managing Python environments with pyenv has become second nature. I've configured Python 3.12 
+                            environments that ensure compatibility across our diverse codebase. The satisfaction of seeing 
+                            a clean installation process after days of troubleshooting is unmatched.
+                        </p>
+                        <p>
+                            When I first joined Karrio, the team was struggling with inconsistent environment setup across macOS, 
+                            Linux, and Windows systems. Each developer seemed to have a slightly different Python configuration, 
+                            leading to unpredictable "works on my machine" issues.
+                        </p>
+                        <p>
+                            I standardized our approach by:
+                        </p>
+                        <ul>
+                            <li>Creating a definitive pyenv installation guide for each operating system</li>
+                            <li>Establishing Python 3.12 as our standard version with <code>pyenv global 3.12.0</code></li>
+                            <li>Setting up a consistent virtualenv creation process with <code>python -m venv .venv</code></li>
+                            <li>Creating a requirements.txt with pinned dependency versions</li>
+                            <li>Implementing a validation script that checks environment correctness</li>
+                        </ul>
+                        <p>
+                            This experience has deepened my understanding of dependency management in complex Python applications. 
+                            I now recognize that establishing clear environment guidelines is as important as the code itself, 
+                            especially in a collaborative development setting with multiple environments.
+                        </p>
+                    </div>
+                </article>
+                
+                <!-- Journal Entry 4 -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">Connector Configuration Champion</h3>
+                    <div class="entry-content">
+                        <p>
+                            Perhaps my most impactful contribution has been installing and configuring dependencies for 
+                            various shipping carrier connectors. Each connector presents unique challenges, from API 
+                            authentication quirks to specific formatting requirements.
+                        </p>
+                        <p>
+                            One particularly complex connector was for a major international carrier that required multiple layers of authentication:
+                        </p>
+                        <ul>
+                            <li>An OAuth2 token that needed to be refreshed every 8 hours</li>
+                            <li>A separate API key for tracking versus shipping endpoints</li>
+                            <li>Custom HTTP headers that varied between their testing and production environments</li>
+                        </ul>
+                        <p>
+                            To solve this, I created a connector module that:
+                        </p>
+                        <ul>
+                            <li>Automatically refreshed authentication in the background</li>
+                            <li>Maintained separate connection pools for different endpoint types</li>
+                            <li>Handled environment-specific configuration through a central settings mechanism</li>
+                            <li>Added comprehensive error handling with retry logic for transient API issues</li>
+                        </ul>
+                        <p>
+                            Solving these puzzles has given me a comprehensive understanding of how modern API ecosystems interact in the logistics industry. 
+                            I've learned that successful API integration isn't just about following documentation—it's about anticipating 
+                            the quirks, edge cases, and unwritten assumptions that come with each third-party service.
+                        </p>
+                    </div>
+                </article>
+                
+                <!-- Journal Entry 5 -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">Documentation Advocate</h3>
+                    <div class="entry-content">
+                        <p>
+                            Beyond code, I've become passionate about improving documentation. After experiencing firsthand 
+                            the frustration of unclear setup procedures, I've dedicated time to creating comprehensive guides 
+                            that make onboarding smoother for new team members.
+                        </p>
+                        <p>
+                            When I joined Karrio, the documentation was technically accurate but lacked the context and troubleshooting 
+                            tips that newcomers needed. Installation instructions were spread across multiple repositories, 
+                            with inconsistent formatting and outdated screenshots.
+                        </p>
+                        <p>
+                            My approach to improving the documentation included:
+                        </p>
+                        <ul>
+                            <li>Consolidating all setup instructions into a single, authoritative guide</li>
+                            <li>Adding a "Common Issues" section based on real problems I'd encountered</li>
+                            <li>Creating step-by-step tutorials with screenshots for visual learners</li>
+                            <li>Implementing a documentation test process where new team members follow the guides without assistance</li>
+                        </ul>
+                        <p>
+                            This has taught me that great software isn't just about working code—it's about creating an ecosystem that others can easily navigate. 
+                            Documentation isn't a separate task from development; it's an integral part of creating maintainable, accessible software.
+                        </p>
+                        <p>
+                            The positive feedback has been immediate: our most recent new hire was able to get a complete local development 
+                            environment running in just 2 hours, compared to the 2-3 days it previously took.
+                        </p>
+                    </div>
+                </article>
+            </section>
+            
+            <section class="month-section march-section">
+                <div class="month-header">
+                    <div class="month-icon">📅</div>
+                    <div class="month-title-container">
+                        <h2 class="month-title">March 2025</h2>
+                        <p class="month-date">Growth & Innovation</p>
+                    </div>
+                    <span class="latest-tag">Latest</span>
+                </div>
+                
+                <!-- March Journal Entry -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">Growth & Innovation</h3>
+                    <div class="entry-content">
+                        <p>
+                            This month at Karrio has been particularly productive. I've applied my growing expertise to tackle 
+                            several challenging issues that have made a direct impact on our development workflow and product capabilities.
+                        </p>
+                        
+                        <h4>Dependency Conflict Resolution</h4>
+                        <p>
+                            I resolved critical dependency conflicts in the core application that were preventing successful builds. 
+                            The issue involved incompatible versions of cryptography libraries that different parts of our stack 
+                            required. By implementing a careful package pinning strategy and creating a custom middleware layer, 
+                            I enabled both components to operate with their preferred versions without conflict.
+                        </p>
+                        
+                        <h4>Streamlined Environment Configuration</h4>
+                        <p>
+                            Building on my earlier work with Python environments, I implemented a more efficient environment configuration process 
+                            that reduced setup time by 30%. This involved:
+                        </p>
+                        <ul>
+                            <li>Creating a containerized development environment with Docker</li>
+                            <li>Implementing pre-compiled binary caching for the most troublesome dependencies</li>
+                            <li>Developing a single-command setup script that handles all installation steps automatically</li>
+                            <li>Adding intelligent validation checks that proactively detect common configuration issues</li>
+                        </ul>
+                        
+                        <h4>Enhanced Connector Integration</h4>
+                        <p>
+                            I enhanced connector integration for major shipping carriers, improving API response times and reliability.
+                            The improvements included:
+                        </p>
+                        <ul>
+                            <li>Implementing connection pooling to reduce handshake overhead</li>
+                            <li>Adding an intelligent retry mechanism that adapts based on error type</li>
+                            <li>Creating a response caching layer for frequently accessed, rarely changing data</li>
+                            <li>Optimizing payload sizes by implementing partial response capabilities</li>
+                        </ul>
+                        
+                        <h4>Comprehensive Troubleshooting Documentation</h4>
+                        <p>
+                            Perhaps most importantly, I documented common troubleshooting procedures that have already helped two new team members
+                            get up to speed quickly. This documentation isn't just a list of commands—it explains the underlying systems 
+                            and how they interact, giving developers the context they need to solve new problems independently.
+                        </p>
+                        
+                        <p>
+                            These contributions have not only improved my technical skills but also deepened my understanding of 
+                            how startup shipping platforms evolve and scale rapidly. I'm particularly proud that my work is directly 
+                            enabling the team to develop features more quickly and with fewer friction points.
+                        </p>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="blog-footer">
+        <div class="container">
+            <p>© 2025 Shadrack Boateng Addo. <a href="index.html">Back to Portfolio</a></p>
+        </div>
+    </footer>
+    
+    <script>
+        // Navbar scroll behavior
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.nav-container');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop) {
+                // Scrolling down
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            // Update shadow based on scroll position
+            if (scrollTop > 50) {
+                navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html> 
