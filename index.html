@@ -1755,9 +1755,9 @@
             </div>
             <div class="modal-body">
                 <p>Enter a paragraph to classify its quality:</p>
-                <textarea class="demo-input" placeholder="Enter a paragraph here..." aria-label="Enter paragraph for classification"></textarea>
-                <button class="demo-btn" onclick="runAIDemo()" aria-label="Run AI classification">Classify</button>
-                <div class="result-container" aria-live="polite">
+                <textarea id="paragraph-input" class="demo-input" placeholder="Enter a paragraph here..." aria-label="Enter paragraph for classification"></textarea>
+                <button class="demo-btn" onclick="classifyParagraph()" aria-label="Run AI classification">Classify</button>
+                <div id="result" class="result-container" aria-live="polite">
                     <p>Classification result will appear here...</p>
                 </div>
             </div>
@@ -1999,6 +1999,9 @@
             const paragraph = document.getElementById('paragraph-input').value;
             const resultDiv = document.getElementById('result');
             
+            console.log("Paragraph input:", paragraph);
+            console.log("Result div found:", resultDiv !== null);
+            
             if (paragraph.trim() === '') {
                 resultDiv.textContent = 'Please enter a paragraph to classify.';
                 return;
@@ -2007,6 +2010,7 @@
             resultDiv.textContent = 'Analyzing...';
             
             try {
+                console.log("Sending request to API...");
                 const response = await fetch('https://paragraph-classifier.onrender.com/classify', {
                     method: 'POST',
                     headers: {
@@ -2017,11 +2021,15 @@
                     body: JSON.stringify({ paragraph })
                 });
 
+                console.log("Response status:", response.status);
+                
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
                 const data = await response.json();
+                console.log("API response:", data);
+                
                 resultDiv.innerHTML = `
                     <div style="margin-bottom: 10px;">Quality: 
                         <span style="color: var(--color-accent-primary)">
@@ -2035,7 +2043,8 @@
                     </div>
                 `;
             } catch (error) {
-                resultDiv.textContent = 'An error occurred. Please try again later.';
+                console.error("Error in classifyParagraph:", error);
+                resultDiv.textContent = `An error occurred: ${error.message}. Please try again later.`;
             }
         }
 
