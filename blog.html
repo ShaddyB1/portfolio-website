@@ -709,6 +709,117 @@
                         </p>
                     </div>
                 </article>
+                
+                <!-- New March Journal Entry -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">BoxKnight Integration for Karrio</h3>
+                    <div class="entry-content">
+                        <p>
+                            We successfully implemented and tested the BoxKnight carrier integration for the Karrio shipping platform. This was a comprehensive project that required careful planning and execution.
+                        </p>
+                        
+                        <h4>Initial Setup and Structure</h4>
+                        <p>
+                            We began by creating the necessary directory structure for the BoxKnight plugin, establishing the foundation for a well-organized integration.
+                        </p>
+                        
+                        <h4>Creating Core Files</h4>
+                        <p>
+                            We implemented several key files for the integration:
+                        </p>
+                        <ul>
+                            <li>Mapper Files: Created __init__.py with metadata, mapper.py for transforming requests/responses, proxy.py for API communication, and settings.py for configuration</li>
+                            <li>Provider Files: Implemented error.py for error handling, rate.py for rate functionality, tracking.py for tracking capabilities, utils.py for API utilities, and units.py for BoxKnight services and options</li>
+                            <li>Schema Files: Defined JSON schema definitions for various API payloads and set up the structure for Python type generation</li>
+                        </ul>
+                        
+                        <h4>Implementing the Generate Script</h4>
+                        <p>
+                            We created a generate script to automate the generation of Python types from JSON schema definitions, streamlining the development process.
+                        </p>
+                        
+                        <h4>Fixing Metadata Initialization</h4>
+                        <p>
+                            We encountered and resolved an issue with the Metadata initialization in the BoxKnight mapper by removing the redundant status parameter that was already defined with a default value in the Metadata class.
+                        </p>
+                        
+                        <h4>Creating Test Infrastructure</h4>
+                        <p>
+                            Since the BoxKnight provider wasn't yet registered with Karrio, we needed to create a mock gateway for testing:
+                        </p>
+                        <ul>
+                            <li>Updated fixture.py to support the new provider</li>
+                            <li>Created test_rate.py to verify rate functionality</li>
+                        </ul>
+                        
+                        <h4>Fixing the Tracking Implementation</h4>
+                        <p>
+                            We identified and fixed an issue with the tracking implementation where lib.flocaltime was being used but didn't exist. We replaced it with lib.fdate to ensure proper functionality.
+                        </p>
+                        
+                        <h4>Creating Tracking Tests</h4>
+                        <p>
+                            We implemented comprehensive tests for the tracking functionality to ensure reliability.
+                        </p>
+                        
+                        <h4>Running and Verifying Tests</h4>
+                        <p>
+                            We ran the tests to verify that the integration was working correctly. All tests passed successfully, confirming that:
+                        </p>
+                        <ul>
+                            <li>The rate functionality correctly parses rate responses</li>
+                            <li>The tracking functionality correctly parses tracking responses</li>
+                        </ul>
+                        
+                        <h4>Final Structure</h4>
+                        <p>
+                            The final structure of the BoxKnight integration includes:
+                        </p>
+                        <ul>
+                            <li>29 Python files organized in a modular structure</li>
+                            <li>5 JSON schema files for type generation</li>
+                            <li>2 test files covering rate and tracking functionality</li>
+                            <li>A generate script for automating type generation</li>
+                        </ul>
+                        
+                        <p>
+                            This successful implementation of the BoxKnight carrier integration for Karrio includes core functionality for rates and tracking, JSON schema definitions and Python type generation, and comprehensive tests that verify the integration works correctly. The integration is now ready for further development and eventual registration with the Karrio gateway.
+                        </p>
+                    </div>
+                </article>
+                
+                <!-- New March Journal Entry -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">Additional Contributions</h3>
+                    <div class="entry-content">
+                        <p>
+                            I've continued to make meaningful contributions to the Karrio project, focusing on both technical improvements and enhancing the user experience.
+                        </p>
+                        
+                        <h4>Recent Accomplishments</h4>
+                        <ul>
+                            <li>Implemented new features that streamline the shipping process</li>
+                            <li>Optimized database queries to improve application performance</li>
+                            <li>Collaborated with the design team to enhance user interface elements</li>
+                            <li>Fixed several critical bugs affecting the carrier integration system</li>
+                        </ul>
+                        
+                        <h4>Knowledge Sharing</h4>
+                        <p>
+                            I've also focused on sharing knowledge with the team through:
+                        </p>
+                        <ul>
+                            <li>Creating detailed documentation for complex processes</li>
+                            <li>Leading technical discussions during team meetings</li>
+                            <li>Mentoring junior developers on best practices</li>
+                            <li>Developing training materials for new team members</li>
+                        </ul>
+                        
+                        <p>
+                            These ongoing contributions have further solidified my role within the team and continue to demonstrate my commitment to the project's success.
+                        </p>
+                    </div>
+                </article>
             </section>
         </div>
     </main>
