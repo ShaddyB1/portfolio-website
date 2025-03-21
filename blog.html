@@ -426,40 +426,111 @@
                     </div>
                 </div>
                 
-                <!-- Journal Entry 1 -->
+                <!-- Journal Entry 5 -->
                 <article class="journal-entry">
-                    <h3 class="entry-title">The Dependency Detective</h3>
+                    <h3 class="entry-title">Documentation Advocate</h3>
                     <div class="entry-content">
                         <p>
-                            <strong>Date: February 28, 2025</strong>
+                            <strong>Date: February 5, 2025</strong>
                         </p>
                         <p>
-                            My first major challenge at Karrio came when our team faced persistent installation failures with the 
-                            pycairo library. After days of investigation, I discovered that the issue stemmed from 
-                            incompatible binary dependencies. By implementing a custom solution using Homebrew and 
-                            creating symbolic links to the virtual environment, I unblocked our entire development team.
+                            Beyond code, I've become passionate about improving documentation. After experiencing firsthand 
+                            the frustration of unclear setup procedures, I've dedicated time to creating comprehensive guides 
+                            that make onboarding smoother for new team members.
                         </p>
                         <p>
-                            The issue began when several developers reported identical error messages: 
-                            <code>ImportError: No module named 'cairo'</code> followed by several cascade failures. 
-                            At first glance, it seemed like a simple pip installation issue, but the standard 
-                            <code>pip install pycairo</code> consistently failed with obscure compilation errors.
+                            When I joined Karrio, the documentation was technically accurate but lacked the context and troubleshooting 
+                            tips that newcomers needed. Installation instructions were spread across multiple repositories, 
+                            with inconsistent formatting and outdated screenshots.
                         </p>
                         <p>
-                            After several deep dives into system logs and build processes, I identified that the root cause was a mismatch between 
-                            the Cairo graphics library versions provided by the system and those expected by the Python binding. To solve this, 
-                            I created a compound approach:
+                            My approach to improving the documentation included:
                         </p>
                         <ul>
-                            <li>Used Homebrew to install the correct version of Cairo (<code>brew install cairo</code>)</li>
-                            <li>Located the Homebrew-installed binary libraries in <code>/usr/local/lib</code></li>
-                            <li>Created symbolic links to these libraries in our virtual environment's site-packages directory</li>
-                            <li>Added a custom initialization script to our project that adjusted the <code>LD_LIBRARY_PATH</code> environment variable</li>
+                            <li>Consolidating all setup instructions into a single, authoritative guide</li>
+                            <li>Adding a "Common Issues" section based on real problems I'd encountered</li>
+                            <li>Creating step-by-step tutorials with screenshots for visual learners</li>
+                            <li>Implementing a documentation test process where new team members follow the guides without assistance</li>
                         </ul>
                         <p>
-                            This experience taught me that sometimes the most valuable solutions aren't in the documentation 
-                            but require creative problem-solving and persistence. More importantly, it showed me how deeply interconnected 
-                            modern software dependencies are, and how solving one core issue can unblock an entire team's productivity.
+                            This has taught me that great software isn't just about working code—it's about creating an ecosystem that others can easily navigate. 
+                            Documentation isn't a separate task from development; it's an integral part of creating maintainable, accessible software.
+                        </p>
+                        <p>
+                            The positive feedback has been immediate: our most recent new hire was able to get a complete local development 
+                            environment running in just 2 hours, compared to the 2-3 days it previously took.
+                        </p>
+                    </div>
+                </article>
+                
+                <!-- Journal Entry 4 -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">Connector Configuration Champion</h3>
+                    <div class="entry-content">
+                        <p>
+                            <strong>Date: February 10, 2025</strong>
+                        </p>
+                        <p>
+                            Perhaps my most impactful contribution has been installing and configuring dependencies for 
+                            various shipping carrier connectors. Each connector presents unique challenges, from API 
+                            authentication quirks to specific formatting requirements.
+                        </p>
+                        <p>
+                            One particularly complex connector was for a major international carrier that required multiple layers of authentication:
+                        </p>
+                        <ul>
+                            <li>An OAuth2 token that needed to be refreshed every 8 hours</li>
+                            <li>A separate API key for tracking versus shipping endpoints</li>
+                            <li>Custom HTTP headers that varied between their testing and production environments</li>
+                        </ul>
+                        <p>
+                            To solve this, I created a connector module that:
+                        </p>
+                        <ul>
+                            <li>Automatically refreshed authentication in the background</li>
+                            <li>Maintained separate connection pools for different endpoint types</li>
+                            <li>Handled environment-specific configuration through a central settings mechanism</li>
+                            <li>Added comprehensive error handling with retry logic for transient API issues</li>
+                        </ul>
+                        <p>
+                            Solving these puzzles has given me a comprehensive understanding of how modern API ecosystems interact in the logistics industry. 
+                            I've learned that successful API integration isn't just about following documentation—it's about anticipating 
+                            the quirks, edge cases, and unwritten assumptions that come with each third-party service.
+                        </p>
+                    </div>
+                </article>
+                
+                <!-- Journal Entry 3 -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">Python Environment Wizardry</h3>
+                    <div class="entry-content">
+                        <p>
+                            <strong>Date: February 15, 2025</strong>
+                        </p>
+                        <p>
+                            Managing Python environments with pyenv has become second nature. I've configured Python 3.12 
+                            environments that ensure compatibility across our diverse codebase. The satisfaction of seeing 
+                            a clean installation process after days of troubleshooting is unmatched.
+                        </p>
+                        <p>
+                            When I first joined Karrio, the team was struggling with inconsistent environment setup across macOS, 
+                            Linux, and Windows systems. Each developer seemed to have a slightly different Python configuration, 
+                            leading to unpredictable "works on my machine" issues.
+                        </p>
+                        <p>
+                            I standardized our approach by:
+                        </p>
+                        <ul>
+                            <li>Creating a definitive pyenv installation guide for each operating system</li>
+                            <li>Establishing Python 3.12 as our standard version with <code>pyenv global 3.12.0</code></li>
+                            <li>Setting up a consistent virtualenv creation process with <code>python -m venv .venv</code></li>
+                            <li>Creating a requirements.txt with pinned dependency versions</li>
+                            <li>Implementing a validation script that checks environment correctness</li>
+                        </ul>
+                        <p>
+                            This experience has deepened my understanding of dependency management in complex Python applications. 
+                            I now recognize that establishing clear environment guidelines is as important as the code itself, 
+                            especially in a collaborative development setting with multiple environments.
                         </p>
                     </div>
                 </article>
@@ -505,111 +576,40 @@
                     </div>
                 </article>
                 
-                <!-- Journal Entry 3 -->
+                <!-- Journal Entry 1 -->
                 <article class="journal-entry">
-                    <h3 class="entry-title">Python Environment Wizardry</h3>
+                    <h3 class="entry-title">The Dependency Detective</h3>
                     <div class="entry-content">
                         <p>
-                            <strong>Date: February 15, 2025</strong>
+                            <strong>Date: February 28, 2025</strong>
                         </p>
                         <p>
-                            Managing Python environments with pyenv has become second nature. I've configured Python 3.12 
-                            environments that ensure compatibility across our diverse codebase. The satisfaction of seeing 
-                            a clean installation process after days of troubleshooting is unmatched.
+                            My first major challenge at Karrio came when our team faced persistent installation failures with the 
+                            pycairo library. After days of investigation, I discovered that the issue stemmed from 
+                            incompatible binary dependencies. By implementing a custom solution using Homebrew and 
+                            creating symbolic links to the virtual environment, I unblocked our entire development team.
                         </p>
                         <p>
-                            When I first joined Karrio, the team was struggling with inconsistent environment setup across macOS, 
-                            Linux, and Windows systems. Each developer seemed to have a slightly different Python configuration, 
-                            leading to unpredictable "works on my machine" issues.
+                            The issue began when several developers reported identical error messages: 
+                            <code>ImportError: No module named 'cairo'</code> followed by several cascade failures. 
+                            At first glance, it seemed like a simple pip installation issue, but the standard 
+                            <code>pip install pycairo</code> consistently failed with obscure compilation errors.
                         </p>
                         <p>
-                            I standardized our approach by:
-                        </p>
-                        <ul>
-                            <li>Creating a definitive pyenv installation guide for each operating system</li>
-                            <li>Establishing Python 3.12 as our standard version with <code>pyenv global 3.12.0</code></li>
-                            <li>Setting up a consistent virtualenv creation process with <code>python -m venv .venv</code></li>
-                            <li>Creating a requirements.txt with pinned dependency versions</li>
-                            <li>Implementing a validation script that checks environment correctness</li>
-                        </ul>
-                        <p>
-                            This experience has deepened my understanding of dependency management in complex Python applications. 
-                            I now recognize that establishing clear environment guidelines is as important as the code itself, 
-                            especially in a collaborative development setting with multiple environments.
-                        </p>
-                    </div>
-                </article>
-                
-                <!-- Journal Entry 4 -->
-                <article class="journal-entry">
-                    <h3 class="entry-title">Connector Configuration Champion</h3>
-                    <div class="entry-content">
-                        <p>
-                            <strong>Date: February 10, 2025</strong>
-                        </p>
-                        <p>
-                            Perhaps my most impactful contribution has been installing and configuring dependencies for 
-                            various shipping carrier connectors. Each connector presents unique challenges, from API 
-                            authentication quirks to specific formatting requirements.
-                        </p>
-                        <p>
-                            One particularly complex connector was for a major international carrier that required multiple layers of authentication:
+                            After several deep dives into system logs and build processes, I identified that the root cause was a mismatch between 
+                            the Cairo graphics library versions provided by the system and those expected by the Python binding. To solve this, 
+                            I created a compound approach:
                         </p>
                         <ul>
-                            <li>An OAuth2 token that needed to be refreshed every 8 hours</li>
-                            <li>A separate API key for tracking versus shipping endpoints</li>
-                            <li>Custom HTTP headers that varied between their testing and production environments</li>
+                            <li>Used Homebrew to install the correct version of Cairo (<code>brew install cairo</code>)</li>
+                            <li>Located the Homebrew-installed binary libraries in <code>/usr/local/lib</code></li>
+                            <li>Created symbolic links to these libraries in our virtual environment's site-packages directory</li>
+                            <li>Added a custom initialization script to our project that adjusted the <code>LD_LIBRARY_PATH</code> environment variable</li>
                         </ul>
                         <p>
-                            To solve this, I created a connector module that:
-                        </p>
-                        <ul>
-                            <li>Automatically refreshed authentication in the background</li>
-                            <li>Maintained separate connection pools for different endpoint types</li>
-                            <li>Handled environment-specific configuration through a central settings mechanism</li>
-                            <li>Added comprehensive error handling with retry logic for transient API issues</li>
-                        </ul>
-                        <p>
-                            Solving these puzzles has given me a comprehensive understanding of how modern API ecosystems interact in the logistics industry. 
-                            I've learned that successful API integration isn't just about following documentation—it's about anticipating 
-                            the quirks, edge cases, and unwritten assumptions that come with each third-party service.
-                        </p>
-                    </div>
-                </article>
-                
-                <!-- Journal Entry 5 -->
-                <article class="journal-entry">
-                    <h3 class="entry-title">Documentation Advocate</h3>
-                    <div class="entry-content">
-                        <p>
-                            <strong>Date: February 5, 2025</strong>
-                        </p>
-                        <p>
-                            Beyond code, I've become passionate about improving documentation. After experiencing firsthand 
-                            the frustration of unclear setup procedures, I've dedicated time to creating comprehensive guides 
-                            that make onboarding smoother for new team members.
-                        </p>
-                        <p>
-                            When I joined Karrio, the documentation was technically accurate but lacked the context and troubleshooting 
-                            tips that newcomers needed. Installation instructions were spread across multiple repositories, 
-                            with inconsistent formatting and outdated screenshots.
-                        </p>
-                        <p>
-                            My approach to improving the documentation included:
-                        </p>
-                        <ul>
-                            <li>Consolidating all setup instructions into a single, authoritative guide</li>
-                            <li>Adding a "Common Issues" section based on real problems I'd encountered</li>
-                            <li>Creating step-by-step tutorials with screenshots for visual learners</li>
-                            <li>Implementing a documentation test process where new team members follow the guides without assistance</li>
-                        </ul>
-                        <p>
-                            This has taught me that great software isn't just about working code—it's about creating an ecosystem that others can easily navigate. 
-                            Documentation isn't a separate task from development; it's an integral part of creating maintainable, accessible software.
-                        </p>
-                        <p>
-                            The positive feedback has been immediate: our most recent new hire was able to get a complete local development 
-                            environment running in just 2 hours, compared to the 2-3 days it previously took.
+                            This experience taught me that sometimes the most valuable solutions aren't in the documentation 
+                            but require creative problem-solving and persistence. More importantly, it showed me how deeply interconnected 
+                            modern software dependencies are, and how solving one core issue can unblock an entire team's productivity.
                         </p>
                     </div>
                 </article>
@@ -625,166 +625,38 @@
                     <span class="latest-tag">Latest</span>
                 </div>
                 
-                <!-- New Journal Entry -->
+                <!-- Journal Entry 4 -->
                 <article class="journal-entry">
-                    <h3 class="entry-title">CLI Tools Overhaul</h3>
+                    <h3 class="entry-title">Additional Contributions</h3>
                     <div class="entry-content">
                         <p>
-                            <strong>Date: March 22, 2025</strong>
+                            <strong>Date: March 1, 2025</strong>
                         </p>
                         <p>
-                            Today, we've made several significant improvements to the Karrio CLI tools, focusing on enhancing user experience and developer productivity.
+                            I've continued to make meaningful contributions to the Karrio project, focusing on both technical improvements and enhancing the user experience.
                         </p>
                         
-                        <h4>Enhanced CLI with Interactive Prompts</h4>
+                        <h4>Recent Accomplishments</h4>
                         <ul>
-                            <li>Modified commands to use Typer's prompt=True parameter for interactive user input</li>
-                            <li>Added helpful prompts that guide users through necessary parameters</li>
-                            <li>Made all major commands interactively usable without requiring memorization of parameters</li>
+                            <li>Implemented new features that streamline the shipping process</li>
+                            <li>Optimized database queries to improve application performance</li>
+                            <li>Collaborated with the design team to enhance user interface elements</li>
+                            <li>Fixed several critical bugs affecting the carrier integration system</li>
                         </ul>
                         
-                        <h4>Improved Carrier Management Commands</h4>
+                        <h4>Knowledge Sharing</h4>
+                        <p>
+                            I've also focused on sharing knowledge with the team through:
+                        </p>
                         <ul>
-                            <li>Enhanced create-carrier to work interactively</li>
-                            <li>Added interactive support to add-extension</li>
-                            <li>Updated troubleshoot and migrate-structure with prompt support</li>
-                            <li>Added --dry-run option to preview actions without making changes</li>
-                        </ul>
-                        
-                        <h4>Simplified Plugin Creation Workflow</h4>
-                        <ul>
-                            <li>Confirmed that create-plugin works interactively to collect all required information</li>
-                            <li>Ensured proper validation of inputs and improved error messages</li>
-                        </ul>
-                        
-                        <h4>Improved CLI Scripts</h4>
-                        <ul>
-                            <li>Updated the bin/kcli script to use the improved karrio_cli.py implementation</li>
-                            <li>Simplified error handling and user feedback</li>
-                            <li>Made both kcli and karrio_cli commands work consistently</li>
-                        </ul>
-                        
-                        <h4>Added Documentation</h4>
-                        <ul>
-                            <li>Created detailed documentation in modules/cli/docs/CLI_IMPROVEMENTS.md</li>
-                            <li>Updated the main README with examples and usage instructions</li>
-                            <li>Added quick reference examples for common commands</li>
-                        </ul>
-                        
-                        <h4>Fixed Python Environment Issues</h4>
-                        <ul>
-                            <li>Resolved issues with Python 3.12.x installation using pyenv</li>
-                            <li>Configured the environment to work with the Tcl/Tk libraries</li>
+                            <li>Creating detailed documentation for complex processes</li>
+                            <li>Leading technical discussions during team meetings</li>
+                            <li>Mentoring junior developers on best practices</li>
+                            <li>Developing training materials for new team members</li>
                         </ul>
                         
                         <p>
-                            All these improvements focus on making the CLI more user-friendly and productive, especially for developers who are new to Karrio. The interactive prompts reduce the learning curve and make it easier to create plugins and carrier integrations without needing to memorize complex command structures or parameters.
-                        </p>
-                    </div>
-                </article>
-                
-                <!-- Journal Entry 1 -->
-                <article class="journal-entry">
-                    <h3 class="entry-title">Growth & Innovation</h3>
-                    <div class="entry-content">
-                        <p>
-                            <strong>Date: March 15, 2025</strong>
-                        </p>
-                        <p>
-                            This month at Karrio has been particularly productive. I've applied my growing expertise to tackle 
-                            several challenging issues that have made a direct impact on our development workflow and product capabilities.
-                        </p>
-                        
-                        <h4>Dependency Conflict Resolution</h4>
-                        <p>
-                            I resolved critical dependency conflicts in the core application that were preventing successful builds. 
-                            The issue involved incompatible versions of cryptography libraries that different parts of our stack 
-                            required. By implementing a careful package pinning strategy and creating a custom middleware layer, 
-                            I enabled both components to operate with their preferred versions without conflict.
-                        </p>
-                        
-                        <h4>Streamlined Environment Configuration</h4>
-                        <p>
-                            Building on my earlier work with Python environments, I implemented a more efficient environment configuration process 
-                            that reduced setup time by 30%. This involved:
-                        </p>
-                        <ul>
-                            <li>Creating a containerized development environment with Docker</li>
-                            <li>Implementing pre-compiled binary caching for the most troublesome dependencies</li>
-                            <li>Developing a single-command setup script that handles all installation steps automatically</li>
-                            <li>Adding intelligent validation checks that proactively detect common configuration issues</li>
-                        </ul>
-                        
-                        <h4>Enhanced Connector Integration</h4>
-                        <p>
-                            I enhanced connector integration for major shipping carriers, improving API response times and reliability.
-                            The improvements included:
-                        </p>
-                        <ul>
-                            <li>Implementing connection pooling to reduce handshake overhead</li>
-                            <li>Adding an intelligent retry mechanism that adapts based on error type</li>
-                            <li>Creating a response caching layer for frequently accessed, rarely changing data</li>
-                            <li>Optimizing payload sizes by implementing partial response capabilities</li>
-                        </ul>
-                        
-                        <h4>Comprehensive Troubleshooting Documentation</h4>
-                        <p>
-                            Perhaps most importantly, I documented common troubleshooting procedures that have already helped two new team members
-                            get up to speed quickly. This documentation isn't just a list of commands—it explains the underlying systems 
-                            and how they interact, giving developers the context they need to solve new problems independently.
-                        </p>
-                        
-                        <p>
-                            These contributions have not only improved my technical skills but also deepened my understanding of 
-                            how startup shipping platforms evolve and scale rapidly. I'm particularly proud that my work is directly 
-                            enabling the team to develop features more quickly and with fewer friction points.
-                        </p>
-                    </div>
-                </article>
-                
-                <!-- Journal Entry 2 -->
-                <article class="journal-entry">
-                    <h3 class="entry-title">Website Footer Improvements</h3>
-                    <div class="entry-content">
-                        <p>
-                            <strong>Date: March 10, 2025</strong>
-                        </p>
-                        <p>
-                            We've made several important updates to the footer of the Karrio website to improve its appearance and ensure all links point to the correct destinations.
-                        </p>
-                        
-                        <h4>Updated External Links</h4>
-                        <ul>
-                            <li>Changed the Carriers link to point to https://docs.karrio.io/carriers/</li>
-                            <li>Changed the Product link to point to https://docs.karrio.io/product</li>
-                            <li>Changed the Platform link to point to https://platform.karrio.io</li>
-                            <li>Updated the Blog link to point to https://www.karrio.io/blog</li>
-                        </ul>
-                        
-                        <h4>Removed External Link Icons</h4>
-                        <ul>
-                            <li>Removed all the small arrow icons that were next to external links</li>
-                            <li>This gives the footer a cleaner, more streamlined appearance</li>
-                            <li>Removed the ExternalLink import from lucide-react</li>
-                            <li>Updated the className for all links to remove the flex layout styling</li>
-                        </ul>
-                        
-                        <h4>Social Media Updates</h4>
-                        <ul>
-                            <li>Removed the X/Twitter icon and link completely</li>
-                            <li>Kept only LinkedIn and GitHub icons in the social media section</li>
-                            <li>Removed the X icon import from lucide-react</li>
-                        </ul>
-                        
-                        <h4>Footer Layout</h4>
-                        <ul>
-                            <li>Maintained the four-column layout with Resources, Community, Company, and Get Started sections</li>
-                            <li>Preserved the Karrio logo, tagline, and copyright information in the bottom section</li>
-                            <li>Kept the responsive design that stacks elements on smaller screens</li>
-                        </ul>
-                        
-                        <p>
-                            These changes have resulted in a cleaner, more professional footer that maintains all the important links while removing unnecessary visual elements. The footer now provides a better user experience with direct links to the correct resources.
+                            These ongoing contributions have further solidified my role within the team and continue to demonstrate my commitment to the project's success.
                         </p>
                     </div>
                 </article>
@@ -870,38 +742,166 @@
                     </div>
                 </article>
                 
-                <!-- Journal Entry 4 -->
+                <!-- Journal Entry 2 -->
                 <article class="journal-entry">
-                    <h3 class="entry-title">Additional Contributions</h3>
+                    <h3 class="entry-title">Website Footer Improvements</h3>
                     <div class="entry-content">
                         <p>
-                            <strong>Date: March 1, 2025</strong>
+                            <strong>Date: March 10, 2025</strong>
                         </p>
                         <p>
-                            I've continued to make meaningful contributions to the Karrio project, focusing on both technical improvements and enhancing the user experience.
+                            We've made several important updates to the footer of the Karrio website to improve its appearance and ensure all links point to the correct destinations.
                         </p>
                         
-                        <h4>Recent Accomplishments</h4>
+                        <h4>Updated External Links</h4>
                         <ul>
-                            <li>Implemented new features that streamline the shipping process</li>
-                            <li>Optimized database queries to improve application performance</li>
-                            <li>Collaborated with the design team to enhance user interface elements</li>
-                            <li>Fixed several critical bugs affecting the carrier integration system</li>
+                            <li>Changed the Carriers link to point to https://docs.karrio.io/carriers/</li>
+                            <li>Changed the Product link to point to https://docs.karrio.io/product</li>
+                            <li>Changed the Platform link to point to https://platform.karrio.io</li>
+                            <li>Updated the Blog link to point to https://www.karrio.io/blog</li>
                         </ul>
                         
-                        <h4>Knowledge Sharing</h4>
-                        <p>
-                            I've also focused on sharing knowledge with the team through:
-                        </p>
+                        <h4>Removed External Link Icons</h4>
                         <ul>
-                            <li>Creating detailed documentation for complex processes</li>
-                            <li>Leading technical discussions during team meetings</li>
-                            <li>Mentoring junior developers on best practices</li>
-                            <li>Developing training materials for new team members</li>
+                            <li>Removed all the small arrow icons that were next to external links</li>
+                            <li>This gives the footer a cleaner, more streamlined appearance</li>
+                            <li>Removed the ExternalLink import from lucide-react</li>
+                            <li>Updated the className for all links to remove the flex layout styling</li>
+                        </ul>
+                        
+                        <h4>Social Media Updates</h4>
+                        <ul>
+                            <li>Removed the X/Twitter icon and link completely</li>
+                            <li>Kept only LinkedIn and GitHub icons in the social media section</li>
+                            <li>Removed the X icon import from lucide-react</li>
+                        </ul>
+                        
+                        <h4>Footer Layout</h4>
+                        <ul>
+                            <li>Maintained the four-column layout with Resources, Community, Company, and Get Started sections</li>
+                            <li>Preserved the Karrio logo, tagline, and copyright information in the bottom section</li>
+                            <li>Kept the responsive design that stacks elements on smaller screens</li>
                         </ul>
                         
                         <p>
-                            These ongoing contributions have further solidified my role within the team and continue to demonstrate my commitment to the project's success.
+                            These changes have resulted in a cleaner, more professional footer that maintains all the important links while removing unnecessary visual elements. The footer now provides a better user experience with direct links to the correct resources.
+                        </p>
+                    </div>
+                </article>
+                
+                <!-- Journal Entry 1 -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">Growth & Innovation</h3>
+                    <div class="entry-content">
+                        <p>
+                            <strong>Date: March 15, 2025</strong>
+                        </p>
+                        <p>
+                            This month at Karrio has been particularly productive. I've applied my growing expertise to tackle 
+                            several challenging issues that have made a direct impact on our development workflow and product capabilities.
+                        </p>
+                        
+                        <h4>Dependency Conflict Resolution</h4>
+                        <p>
+                            I resolved critical dependency conflicts in the core application that were preventing successful builds. 
+                            The issue involved incompatible versions of cryptography libraries that different parts of our stack 
+                            required. By implementing a careful package pinning strategy and creating a custom middleware layer, 
+                            I enabled both components to operate with their preferred versions without conflict.
+                        </p>
+                        
+                        <h4>Streamlined Environment Configuration</h4>
+                        <p>
+                            Building on my earlier work with Python environments, I implemented a more efficient environment configuration process 
+                            that reduced setup time by 30%. This involved:
+                        </p>
+                        <ul>
+                            <li>Creating a containerized development environment with Docker</li>
+                            <li>Implementing pre-compiled binary caching for the most troublesome dependencies</li>
+                            <li>Developing a single-command setup script that handles all installation steps automatically</li>
+                            <li>Adding intelligent validation checks that proactively detect common configuration issues</li>
+                        </ul>
+                        
+                        <h4>Enhanced Connector Integration</h4>
+                        <p>
+                            I enhanced connector integration for major shipping carriers, improving API response times and reliability.
+                            The improvements included:
+                        </p>
+                        <ul>
+                            <li>Implementing connection pooling to reduce handshake overhead</li>
+                            <li>Adding an intelligent retry mechanism that adapts based on error type</li>
+                            <li>Creating a response caching layer for frequently accessed, rarely changing data</li>
+                            <li>Optimizing payload sizes by implementing partial response capabilities</li>
+                        </ul>
+                        
+                        <h4>Comprehensive Troubleshooting Documentation</h4>
+                        <p>
+                            Perhaps most importantly, I documented common troubleshooting procedures that have already helped two new team members
+                            get up to speed quickly. This documentation isn't just a list of commands—it explains the underlying systems 
+                            and how they interact, giving developers the context they need to solve new problems independently.
+                        </p>
+                        
+                        <p>
+                            These contributions have not only improved my technical skills but also deepened my understanding of 
+                            how startup shipping platforms evolve and scale rapidly. I'm particularly proud that my work is directly 
+                            enabling the team to develop features more quickly and with fewer friction points.
+                        </p>
+                    </div>
+                </article>
+                
+                <!-- New Journal Entry -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">CLI Tools Overhaul</h3>
+                    <div class="entry-content">
+                        <p>
+                            <strong>Date: March 22, 2025</strong>
+                        </p>
+                        <p>
+                            Today, we've made several significant improvements to the Karrio CLI tools, focusing on enhancing user experience and developer productivity.
+                        </p>
+                        
+                        <h4>Enhanced CLI with Interactive Prompts</h4>
+                        <ul>
+                            <li>Modified commands to use Typer's prompt=True parameter for interactive user input</li>
+                            <li>Added helpful prompts that guide users through necessary parameters</li>
+                            <li>Made all major commands interactively usable without requiring memorization of parameters</li>
+                        </ul>
+                        
+                        <h4>Improved Carrier Management Commands</h4>
+                        <ul>
+                            <li>Enhanced create-carrier to work interactively</li>
+                            <li>Added interactive support to add-extension</li>
+                            <li>Updated troubleshoot and migrate-structure with prompt support</li>
+                            <li>Added --dry-run option to preview actions without making changes</li>
+                        </ul>
+                        
+                        <h4>Simplified Plugin Creation Workflow</h4>
+                        <ul>
+                            <li>Confirmed that create-plugin works interactively to collect all required information</li>
+                            <li>Ensured proper validation of inputs and improved error messages</li>
+                        </ul>
+                        
+                        <h4>Improved CLI Scripts</h4>
+                        <ul>
+                            <li>Updated the bin/kcli script to use the improved karrio_cli.py implementation</li>
+                            <li>Simplified error handling and user feedback</li>
+                            <li>Made both kcli and karrio_cli commands work consistently</li>
+                        </ul>
+                        
+                        <h4>Added Documentation</h4>
+                        <ul>
+                            <li>Created detailed documentation in modules/cli/docs/CLI_IMPROVEMENTS.md</li>
+                            <li>Updated the main README with examples and usage instructions</li>
+                            <li>Added quick reference examples for common commands</li>
+                        </ul>
+                        
+                        <h4>Fixed Python Environment Issues</h4>
+                        <ul>
+                            <li>Resolved issues with Python 3.12.x installation using pyenv</li>
+                            <li>Configured the environment to work with the Tcl/Tk libraries</li>
+                        </ul>
+                        
+                        <p>
+                            All these improvements focus on making the CLI more user-friendly and productive, especially for developers who are new to Karrio. The interactive prompts reduce the learning curve and make it easier to create plugins and carrier integrations without needing to memorize complex command structures or parameters.
                         </p>
                     </div>
                 </article>
