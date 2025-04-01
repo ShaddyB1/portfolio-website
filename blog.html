@@ -616,14 +616,7 @@
             </section>
             
             <section class="month-section march-section">
-                <div class="month-header">
-                    <div class="month-icon">📝</div>
-                    <div class="month-title-container">
-                        <h2 class="month-title">March 2025</h2>
-                        <p class="month-date">Growth and Expansion</p>
-                    </div>
-                    <span class="latest-tag">Latest</span>
-                </div>
+                <h2 class="month-title">March 2025</h2>
                 
                 <!-- Journal Entry: ChitChats API Integration -->
                 <article class="journal-entry">
@@ -633,47 +626,97 @@
                             <strong>Date: March 26, 2025</strong>
                         </p>
                         <p>
-                            Today we successfully built a complete ChitChats API integration for Karrio. This was a significant achievement that expands our carrier support and provides a valuable reference for future integrations.
+                            Successfully completed the integration of ChitChats shipping API into the Karrio platform, 
+                            expanding our Canadian shipping options with this popular ecommerce fulfillment provider.
                         </p>
                         
-                        <h4>Creating the ChitChats Connector</h4>
+                        <h4>API Integration Details</h4>
                         <ul>
-                            <li>Built a fully functional API integration that handles authentication with client ID and API key</li>
-                            <li>Implemented key API operations including listing shipments, creating shipments, getting rates, and tracking</li>
-                            <li>Added proper error handling and response parsing for reliable operation</li>
+                            <li>Implemented REST API connection using the ChitChats v2 API</li>
+                            <li>Created OAuth2 authentication flow with proper token management</li>
+                            <li>Built rate calculation endpoints for accurate shipping quotes</li>
+                            <li>Implemented shipment creation and label generation</li>
+                            <li>Added tracking status updates for shipments</li>
                         </ul>
                         
-                        <h4>Comprehensive Testing</h4>
+                        <h4>Testing and Documentation</h4>
                         <ul>
-                            <li>Created a main test script (test_chitchats.py) that demonstrates the basic API functionality</li>
-                            <li>Built separate test files for unit and integration testing to ensure code quality</li>
-                            <li>Added pytest fixtures and configuration for consistent test environments</li>
-                            <li>Created a test runner script for easy execution of the test suite</li>
+                            <li>Created comprehensive test suite covering all major API functions</li>
+                            <li>Documented integration process in the developer wiki</li>
+                            <li>Added detailed setup instructions for ChitChats account configuration</li>
+                            <li>Created usage examples for common shipping scenarios</li>
                         </ul>
                         
-                        <h4>Project Organization</h4>
+                        <h4>Challenges Overcome</h4>
                         <ul>
-                            <li>Initially placed the connector in modules/connectors/chitchats</li>
-                            <li>Later moved it to plugins/chitchats for better organization</li>
-                            <li>Finally settled on examples/chitchats as the ideal location for a reference implementation</li>
-                        </ul>
-                        
-                        <h4>Documentation</h4>
-                        <ul>
-                            <li>Created a README with usage instructions for developers</li>
-                            <li>Added an INSTALL.md with detailed setup guidelines</li>
-                            <li>Documented the test framework to facilitate further testing</li>
-                        </ul>
-                        
-                        <h4>Pull Request Submission</h4>
-                        <ul>
-                            <li>Committed all changes with appropriate commit messages</li>
-                            <li>Updated PR #787 with proper formatting and description</li>
-                            <li>Organized changes under the "Chore" category in the PR</li>
+                            <li>Resolved inconsistencies in how ChitChats handles address validation</li>
+                            <li>Implemented workarounds for rate limiting issues</li>
+                            <li>Created custom error handling for ChitChats-specific API responses</li>
+                            <li>Built fallback mechanisms for handling API outages</li>
                         </ul>
                         
                         <p>
-                            The final integration serves as a working example that demonstrates how to build carrier integrations with Karrio, providing a valuable reference for developers who want to add support for other shipping carriers. This work helps advance Karrio's mission to support as many shipping carriers as possible in a consistent, maintainable way.
+                            This integration significantly expands our Canadian shipping options, particularly 
+                            for small businesses that rely on ChitChats for their cross-border shipping needs. 
+                            The addition makes Karrio more competitive in the Canadian e-commerce market.
+                        </p>
+                    </div>
+                </article>
+                
+                <!-- New Journal Entry -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">CLI Tools Overhaul</h3>
+                    <div class="entry-content">
+                        <p>
+                            <strong>Date: March 22, 2025</strong>
+                        </p>
+                        <p>
+                            Today, we've made several significant improvements to the Karrio CLI tools, focusing on enhancing user experience and developer productivity.
+                        </p>
+                        
+                        <h4>Enhanced CLI with Interactive Prompts</h4>
+                        <ul>
+                            <li>Modified commands to use Typer's prompt=True parameter for interactive user input</li>
+                            <li>Added helpful prompts that guide users through necessary parameters</li>
+                            <li>Made all major commands interactively usable without requiring memorization of parameters</li>
+                        </ul>
+                        
+                        <h4>Improved Carrier Management Commands</h4>
+                        <ul>
+                            <li>Enhanced create-carrier to work interactively</li>
+                            <li>Added interactive support to add-extension</li>
+                            <li>Updated troubleshoot and migrate-structure with prompt support</li>
+                            <li>Added --dry-run option to preview actions without making changes</li>
+                        </ul>
+                        
+                        <h4>Simplified Plugin Creation Workflow</h4>
+                        <ul>
+                            <li>Confirmed that create-plugin works interactively to collect all required information</li>
+                            <li>Ensured proper validation of inputs and improved error messages</li>
+                        </ul>
+                        
+                        <h4>Improved CLI Scripts</h4>
+                        <ul>
+                            <li>Updated the bin/kcli script to use the improved karrio_cli.py implementation</li>
+                            <li>Simplified error handling and user feedback</li>
+                            <li>Made both kcli and karrio_cli commands work consistently</li>
+                        </ul>
+                        
+                        <h4>Added Documentation</h4>
+                        <ul>
+                            <li>Created detailed documentation in modules/cli/docs/CLI_IMPROVEMENTS.md</li>
+                            <li>Updated the main README with examples and usage instructions</li>
+                            <li>Added quick reference examples for common commands</li>
+                        </ul>
+                        
+                        <h4>Fixed Python Environment Issues</h4>
+                        <ul>
+                            <li>Resolved issues with Python 3.12.x installation using pyenv</li>
+                            <li>Configured the environment to work with the Tcl/Tk libraries</li>
+                        </ul>
+                        
+                        <p>
+                            All these improvements focus on making the CLI more user-friendly and productive, especially for developers who are new to Karrio. The interactive prompts reduce the learning curve and make it easier to create plugins and carrier integrations without needing to memorize complex command structures or parameters.
                         </p>
                     </div>
                 </article>
@@ -897,64 +940,6 @@
                             These contributions have not only improved my technical skills but also deepened my understanding of 
                             how startup shipping platforms evolve and scale rapidly. I'm particularly proud that my work is directly 
                             enabling the team to develop features more quickly and with fewer friction points.
-                        </p>
-                    </div>
-                </article>
-                
-                <!-- New Journal Entry -->
-                <article class="journal-entry">
-                    <h3 class="entry-title">CLI Tools Overhaul</h3>
-                    <div class="entry-content">
-                        <p>
-                            <strong>Date: March 22, 2025</strong>
-                        </p>
-                        <p>
-                            Today, we've made several significant improvements to the Karrio CLI tools, focusing on enhancing user experience and developer productivity.
-                        </p>
-                        
-                        <h4>Enhanced CLI with Interactive Prompts</h4>
-                        <ul>
-                            <li>Modified commands to use Typer's prompt=True parameter for interactive user input</li>
-                            <li>Added helpful prompts that guide users through necessary parameters</li>
-                            <li>Made all major commands interactively usable without requiring memorization of parameters</li>
-                        </ul>
-                        
-                        <h4>Improved Carrier Management Commands</h4>
-                        <ul>
-                            <li>Enhanced create-carrier to work interactively</li>
-                            <li>Added interactive support to add-extension</li>
-                            <li>Updated troubleshoot and migrate-structure with prompt support</li>
-                            <li>Added --dry-run option to preview actions without making changes</li>
-                        </ul>
-                        
-                        <h4>Simplified Plugin Creation Workflow</h4>
-                        <ul>
-                            <li>Confirmed that create-plugin works interactively to collect all required information</li>
-                            <li>Ensured proper validation of inputs and improved error messages</li>
-                        </ul>
-                        
-                        <h4>Improved CLI Scripts</h4>
-                        <ul>
-                            <li>Updated the bin/kcli script to use the improved karrio_cli.py implementation</li>
-                            <li>Simplified error handling and user feedback</li>
-                            <li>Made both kcli and karrio_cli commands work consistently</li>
-                        </ul>
-                        
-                        <h4>Added Documentation</h4>
-                        <ul>
-                            <li>Created detailed documentation in modules/cli/docs/CLI_IMPROVEMENTS.md</li>
-                            <li>Updated the main README with examples and usage instructions</li>
-                            <li>Added quick reference examples for common commands</li>
-                        </ul>
-                        
-                        <h4>Fixed Python Environment Issues</h4>
-                        <ul>
-                            <li>Resolved issues with Python 3.12.x installation using pyenv</li>
-                            <li>Configured the environment to work with the Tcl/Tk libraries</li>
-                        </ul>
-                        
-                        <p>
-                            All these improvements focus on making the CLI more user-friendly and productive, especially for developers who are new to Karrio. The interactive prompts reduce the learning curve and make it easier to create plugins and carrier integrations without needing to memorize complex command structures or parameters.
                         </p>
                     </div>
                 </article>
