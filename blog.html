@@ -34,6 +34,7 @@
             --color-success: #10b981;
             --color-error: #ef4444;
             --color-march: #ffa500;
+            --color-april: #4c9be8;
             
             --spacing-xs: clamp(0.5rem, 1vw, 0.75rem);
             --spacing-sm: clamp(1rem, 2vw, 1.5rem);
@@ -320,6 +321,22 @@
         
         .march-section .entry-content li::before {
             color: var(--color-march);
+        }
+        
+        .april-section .entry-title {
+            color: var(--color-april);
+        }
+        
+        .april-section .journal-entry::before {
+            background: var(--color-april);
+        }
+        
+        .april-section .entry-content li::before {
+            color: var(--color-april);
+        }
+        
+        .april-section .month-title {
+            color: var(--color-april);
         }
         
         /* Code styling */
@@ -616,7 +633,13 @@
             </section>
             
             <section class="month-section march-section">
-                <h2 class="month-title">March 2025</h2>
+                <div class="month-header">
+                    <div class="month-icon">📝</div>
+                    <div class="month-title-container">
+                        <h2 class="month-title">March 2025</h2>
+                        <p class="month-date">Growth and Expansion</p>
+                    </div>
+                </div>
                 
                 <!-- Journal Entry 4 -->
                 <article class="journal-entry">
@@ -940,6 +963,68 @@
                             This integration significantly expands our Canadian shipping options, particularly 
                             for small businesses that rely on ChitChats for their cross-border shipping needs. 
                             The addition makes Karrio more competitive in the Canadian e-commerce market.
+                        </p>
+                    </div>
+                </article>
+            </section>
+            
+            <section class="month-section april-section">
+                <div class="month-header">
+                    <div class="month-icon">🛠️</div>
+                    <div class="month-title-container">
+                        <h2 class="month-title">April 2025</h2>
+                        <p class="month-date">UI Refinement & Enhancement</p>
+                    </div>
+                    <span class="latest-tag">Latest</span>
+                </div>
+                
+                <!-- Journal Entry: Rate Sheet Editor Improvements -->
+                <article class="journal-entry">
+                    <h3 class="entry-title">Rate Sheet Editor UX Overhaul</h3>
+                    <div class="entry-content">
+                        <p>
+                            <strong>Date: April 11, 2025</strong>
+                        </p>
+                        <p>
+                            Completed significant improvements to the rate sheet editor interface based on work in the fix-rate-editor branch, enhancing usability and efficiency for shipping rate management.
+                        </p>
+                        
+                        <h4>Improved Rate Sheet Service Editor UX</h4>
+                        <ul>
+                            <li>Made service table rows clickable to open a detailed editor modal</li>
+                            <li>Applied consistent styling to match the rest of the application</li>
+                            <li>Converted input fields to read-only in the main view for better UX</li>
+                        </ul>
+                        
+                        <h4>Restored JSON Editor Tab Content</h4>
+                        <ul>
+                            <li>Fixed issues with the original JSON editor tab to ensure proper functionality</li>
+                            <li>Enhanced data validation for the JSON editor component</li>
+                        </ul>
+                        
+                        <h4>Added Zone Editor Modal</h4>
+                        <ul>
+                            <li>Created a new modal interface for editing zone details</li>
+                            <li>Improved zone data management with dedicated editing fields</li>
+                            <li>Added validation for zone-specific parameters</li>
+                        </ul>
+                        
+                        <h4>Streamlined Interface</h4>
+                        <ul>
+                            <li>Removed unnecessary help text to reduce visual clutter</li>
+                            <li>Implemented "Add Zone" button in the rate sheet tab for easier zone creation</li>
+                            <li>Removed placeholder examples from editing modals for a cleaner interface</li>
+                        </ul>
+                        
+                        <h4>Technical Implementation</h4>
+                        <ul>
+                            <li>Modified packages/ui/modals/rate-sheet-editor.tsx with substantial changes (478 insertions, 82 deletions)</li>
+                            <li>Focused on creating more intuitive editing workflows</li>
+                            <li>Improved component architecture for better maintainability</li>
+                        </ul>
+                        
+                        <p>
+                            These improvements make rate management significantly more user-friendly, especially for carriers with complex rate structures. The enhanced interface reduces errors and speeds up rate configuration, addressing a critical area of the platform where users previously struggled.
                         </p>
                     </div>
                 </article>
