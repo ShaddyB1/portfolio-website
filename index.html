@@ -248,40 +248,15 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: var(--spacing-sm);
-            margin-top: var(--spacing-md);
-        }
-
-        /* Project card category filter */
-        .project-filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: var(--spacing-sm) 0;
-        }
-
-        .filter-btn {
-            background: transparent;
-            border: 1px solid var(--color-border);
-            color: var(--color-text-secondary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 0.85rem;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: rgba(100, 255, 218, 0.1);
-            color: var(--color-accent-primary);
-            border-color: var(--color-accent-primary);
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
         }
 
         .project-card {
             background: var(--color-bg-secondary);
             border-radius: 12px;
-            padding: var(--spacing-sm);
+            padding: var(--spacing-md);
             border: 1px solid var(--color-border);
             transition: var(--transition-bounce);
             position: relative;
@@ -326,31 +301,29 @@
 
         .project-title {
             color: var(--color-accent-primary);
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
         }
 
         .project-description {
             color: var(--color-text-secondary);
-            margin-bottom: 0.75rem;
+            margin-bottom: var(--spacing-sm);
             flex-grow: 1;
-            font-size: 0.95rem;
-            line-height: 1.4;
         }
 
         .project-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 0.75rem;
+            gap: 8px;
+            margin-bottom: var(--spacing-sm);
         }
 
         .tech-tag {
             background: rgba(100, 255, 218, 0.1);
             color: var(--color-accent-primary);
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.85rem;
             transition: var(--transition-smooth);
         }
 
@@ -361,25 +334,22 @@
 
         .project-links {
             display: flex;
-            gap: 0.75rem;
-            margin-top: auto;
-            padding-top: 0.5rem;
+            gap: var(--spacing-sm);
         }
 
         .project-link {
-            padding: 6px 12px;
-            border-radius: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
             font-weight: 500;
             transition: var(--transition-smooth);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             background: transparent;
             color: var(--color-accent-primary);
             border: 1px solid var(--color-accent-primary);
             cursor: pointer;
-            font-size: 0.85rem;
         }
 
         .project-link i {
@@ -1541,6 +1511,36 @@
             100% { transform: translate(-100px, -100px); }
         }
 
+        /* Project Filters */
+        .project-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: var(--spacing-md);
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: var(--color-text-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .filter-btn:hover {
+            color: var(--color-accent-primary);
+            border-color: var(--color-accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--color-accent-primary);
+            border-color: var(--color-accent-primary);
+        }
     </style>
 </head>
 <body>
@@ -1604,20 +1604,21 @@
                 <button class="filter-btn active" data-filter="all">All Projects</button>
                 <button class="filter-btn" data-filter="data-science">Data Science</button>
                 <button class="filter-btn" data-filter="web-dev">Web Development</button>
-                <button class="filter-btn" data-filter="machine-learning">Machine Learning</button>
-                <button class="filter-btn" data-filter="database">Database</button>
+                <button class="filter-btn" data-filter="other">Other</button>
             </div>
             
             <div class="projects-grid">
                 <!-- CX Analytics Platform Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="cx-analytics-title" data-category="data-science,machine-learning">
+                <div class="project-card" tabindex="0" aria-labelledby="cx-analytics-title" data-category="data-science">
                     <h3 class="project-title" id="cx-analytics-title">Customer Experience Analytics Platform</h3>
-                    <p class="project-description">A comprehensive data solution with predictive models for demand forecasting, ticket categorization, and agent assignment.</p>
+                    <p class="project-description">A comprehensive data science solution for customer service analytics with predictive models for demand forecasting, ticket categorization, and agent assignment optimization.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">dbt</span>
                         <span class="tech-tag">Airflow</span>
-                        <span class="tech-tag">ML</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Machine Learning</span>
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/ShaddyB1/cx_analytics_platform" class="project-link" aria-label="View CX Analytics Platform source code on GitHub" target="_blank">
@@ -1630,12 +1631,13 @@
                 </div>
 
                 <!-- AI Classifier Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="ai-classifier-title" data-category="machine-learning,data-science">
+                <div class="project-card" tabindex="0" aria-labelledby="ai-classifier-title" data-category="data-science">
                     <h3 class="project-title" id="ai-classifier-title">AI-Driven Paragraph Quality Classifier</h3>
-                    <p class="project-description">ML model using PyTorch to classify paragraph quality with BERT for NLP.</p>
+                    <p class="project-description">A machine learning model using PyTorch to classify paragraph quality, incorporating BERT for natural language processing.</p>
                     <div class="project-tech">
                         <span class="tech-tag">PyTorch</span>
                         <span class="tech-tag">BERT</span>
+                        <span class="tech-tag">spaCy</span>
                         <span class="tech-tag">Python</span>
                     </div>
                     <div class="project-links">
@@ -1649,13 +1651,14 @@
                 </div>
 
                 <!-- EEG Analysis Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="eeg-analysis-title" data-category="data-science,web-dev">
+                <div class="project-card" tabindex="0" aria-labelledby="eeg-analysis-title" data-category="data-science">
                     <h3 class="project-title" id="eeg-analysis-title">EEG Signal Analysis Dashboard</h3>
-                    <p class="project-description">Interactive dashboard for analyzing EEG signals with real-time visualization.</p>
+                    <p class="project-description">Interactive dashboard for analyzing EEG signals with real-time visualization and frequency domain analysis.</p>
                     <div class="project-tech">
                         <span class="tech-tag">JavaScript</span>
                         <span class="tech-tag">Plotly.js</span>
                         <span class="tech-tag">Signal Processing</span>
+                        <span class="tech-tag">WebSockets</span>
                     </div>
                     <div class="project-links">
                         <a href="#" class="project-link" aria-label="View EEG Analysis source code on GitHub">
@@ -1668,12 +1671,13 @@
                 </div>
 
                 <!-- Cryptography Tool -->
-                <div class="project-card" tabindex="0" aria-labelledby="crypto-tool-title" data-category="web-dev">
+                <div class="project-card" tabindex="0" aria-labelledby="crypto-tool-title" data-category="other">
                     <h3 class="project-title" id="crypto-tool-title">Cryptography Tool</h3>
-                    <p class="project-description">Python cryptography tool with multiple cipher methods including Caesar, Vigenère, and Playfair.</p>
+                    <p class="project-description">A Python-based cryptography tool implementing various cipher methods including Caesar, Vigenère, Playfair, Rail Fence, and Atbash.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">Cryptography</span>
+                        <span class="tech-tag">Algorithms</span>
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/ShaddyB1/Cypher_Unload" class="project-link" aria-label="View Cryptography Tool source code on GitHub" target="_blank">
@@ -1688,10 +1692,11 @@
                 <!-- Spotify Project -->
                 <div class="project-card" tabindex="0" aria-labelledby="spotify-manager-title" data-category="web-dev">
                     <h3 class="project-title" id="spotify-manager-title">Spotify Playlist Manager</h3>
-                    <p class="project-description">Automated solution for managing Spotify playlists and maintaining fresh content.</p>
+                    <p class="project-description">Automated solution for managing Spotify playlists, removing old songs and maintaining fresh content.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">Spotipy</span>
+                        <span class="tech-tag">Web API</span>
                     </div>
                     <div class="project-links">
                         <a href="https://spotify-playlist-manager.onrender.com" class="project-link" aria-label="Explore Spotify Playlist Manager site" target="_blank">
@@ -1701,11 +1706,12 @@
                 </div>
 
                 <!-- E-commerce Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="ecommerce-db-title" data-category="database">
+                <div class="project-card" tabindex="0" aria-labelledby="ecommerce-db-title" data-category="other">
                     <h3 class="project-title" id="ecommerce-db-title">E-commerce Database</h3>
-                    <p class="project-description">MySQL database for e-commerce, optimizing query performance with customer segmentation.</p>
+                    <p class="project-description">Designed and implemented a MySQL database for an e-commerce platform, optimizing query performance and providing insights through customer segmentation.</p>
                     <div class="project-tech">
                         <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">SQL Server</span>
                         <span class="tech-tag">Power BI</span>
                     </div>
                     <div class="project-links">
@@ -1718,11 +1724,14 @@
                 <!-- Ghana Hospital Finder Project -->
                 <div class="project-card" tabindex="0" aria-labelledby="hospital-finder-title" data-category="web-dev">
                     <h3 class="project-title" id="hospital-finder-title">Ghana Hospital Finder</h3>
-                    <p class="project-description">Web app to find hospitals in Ghana based on location and medical services.</p>
+                    <p class="project-description">A web application that helps users find hospitals in Ghana based on location, medical services, and specializations, aggregating data from multiple official sources.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">Flask</span>
                         <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">Web Scraping</span>
+                        <span class="tech-tag">APIs</span>
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/ShaddyB1/ghana-hospitals-finder" class="project-link" aria-label="View Ghana Hospital Finder source code on GitHub" target="_blank">
@@ -2040,6 +2049,38 @@
     </div>
 
     <script>
+        // Initialize project filters
+        function initializeProjectFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    // Get filter value
+                    const filterValue = btn.getAttribute('data-filter');
+                    
+                    // Show/hide projects based on filter
+                    projectCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'flex';
+                            setTimeout(() => {
+                                card.classList.add('animate');
+                            }, 100);
+                        } else {
+                            card.style.display = 'none';
+                            card.classList.remove('animate');
+                        }
+                    });
+                });
+            });
+        }
+
         // Initialize all functionality
         document.addEventListener('DOMContentLoaded', function() {
             console.log("Document loaded, initializing functions...");
@@ -2069,60 +2110,18 @@
             // Initialize project cards animation
             initializeProjectCards();
             
+            // Initialize project filters
+            initializeProjectFilters();
+            
             // Initialize cipher type select
             initializeCipherTypeSelect();
             
             // Initialize mobile navigation
             initializeMobileNavigation();
             
-            // Initialize project filters
-            initializeProjectFilters();
-            
             // Note: To add new experiences in the future, use the addNewExperience() function
             // See the function definition for details on required parameters
         });
-
-        // Initialize project filters
-        function initializeProjectFilters() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const projectCards = document.querySelectorAll('.project-card');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Add active class to clicked button
-                    button.classList.add('active');
-                    
-                    // Get filter value
-                    const filterValue = button.getAttribute('data-filter');
-                    
-                    // Filter projects
-                    projectCards.forEach(card => {
-                        if (filterValue === 'all') {
-                            card.style.display = 'flex';
-                            setTimeout(() => {
-                                card.classList.add('animate');
-                            }, 100);
-                        } else {
-                            const cardCategories = card.getAttribute('data-category').split(',');
-                            if (cardCategories.includes(filterValue)) {
-                                card.style.display = 'flex';
-                                setTimeout(() => {
-                                    card.classList.add('animate');
-                                }, 100);
-                            } else {
-                                card.classList.remove('animate');
-                                setTimeout(() => {
-                                    card.style.display = 'none';
-                                }, 300);
-                            }
-                        }
-                    });
-                });
-            });
-        }
 
         // Initialize mobile navigation
         function initializeMobileNavigation() {
@@ -2207,44 +2206,25 @@
             sections.forEach(section => observer.observe(section));
         }
 
-        // Initialize project cards animation
+        // Project cards animation
         function initializeProjectCards() {
-            const projectCards = document.querySelectorAll('.project-card');
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
+            const cards = document.querySelectorAll('.project-card');
             
-            const projectObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('animate');
-                        }, 100 * Array.from(projectCards).indexOf(entry.target));
-                        projectObserver.unobserve(entry.target);
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
-            
-            projectCards.forEach((card) => {
-                projectObserver.observe(card);
-                
-                // Add event listener for keyboard navigation for accessibility
-                card.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        // Find demo button in the card and click it if it exists
-                        const demoBtn = card.querySelector('.demo-btn');
-                        if (demoBtn) {
-                            demoBtn.click();
-                        } else {
-                            // Otherwise click the first link
-                            const link = card.querySelector('a');
-                            if (link) {
-                                link.click();
-                            }
-                        }
-                    }
-                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                observer.observe(card);
             });
         }
 
