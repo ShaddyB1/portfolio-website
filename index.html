@@ -380,6 +380,7 @@
             background: rgba(10, 15, 28, 0.95);
             backdrop-filter: var(--blur-backdrop);
             z-index: 2000;
+            overflow-y: auto;
         }
 
         .modal-content {
@@ -392,6 +393,24 @@
             position: relative;
             border: 1px solid var(--color-border);
             animation: modalFadeIn 0.3s ease forwards;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 10px;
         }
 
         .modal-close {
@@ -406,7 +425,16 @@
             transition: var(--transition-smooth);
         }
 
-        .modal-close:hover {
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--color-text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .close-modal:hover, .modal-close:hover {
             color: var(--color-accent-primary);
             transform: rotate(90deg);
         }
@@ -1797,21 +1825,21 @@
                 <h3 id="cx-analytics-modal-title">Customer Experience Analytics Platform</h3>
                 <span class="close-modal" onclick="closeModal('cxAnalyticsModal')" aria-label="Close CX Analytics demo">&times;</span>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto; padding-right: 10px;">
                 <p>A comprehensive data science solution for customer experience optimization with predictive models and interactive dashboards.</p>
                 
-                <div class="project-features">
+                <div class="project-features" style="margin-top: 20px; margin-bottom: 20px;">
                     <h4>Key Components:</h4>
-                    <ul>
-                        <li><strong>Predictive Models:</strong> Demand forecasting, ticket categorization, and agent assignment optimization</li>
-                        <li><strong>Data Engineering Pipeline:</strong> Data extraction and transformation using dbt, scheduled workflows with Airflow</li>
-                        <li><strong>Analytics Dashboard:</strong> Interactive KPI visualization, agent performance metrics, customer satisfaction tracking</li>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li style="margin-bottom: 8px;"><strong>Predictive Models:</strong> Demand forecasting, ticket categorization, and agent assignment optimization</li>
+                        <li style="margin-bottom: 8px;"><strong>Data Engineering Pipeline:</strong> Data extraction and transformation using dbt, scheduled workflows with Airflow</li>
+                        <li style="margin-bottom: 8px;"><strong>Analytics Dashboard:</strong> Interactive KPI visualization, agent performance metrics, customer satisfaction tracking</li>
                     </ul>
                 </div>
                 
-                <div class="project-tech-stack">
+                <div class="project-tech-stack" style="margin-top: 20px; margin-bottom: 20px;">
                     <h4>Technology Stack:</h4>
-                    <div class="tech-tags">
+                    <div class="tech-tags" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">pandas</span>
                         <span class="tech-tag">dbt</span>
@@ -1826,8 +1854,10 @@
                     </div>
                 </div>
                 
-                <div class="project-image">
-                    <pre style="background: var(--color-bg-primary); padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 0.7rem; line-height: 1.2; margin-top: 20px; white-space: pre; font-family: monospace; color: var(--color-text-primary);">┌─────────────────────────────────────────────────────────────────────────────┐
+                <div class="project-image" style="margin-top: 25px; margin-bottom: 25px;">
+                    <h4 style="margin-bottom: 10px;">Architecture Diagram:</h4>
+                    <div style="background: var(--color-bg-primary); padding: 15px; border-radius: 8px; overflow-x: auto; white-space: nowrap;">
+                        <pre style="font-size: 0.7rem; line-height: 1.2; font-family: monospace; color: var(--color-text-primary);">┌─────────────────────────────────────────────────────────────────────────────┐
 │                                                                             │
 │                     CUSTOMER EXPERIENCE ANALYTICS PLATFORM                  │
 │                                                                             │
@@ -1875,9 +1905,10 @@
 │                 └─────────────────────┘ │                                  │
 │                                         │                                  │
 └─────────────────────────────────────────┴──────────────────────────────────┘</pre>
+                    </div>
                 </div>
                 
-                <div class="project-links" style="margin-top: 20px;">
+                <div class="project-links" style="margin-top: 25px; margin-bottom: 15px;">
                     <a href="https://github.com/ShaddyB1/cx_analytics_platform" class="project-link" target="_blank" aria-label="View CX Analytics Platform source code on GitHub">
                         <i class="fas fa-code"></i> GitHub Repository
                     </a>
