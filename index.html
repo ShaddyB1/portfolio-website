@@ -1538,6 +1538,28 @@
         <div class="container">
             <h2 class="section-title" id="projects-title">Featured Projects</h2>
             <div class="projects-grid">
+                <!-- CX Analytics Platform Project -->
+                <div class="project-card" tabindex="0" aria-labelledby="cx-analytics-title">
+                    <h3 class="project-title" id="cx-analytics-title">Customer Experience Analytics Platform</h3>
+                    <p class="project-description">A comprehensive data science solution for customer service analytics with predictive models for demand forecasting, ticket categorization, and agent assignment optimization.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">dbt</span>
+                        <span class="tech-tag">Airflow</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Machine Learning</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/ShaddyB1/cx_analytics_platform" class="project-link" aria-label="View CX Analytics Platform source code on GitHub" target="_blank">
+                            <i class="fas fa-code"></i> Code
+                        </a>
+                        <button class="project-link demo-btn" onclick="openModal('cxAnalyticsModal')" aria-label="View CX Analytics Platform dashboard">
+                            <i class="fas fa-chart-line"></i> Dashboard
+                        </button>
+                    </div>
+                </div>
+
                 <!-- AI Classifier Project -->
                 <div class="project-card" tabindex="0" aria-labelledby="ai-classifier-title">
                     <h3 class="project-title" id="ai-classifier-title">AI-Driven Paragraph Quality Classifier</h3>
@@ -1768,6 +1790,102 @@
     </section>
 
     <!-- Modals -->
+    <!-- CX Analytics Platform Modal -->
+    <div id="cxAnalyticsModal" class="modal" role="dialog" aria-labelledby="cx-analytics-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="cx-analytics-modal-title">Customer Experience Analytics Platform</h3>
+                <span class="close-modal" onclick="closeModal('cxAnalyticsModal')" aria-label="Close CX Analytics demo">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>A comprehensive data science solution for customer experience optimization with predictive models and interactive dashboards.</p>
+                
+                <div class="project-features">
+                    <h4>Key Components:</h4>
+                    <ul>
+                        <li><strong>Predictive Models:</strong> Demand forecasting, ticket categorization, and agent assignment optimization</li>
+                        <li><strong>Data Engineering Pipeline:</strong> Data extraction and transformation using dbt, scheduled workflows with Airflow</li>
+                        <li><strong>Analytics Dashboard:</strong> Interactive KPI visualization, agent performance metrics, customer satisfaction tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="project-tech-stack">
+                    <h4>Technology Stack:</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">pandas</span>
+                        <span class="tech-tag">dbt</span>
+                        <span class="tech-tag">Apache Airflow</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Plotly</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">scikit-learn</span>
+                        <span class="tech-tag">Prophet</span>
+                        <span class="tech-tag">NLP</span>
+                    </div>
+                </div>
+                
+                <div class="project-image">
+                    <pre style="background: var(--color-bg-primary); padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 0.7rem; line-height: 1.2; margin-top: 20px; white-space: pre; font-family: monospace; color: var(--color-text-primary);">┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│                     CUSTOMER EXPERIENCE ANALYTICS PLATFORM                  │
+│                                                                             │
+├─────────────────┬─────────────────┬────────────────────┬───────────────────┤
+│                 │                 │                    │                   │
+│  DATA SOURCES   │   PROCESSING    │     ANALYTICS      │  VISUALIZATION    │
+│                 │                 │                    │                   │
+├─────────────────┼─────────────────┼────────────────────┼───────────────────┤
+│                 │                 │                    │                   │
+│   ┌─────────┐   │   ┌─────────┐   │   ┌────────────┐   │   ┌───────────┐   │
+│   │Ticketing│   │   │         │   │   │   Demand   │   │   │           │   │
+│   │ System  │──────▶│  Data   │   │   │ Forecasting│◀──────▶│ Streamlit │   │
+│   │  API    │   │   │Extraction│──────▶│   Model   │   │   │ Dashboard │   │
+│   └─────────┘   │   │         │   │   └────────────┘   │   │           │   │
+│                 │   │         │   │                    │   │           │   │
+│   ┌─────────┐   │   │         │   │   ┌────────────┐   │   │           │   │
+│   │Customer │   │   │         │   │   │   Ticket   │   │   │           │   │
+│   │Database │──────▶│         │──────▶│Categorization│◀─────▶│           │   │
+│   │         │   │   │         │   │   │   Model    │   │   │           │   │
+│   └─────────┘   │   │         │   │   └────────────┘   │   │           │   │
+│                 │   │         │   │                    │   │           │   │
+│   ┌─────────┐   │   │         │   │   ┌────────────┐   │   │           │   │
+│   │ Agent   │   │   │         │   │   │   Agent    │   │   │           │   │
+│   │Workforce│──────▶│         │──────▶│ Assignment │◀─────▶│           │   │
+│   │  Data   │   │   │         │   │   │ Optimizer  │   │   │           │   │
+│   └─────────┘   │   └─────────┘   │   └────────────┘   │   └───────────┘   │
+│                 │                 │                    │                   │
+│                 │   ┌─────────┐   │                    │   ┌───────────┐   │
+│                 │   │         │   │   ┌────────────┐   │   │           │   │
+│                 │   │   dbt   │   │   │Performance │   │   │Operational│   │
+│                 │   │Transformations│◀──────▶│  Metrics  │──────▶│ Dashboards│   │
+│                 │   │         │   │   │ Calculator │   │   │           │   │
+│                 │   └─────────┘   │   └────────────┘   │   └───────────┘   │
+│                 │                 │                    │                   │
+├─────────────────┴─────────────────┴─────┬──────────────┴───────────────────┤
+│                                         │                                  │
+│                 ┌─────────────────────┐ │                                  │
+│                 │       Airflow       │ │                                  │
+│                 │    Orchestration    │ │                                  │
+│                 └─────────────────────┘ │                                  │
+│                                         │                                  │
+│                 ┌─────────────────────┐ │                                  │
+│                 │     PostgreSQL      │ │                                  │
+│                 │       Database      │ │                                  │
+│                 └─────────────────────┘ │                                  │
+│                                         │                                  │
+└─────────────────────────────────────────┴──────────────────────────────────┘</pre>
+                </div>
+                
+                <div class="project-links" style="margin-top: 20px;">
+                    <a href="https://github.com/ShaddyB1/cx_analytics_platform" class="project-link" target="_blank" aria-label="View CX Analytics Platform source code on GitHub">
+                        <i class="fas fa-code"></i> GitHub Repository
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- AI Classifier Modal -->
     <div id="aiModal" class="modal" role="dialog" aria-labelledby="ai-modal-title" aria-hidden="true">
         <div class="modal-content">
