@@ -248,28 +248,28 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: calc(var(--spacing-md) * 1.5);
-            margin-top: var(--spacing-lg);
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
         }
 
         /* Project card category filter */
         .project-filters {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin: var(--spacing-md) 0;
+            gap: 8px;
+            margin: var(--spacing-sm) 0;
         }
 
         .filter-btn {
             background: transparent;
             border: 1px solid var(--color-border);
             color: var(--color-text-secondary);
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 20px;
             cursor: pointer;
             transition: var(--transition-smooth);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .filter-btn:hover, .filter-btn.active {
@@ -281,7 +281,7 @@
         .project-card {
             background: var(--color-bg-secondary);
             border-radius: 12px;
-            padding: var(--spacing-md);
+            padding: var(--spacing-sm);
             border: 1px solid var(--color-border);
             transition: var(--transition-bounce);
             position: relative;
@@ -326,29 +326,31 @@
 
         .project-title {
             color: var(--color-accent-primary);
-            font-size: 1.5rem;
-            margin-bottom: var(--spacing-sm);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
         }
 
         .project-description {
             color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: 0.75rem;
             flex-grow: 1;
+            font-size: 0.95rem;
+            line-height: 1.4;
         }
 
         .project-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: var(--spacing-sm);
+            gap: 6px;
+            margin-bottom: 0.75rem;
         }
 
         .tech-tag {
             background: rgba(100, 255, 218, 0.1);
             color: var(--color-accent-primary);
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 0.85rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
             transition: var(--transition-smooth);
         }
 
@@ -359,23 +361,25 @@
 
         .project-links {
             display: flex;
-            gap: var(--spacing-sm);
+            gap: 0.75rem;
             margin-top: auto;
+            padding-top: 0.5rem;
         }
 
         .project-link {
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
             font-weight: 500;
             transition: var(--transition-smooth);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: transparent;
             color: var(--color-accent-primary);
             border: 1px solid var(--color-accent-primary);
             cursor: pointer;
+            font-size: 0.85rem;
         }
 
         .project-link i {
@@ -1608,14 +1612,12 @@
                 <!-- CX Analytics Platform Project -->
                 <div class="project-card" tabindex="0" aria-labelledby="cx-analytics-title" data-category="data-science,machine-learning">
                     <h3 class="project-title" id="cx-analytics-title">Customer Experience Analytics Platform</h3>
-                    <p class="project-description">A comprehensive data science solution for customer service analytics with predictive models for demand forecasting, ticket categorization, and agent assignment optimization.</p>
+                    <p class="project-description">A comprehensive data solution with predictive models for demand forecasting, ticket categorization, and agent assignment.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">dbt</span>
                         <span class="tech-tag">Airflow</span>
-                        <span class="tech-tag">Docker</span>
-                        <span class="tech-tag">Streamlit</span>
-                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">ML</span>
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/ShaddyB1/cx_analytics_platform" class="project-link" aria-label="View CX Analytics Platform source code on GitHub" target="_blank">
@@ -1630,11 +1632,10 @@
                 <!-- AI Classifier Project -->
                 <div class="project-card" tabindex="0" aria-labelledby="ai-classifier-title" data-category="machine-learning,data-science">
                     <h3 class="project-title" id="ai-classifier-title">AI-Driven Paragraph Quality Classifier</h3>
-                    <p class="project-description">A machine learning model using PyTorch to classify paragraph quality, incorporating BERT for natural language processing.</p>
+                    <p class="project-description">ML model using PyTorch to classify paragraph quality with BERT for NLP.</p>
                     <div class="project-tech">
                         <span class="tech-tag">PyTorch</span>
                         <span class="tech-tag">BERT</span>
-                        <span class="tech-tag">spaCy</span>
                         <span class="tech-tag">Python</span>
                     </div>
                     <div class="project-links">
@@ -1650,12 +1651,11 @@
                 <!-- EEG Analysis Project -->
                 <div class="project-card" tabindex="0" aria-labelledby="eeg-analysis-title" data-category="data-science,web-dev">
                     <h3 class="project-title" id="eeg-analysis-title">EEG Signal Analysis Dashboard</h3>
-                    <p class="project-description">Interactive dashboard for analyzing EEG signals with real-time visualization and frequency domain analysis.</p>
+                    <p class="project-description">Interactive dashboard for analyzing EEG signals with real-time visualization.</p>
                     <div class="project-tech">
                         <span class="tech-tag">JavaScript</span>
                         <span class="tech-tag">Plotly.js</span>
                         <span class="tech-tag">Signal Processing</span>
-                        <span class="tech-tag">WebSockets</span>
                     </div>
                     <div class="project-links">
                         <a href="#" class="project-link" aria-label="View EEG Analysis source code on GitHub">
@@ -1670,11 +1670,10 @@
                 <!-- Cryptography Tool -->
                 <div class="project-card" tabindex="0" aria-labelledby="crypto-tool-title" data-category="web-dev">
                     <h3 class="project-title" id="crypto-tool-title">Cryptography Tool</h3>
-                    <p class="project-description">A Python-based cryptography tool implementing various cipher methods including Caesar, Vigenère, Playfair, Rail Fence, and Atbash.</p>
+                    <p class="project-description">Python cryptography tool with multiple cipher methods including Caesar, Vigenère, and Playfair.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">Cryptography</span>
-                        <span class="tech-tag">Algorithms</span>
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/ShaddyB1/Cypher_Unload" class="project-link" aria-label="View Cryptography Tool source code on GitHub" target="_blank">
@@ -1689,11 +1688,10 @@
                 <!-- Spotify Project -->
                 <div class="project-card" tabindex="0" aria-labelledby="spotify-manager-title" data-category="web-dev">
                     <h3 class="project-title" id="spotify-manager-title">Spotify Playlist Manager</h3>
-                    <p class="project-description">Automated solution for managing Spotify playlists, removing old songs and maintaining fresh content.</p>
+                    <p class="project-description">Automated solution for managing Spotify playlists and maintaining fresh content.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">Spotipy</span>
-                        <span class="tech-tag">Web API</span>
                     </div>
                     <div class="project-links">
                         <a href="https://spotify-playlist-manager.onrender.com" class="project-link" aria-label="Explore Spotify Playlist Manager site" target="_blank">
@@ -1705,10 +1703,9 @@
                 <!-- E-commerce Project -->
                 <div class="project-card" tabindex="0" aria-labelledby="ecommerce-db-title" data-category="database">
                     <h3 class="project-title" id="ecommerce-db-title">E-commerce Database</h3>
-                    <p class="project-description">Designed and implemented a MySQL database for an e-commerce platform, optimizing query performance and providing insights through customer segmentation.</p>
+                    <p class="project-description">MySQL database for e-commerce, optimizing query performance with customer segmentation.</p>
                     <div class="project-tech">
                         <span class="tech-tag">MySQL</span>
-                        <span class="tech-tag">SQL Server</span>
                         <span class="tech-tag">Power BI</span>
                     </div>
                     <div class="project-links">
@@ -1721,14 +1718,11 @@
                 <!-- Ghana Hospital Finder Project -->
                 <div class="project-card" tabindex="0" aria-labelledby="hospital-finder-title" data-category="web-dev">
                     <h3 class="project-title" id="hospital-finder-title">Ghana Hospital Finder</h3>
-                    <p class="project-description">A web application that helps users find hospitals in Ghana based on location, medical services, and specializations, aggregating data from multiple official sources.</p>
+                    <p class="project-description">Web app to find hospitals in Ghana based on location and medical services.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">Flask</span>
                         <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">Bootstrap</span>
-                        <span class="tech-tag">Web Scraping</span>
-                        <span class="tech-tag">APIs</span>
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/ShaddyB1/ghana-hospitals-finder" class="project-link" aria-label="View Ghana Hospital Finder source code on GitHub" target="_blank">
