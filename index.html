@@ -2000,7 +2000,7 @@
                 title: 'Cryptography Tool',
                 description: 'A Python-based cryptography tool implementing various cipher methods including Caesar, Vigenère, Playfair, Rail Fence, and Atbash.',
                 category: 'other',
-                featured: false,
+                featured: true,
                 tech: ['Python', 'Cryptography', 'Algorithms'],
                 links: [
                     { type: 'code', url: 'https://github.com/ShaddyB1/Cypher_Unload', label: 'Code' },
@@ -2034,7 +2034,7 @@
                 title: 'Ghana Hospital Finder',
                 description: 'A web application that helps users find hospitals in Ghana based on location, medical services, and specializations, aggregating data from multiple official sources.',
                 category: 'web-dev',
-                featured: false,
+                featured: true,
                 tech: ['Python', 'Flask', 'JavaScript', 'Bootstrap', 'Web Scraping', 'APIs'],
                 links: [
                     { type: 'code', url: 'https://github.com/ShaddyB1/ghana-hospitals-finder', label: 'Code' },
@@ -2171,11 +2171,33 @@
             
             // Apply filters function
             function applyFilters(category, showAll) {
-                const filteredProjects = projectsData.filter(project => {
-                    const categoryMatch = category === 'all' || project.category === category;
-                    const visibilityMatch = showAll || project.featured;
-                    return categoryMatch && visibilityMatch;
-                });
+                let filteredProjects;
+                
+                if (showAll) {
+                    // If showing all, filter only by category
+                    filteredProjects = projectsData.filter(project => 
+                        category === 'all' || project.category === category
+                    );
+                } else {
+                    // If showing featured only, make sure we have at least one project 
+                    // from the selected category, even if not featured
+                    filteredProjects = projectsData.filter(project => 
+                        (category === 'all' && project.featured) || 
+                        (project.category === category && project.featured)
+                    );
+                    
+                    // If no featured projects for this category, show at least one non-featured
+                    if (filteredProjects.length === 0 && category !== 'all') {
+                        const nonFeaturedInCategory = projectsData.filter(project => 
+                            project.category === category
+                        );
+                        
+                        if (nonFeaturedInCategory.length > 0) {
+                            // Take up to 2 projects from this category
+                            filteredProjects = nonFeaturedInCategory.slice(0, 2);
+                        }
+                    }
+                }
                 
                 renderProjects(filteredProjects);
             }
