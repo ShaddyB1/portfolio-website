@@ -248,9 +248,34 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-md);
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: calc(var(--spacing-md) * 1.5);
             margin-top: var(--spacing-lg);
+        }
+
+        /* Project card category filter */
+        .project-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: var(--spacing-md) 0;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--color-accent-primary);
+            border-color: var(--color-accent-primary);
         }
 
         .project-card {
@@ -263,6 +288,9 @@
             overflow: hidden;
             opacity: 0;
             transform: translateY(20px);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card.animate {
@@ -305,6 +333,7 @@
         .project-description {
             color: var(--color-text-secondary);
             margin-bottom: var(--spacing-sm);
+            flex-grow: 1;
         }
 
         .project-tech {
@@ -331,6 +360,7 @@
         .project-links {
             display: flex;
             gap: var(--spacing-sm);
+            margin-top: auto;
         }
 
         .project-link {
@@ -1565,9 +1595,18 @@
     <section id="projects" class="projects" aria-labelledby="projects-title">
         <div class="container">
             <h2 class="section-title" id="projects-title">Featured Projects</h2>
+            
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="data-science">Data Science</button>
+                <button class="filter-btn" data-filter="web-dev">Web Development</button>
+                <button class="filter-btn" data-filter="machine-learning">Machine Learning</button>
+                <button class="filter-btn" data-filter="database">Database</button>
+            </div>
+            
             <div class="projects-grid">
                 <!-- CX Analytics Platform Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="cx-analytics-title">
+                <div class="project-card" tabindex="0" aria-labelledby="cx-analytics-title" data-category="data-science,machine-learning">
                     <h3 class="project-title" id="cx-analytics-title">Customer Experience Analytics Platform</h3>
                     <p class="project-description">A comprehensive data science solution for customer service analytics with predictive models for demand forecasting, ticket categorization, and agent assignment optimization.</p>
                     <div class="project-tech">
@@ -1589,7 +1628,7 @@
                 </div>
 
                 <!-- AI Classifier Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="ai-classifier-title">
+                <div class="project-card" tabindex="0" aria-labelledby="ai-classifier-title" data-category="machine-learning,data-science">
                     <h3 class="project-title" id="ai-classifier-title">AI-Driven Paragraph Quality Classifier</h3>
                     <p class="project-description">A machine learning model using PyTorch to classify paragraph quality, incorporating BERT for natural language processing.</p>
                     <div class="project-tech">
@@ -1609,7 +1648,7 @@
                 </div>
 
                 <!-- EEG Analysis Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="eeg-analysis-title">
+                <div class="project-card" tabindex="0" aria-labelledby="eeg-analysis-title" data-category="data-science,web-dev">
                     <h3 class="project-title" id="eeg-analysis-title">EEG Signal Analysis Dashboard</h3>
                     <p class="project-description">Interactive dashboard for analyzing EEG signals with real-time visualization and frequency domain analysis.</p>
                     <div class="project-tech">
@@ -1629,7 +1668,7 @@
                 </div>
 
                 <!-- Cryptography Tool -->
-                <div class="project-card" tabindex="0" aria-labelledby="crypto-tool-title">
+                <div class="project-card" tabindex="0" aria-labelledby="crypto-tool-title" data-category="web-dev">
                     <h3 class="project-title" id="crypto-tool-title">Cryptography Tool</h3>
                     <p class="project-description">A Python-based cryptography tool implementing various cipher methods including Caesar, Vigenère, Playfair, Rail Fence, and Atbash.</p>
                     <div class="project-tech">
@@ -1648,7 +1687,7 @@
                 </div>
 
                 <!-- Spotify Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="spotify-manager-title">
+                <div class="project-card" tabindex="0" aria-labelledby="spotify-manager-title" data-category="web-dev">
                     <h3 class="project-title" id="spotify-manager-title">Spotify Playlist Manager</h3>
                     <p class="project-description">Automated solution for managing Spotify playlists, removing old songs and maintaining fresh content.</p>
                     <div class="project-tech">
@@ -1664,7 +1703,7 @@
                 </div>
 
                 <!-- E-commerce Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="ecommerce-db-title">
+                <div class="project-card" tabindex="0" aria-labelledby="ecommerce-db-title" data-category="database">
                     <h3 class="project-title" id="ecommerce-db-title">E-commerce Database</h3>
                     <p class="project-description">Designed and implemented a MySQL database for an e-commerce platform, optimizing query performance and providing insights through customer segmentation.</p>
                     <div class="project-tech">
@@ -1680,7 +1719,7 @@
                 </div>
 
                 <!-- Ghana Hospital Finder Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="hospital-finder-title">
+                <div class="project-card" tabindex="0" aria-labelledby="hospital-finder-title" data-category="web-dev">
                     <h3 class="project-title" id="hospital-finder-title">Ghana Hospital Finder</h3>
                     <p class="project-description">A web application that helps users find hospitals in Ghana based on location, medical services, and specializations, aggregating data from multiple official sources.</p>
                     <div class="project-tech">
@@ -2042,9 +2081,54 @@
             // Initialize mobile navigation
             initializeMobileNavigation();
             
+            // Initialize project filters
+            initializeProjectFilters();
+            
             // Note: To add new experiences in the future, use the addNewExperience() function
             // See the function definition for details on required parameters
         });
+
+        // Initialize project filters
+        function initializeProjectFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Get filter value
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    // Filter projects
+                    projectCards.forEach(card => {
+                        if (filterValue === 'all') {
+                            card.style.display = 'flex';
+                            setTimeout(() => {
+                                card.classList.add('animate');
+                            }, 100);
+                        } else {
+                            const cardCategories = card.getAttribute('data-category').split(',');
+                            if (cardCategories.includes(filterValue)) {
+                                card.style.display = 'flex';
+                                setTimeout(() => {
+                                    card.classList.add('animate');
+                                }, 100);
+                            } else {
+                                card.classList.remove('animate');
+                                setTimeout(() => {
+                                    card.style.display = 'none';
+                                }, 300);
+                            }
+                        }
+                    });
+                });
+            });
+        }
 
         // Initialize mobile navigation
         function initializeMobileNavigation() {
@@ -2129,25 +2213,44 @@
             sections.forEach(section => observer.observe(section));
         }
 
-        // Project cards animation
+        // Initialize project cards animation
         function initializeProjectCards() {
-            const cards = document.querySelectorAll('.project-card');
+            const projectCards = document.querySelectorAll('.project-card');
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+            const projectObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        observer.unobserve(entry.target);
+                        setTimeout(() => {
+                            entry.target.classList.add('animate');
+                        }, 100 * Array.from(projectCards).indexOf(entry.target));
+                        projectObserver.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.1 });
-
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                observer.observe(card);
+            }, observerOptions);
+            
+            projectCards.forEach((card) => {
+                projectObserver.observe(card);
+                
+                // Add event listener for keyboard navigation for accessibility
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        // Find demo button in the card and click it if it exists
+                        const demoBtn = card.querySelector('.demo-btn');
+                        if (demoBtn) {
+                            demoBtn.click();
+                        } else {
+                            // Otherwise click the first link
+                            const link = card.querySelector('a');
+                            if (link) {
+                                link.click();
+                            }
+                        }
+                    }
+                });
             });
         }
 
