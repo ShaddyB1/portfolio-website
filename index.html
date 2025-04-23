@@ -229,43 +229,44 @@
         .projects {
             padding: var(--spacing-lg) 0;
             position: relative;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            color: var(--color-text-primary);
-            margin-bottom: var(--spacing-md);
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60%;
-            height: 2px;
-            background: var(--color-accent-primary);
+            background: linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-md);
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
             margin-top: var(--spacing-lg);
+            max-width: 1200px;
+            margin: var(--spacing-lg) auto 0;
+        }
+
+        @media (min-width: 1200px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 1199px) and (min-width: 768px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .project-card {
             background: var(--color-bg-secondary);
             border-radius: 12px;
-            padding: var(--spacing-md);
+            padding: 1.5rem;
             border: 1px solid var(--color-border);
             transition: var(--transition-bounce);
             position: relative;
             overflow: hidden;
             opacity: 0;
             transform: translateY(20px);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .project-card.animate {
@@ -302,19 +303,23 @@
         .project-title {
             color: var(--color-accent-primary);
             font-size: 1.5rem;
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: 1rem;
+            line-height: 1.3;
         }
 
         .project-description {
             color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         .project-tech {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: 1.5rem;
         }
 
         .tech-tag {
@@ -322,18 +327,15 @@
             color: var(--color-accent-primary);
             padding: 4px 12px;
             border-radius: 16px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             transition: var(--transition-smooth);
-        }
-
-        .tech-tag:hover {
-            background: rgba(100, 255, 218, 0.2);
-            transform: translateY(-2px);
+            white-space: nowrap;
         }
 
         .project-links {
             display: flex;
-            gap: var(--spacing-sm);
+            gap: 1rem;
+            margin-top: auto;
         }
 
         .project-link {
@@ -383,6 +385,7 @@
             background: rgba(10, 15, 28, 0.95);
             backdrop-filter: var(--blur-backdrop);
             z-index: 2000;
+            overflow-y: auto;
         }
 
         .modal-content {
@@ -395,6 +398,24 @@
             position: relative;
             border: 1px solid var(--color-border);
             animation: modalFadeIn 0.3s ease forwards;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 10px;
         }
 
         .modal-close {
@@ -409,7 +430,16 @@
             transition: var(--transition-smooth);
         }
 
-        .modal-close:hover {
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--color-text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .close-modal:hover, .modal-close:hover {
             color: var(--color-accent-primary);
             transform: rotate(90deg);
         }
@@ -1537,6 +1567,72 @@
             100% { transform: translate(-100px, -100px); }
         }
 
+        /* Project Filters */
+        .project-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: var(--spacing-md);
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: var(--color-text-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .filter-btn:hover {
+            color: var(--color-accent-primary);
+            border-color: var(--color-accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--color-accent-primary);
+            border-color: var(--color-accent-primary);
+        }
+
+        /* View More Button */
+        .view-more-container {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+        
+        .view-more-btn {
+            background: transparent;
+            color: var(--color-accent-primary);
+            border: 1px solid var(--color-accent-primary);
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
+        }
+        
+        .view-more-btn:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .view-more-btn i {
+            transition: transform 0.3s ease;
+        }
+        
+        .view-more-btn.active i {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body>
@@ -1595,119 +1691,23 @@
     <section id="projects" class="projects" aria-labelledby="projects-title">
         <div class="container">
             <h2 class="section-title" id="projects-title">Featured Projects</h2>
+            
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="data-science">Data Science</button>
+                <button class="filter-btn" data-filter="web-dev">Web Development</button>
+                <button class="filter-btn" data-filter="other">Other</button>
+            </div>
+            
             <div class="projects-grid">
-                <!-- AI Classifier Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="ai-classifier-title">
-                    <h3 class="project-title" id="ai-classifier-title">AI-Driven Paragraph Quality Classifier</h3>
-                    <p class="project-description">A machine learning model using PyTorch to classify paragraph quality, incorporating BERT for natural language processing.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">PyTorch</span>
-                        <span class="tech-tag">BERT</span>
-                        <span class="tech-tag">spaCy</span>
-                        <span class="tech-tag">Python</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link" aria-label="View AI Classifier source code on GitHub">
-                            <i class="fas fa-code"></i> Code
-                        </a>
-                        <button class="project-link demo-btn" onclick="openModal('aiModal'); console.log('AI Modal opened');" aria-label="View AI Classifier demo">
-                            <i class="fas fa-play"></i> Demo
-                        </button>
-                    </div>
-                </div>
-
-                <!-- EEG Analysis Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="eeg-analysis-title">
-                    <h3 class="project-title" id="eeg-analysis-title">EEG Signal Analysis Dashboard</h3>
-                    <p class="project-description">Interactive dashboard for analyzing EEG signals with real-time visualization and frequency domain analysis.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">Plotly.js</span>
-                        <span class="tech-tag">Signal Processing</span>
-                        <span class="tech-tag">WebSockets</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link" aria-label="View EEG Analysis source code on GitHub">
-                            <i class="fas fa-code"></i> Code
-                        </a>
-                        <button class="project-link demo-btn" onclick="openModal('eegModal')" aria-label="View EEG Analysis demo">
-                            <i class="fas fa-play"></i> Demo
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Cryptography Tool -->
-                <div class="project-card" tabindex="0" aria-labelledby="crypto-tool-title">
-                    <h3 class="project-title" id="crypto-tool-title">Cryptography Tool</h3>
-                    <p class="project-description">A Python-based cryptography tool implementing various cipher methods including Caesar, Vigenère, Playfair, Rail Fence, and Atbash.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Cryptography</span>
-                        <span class="tech-tag">Algorithms</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/ShaddyB1/Cypher_Unload" class="project-link" aria-label="View Cryptography Tool source code on GitHub" target="_blank">
-                            <i class="fas fa-code"></i> Code
-                        </a>
-                        <button class="project-link demo-btn" onclick="openModal('cryptoModal')" aria-label="View Cryptography Tool demo">
-                            <i class="fas fa-play"></i> Demo
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Spotify Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="spotify-manager-title">
-                    <h3 class="project-title" id="spotify-manager-title">Spotify Playlist Manager</h3>
-                    <p class="project-description">Automated solution for managing Spotify playlists, removing old songs and maintaining fresh content.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Spotipy</span>
-                        <span class="tech-tag">Web API</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://spotify-playlist-manager.onrender.com" class="project-link" aria-label="Explore Spotify Playlist Manager site" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Live Site
-                        </a>
-                    </div>
-                </div>
-
-                <!-- E-commerce Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="ecommerce-db-title">
-                    <h3 class="project-title" id="ecommerce-db-title">E-commerce Database</h3>
-                    <p class="project-description">Designed and implemented a MySQL database for an e-commerce platform, optimizing query performance and providing insights through customer segmentation.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">MySQL</span>
-                        <span class="tech-tag">SQL Server</span>
-                        <span class="tech-tag">Power BI</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/ShaddyB1/Local-e-commerce" class="project-link" aria-label="View E-commerce Database source code on GitHub" target="_blank">
-                            <i class="fas fa-code"></i> Code
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Ghana Hospital Finder Project -->
-                <div class="project-card" tabindex="0" aria-labelledby="hospital-finder-title">
-                    <h3 class="project-title" id="hospital-finder-title">Ghana Hospital Finder</h3>
-                    <p class="project-description">A web application that helps users find hospitals in Ghana based on location, medical services, and specializations, aggregating data from multiple official sources.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Flask</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">Bootstrap</span>
-                        <span class="tech-tag">Web Scraping</span>
-                        <span class="tech-tag">APIs</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/ShaddyB1/ghana-hospitals-finder" class="project-link" aria-label="View Ghana Hospital Finder source code on GitHub" target="_blank">
-                            <i class="fas fa-code"></i> Code
-                        </a>
-                        <a href="https://ghana-hospitals-finder.onrender.com" class="project-link" aria-label="Explore Ghana Hospital Finder live site" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Live Site
-                        </a>
-                    </div>
-                </div>
+                <!-- Projects will be loaded here -->
+            </div>
+            
+            <div class="view-more-container">
+                <button id="view-more-btn" class="view-more-btn">
+                    <span>View More Projects</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
             </div>
         </div>
     </section>
@@ -1826,6 +1826,105 @@
     </section>
 
     <!-- Modals -->
+    <!-- CX Analytics Platform Modal -->
+    <div id="cxAnalyticsModal" class="modal" role="dialog" aria-labelledby="cx-analytics-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="cx-analytics-modal-title">Customer Experience Analytics Platform</h3>
+                <span class="close-modal" onclick="closeModal('cxAnalyticsModal')" aria-label="Close CX Analytics demo">&times;</span>
+            </div>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto; padding-right: 10px;">
+                <p>A comprehensive data science solution for customer experience optimization with predictive models and interactive dashboards.</p>
+                
+                <div class="project-features" style="margin-top: 20px; margin-bottom: 20px;">
+                    <h4>Key Components:</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li style="margin-bottom: 8px;"><strong>Predictive Models:</strong> Demand forecasting, ticket categorization, and agent assignment optimization</li>
+                        <li style="margin-bottom: 8px;"><strong>Data Engineering Pipeline:</strong> Data extraction and transformation using dbt, scheduled workflows with Airflow</li>
+                        <li style="margin-bottom: 8px;"><strong>Analytics Dashboard:</strong> Interactive KPI visualization, agent performance metrics, customer satisfaction tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="project-tech-stack" style="margin-top: 20px; margin-bottom: 20px;">
+                    <h4>Technology Stack:</h4>
+                    <div class="tech-tags" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">pandas</span>
+                        <span class="tech-tag">dbt</span>
+                        <span class="tech-tag">Apache Airflow</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Plotly</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">scikit-learn</span>
+                        <span class="tech-tag">Prophet</span>
+                        <span class="tech-tag">NLP</span>
+                    </div>
+                </div>
+                
+                <div class="project-image" style="margin-top: 25px; margin-bottom: 25px;">
+                    <h4 style="margin-bottom: 10px;">Architecture Diagram:</h4>
+                    <div style="background: var(--color-bg-primary); padding: 15px; border-radius: 8px; overflow-x: auto; white-space: nowrap;">
+                        <pre style="font-size: 0.7rem; line-height: 1.2; font-family: monospace; color: var(--color-text-primary);">┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│                     CUSTOMER EXPERIENCE ANALYTICS PLATFORM                  │
+│                                                                             │
+├─────────────────┬─────────────────┬────────────────────┬───────────────────┤
+│                 │                 │                    │                   │
+│  DATA SOURCES   │   PROCESSING    │     ANALYTICS      │  VISUALIZATION    │
+│                 │                 │                    │                   │
+├─────────────────┼─────────────────┼────────────────────┼───────────────────┤
+│                 │                 │                    │                   │
+│   ┌─────────┐   │   ┌─────────┐   │   ┌────────────┐   │   ┌───────────┐   │
+│   │Ticketing│   │   │         │   │   │   Demand   │   │   │           │   │
+│   │ System  │──────▶│  Data   │   │   │ Forecasting│◀──────▶│ Streamlit │   │
+│   │  API    │   │   │Extraction│──────▶│   Model   │   │   │ Dashboard │   │
+│   └─────────┘   │   │         │   │   └────────────┘   │   │           │   │
+│                 │   │         │   │                    │   │           │   │
+│   ┌─────────┐   │   │         │   │   ┌────────────┐   │   │           │   │
+│   │Customer │   │   │         │   │   │   Ticket   │   │   │           │   │
+│   │Database │──────▶│         │──────▶│Categorization│◀─────▶│           │   │
+│   │         │   │   │         │   │   │   Model    │   │   │           │   │
+│   └─────────┘   │   │         │   │   └────────────┘   │   │           │   │
+│                 │   │         │   │                    │   │           │   │
+│   ┌─────────┐   │   │         │   │   ┌────────────┐   │   │           │   │
+│   │ Agent   │   │   │         │   │   │   Agent    │   │   │           │   │
+│   │Workforce│──────▶│         │──────▶│ Assignment │◀─────▶│           │   │
+│   │  Data   │   │   │         │   │   │ Optimizer  │   │   │           │   │
+│   └─────────┘   │   └─────────┘   │   └────────────┘   │   └───────────┘   │
+│                 │                 │                    │                   │
+│                 │   ┌─────────┐   │                    │   ┌───────────┐   │
+│                 │   │         │   │   ┌────────────┐   │   │           │   │
+│                 │   │   dbt   │   │   │Performance │   │   │Operational│   │
+│                 │   │Transformations│◀──────▶│  Metrics  │──────▶│ Dashboards│   │
+│                 │   │         │   │   │ Calculator │   │   │           │   │
+│                 │   └─────────┘   │   └────────────┘   │   └───────────┘   │
+│                 │                 │                    │                   │
+├─────────────────┴─────────────────┴─────┬──────────────┴───────────────────┤
+│                                         │                                  │
+│                 ┌─────────────────────┐ │                                  │
+│                 │       Airflow       │ │                                  │
+│                 │    Orchestration    │ │                                  │
+│                 └─────────────────────┘ │                                  │
+│                                         │                                  │
+│                 ┌─────────────────────┐ │                                  │
+│                 │     PostgreSQL      │ │                                  │
+│                 │       Database      │ │                                  │
+│                 └─────────────────────┘ │                                  │
+│                                         │                                  │
+└─────────────────────────────────────────┴──────────────────────────────────┘</pre>
+                    </div>
+                </div>
+                
+                <div class="project-links" style="margin-top: 25px; margin-bottom: 15px;">
+                    <a href="https://github.com/ShaddyB1/cx_analytics_platform" class="project-link" target="_blank" aria-label="View CX Analytics Platform source code on GitHub">
+                        <i class="fas fa-code"></i> GitHub Repository
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- AI Classifier Modal -->
     <div id="aiModal" class="modal" role="dialog" aria-labelledby="ai-modal-title" aria-hidden="true">
         <div class="modal-content">
@@ -1916,6 +2015,255 @@
     </div>
 
     <script>
+        // Project data
+        const projectsData = [
+            {
+                id: 'cx-analytics',
+                title: 'Customer Experience Analytics Platform',
+                description: 'A comprehensive data science solution for customer service analytics with predictive models for demand forecasting, ticket categorization, and agent assignment optimization.',
+                category: 'data-science',
+                featured: true,
+                tech: ['Python', 'dbt', 'Airflow', 'Docker', 'Streamlit', 'Machine Learning'],
+                links: [
+                    { type: 'code', url: 'https://github.com/ShaddyB1/cx_analytics_platform', label: 'Code' },
+                    { type: 'demo', modal: 'cxAnalyticsModal', label: 'Dashboard', icon: 'chart-line' }
+                ]
+            },
+            {
+                id: 'ai-classifier',
+                title: 'AI-Driven Paragraph Quality Classifier',
+                description: 'A machine learning model using PyTorch to classify paragraph quality, incorporating BERT for natural language processing.',
+                category: 'data-science',
+                featured: true,
+                tech: ['PyTorch', 'BERT', 'spaCy', 'Python'],
+                links: [
+                    { type: 'code', url: '#', label: 'Code' },
+                    { type: 'demo', modal: 'aiModal', label: 'Demo', icon: 'play' }
+                ]
+            },
+            {
+                id: 'eeg-analysis',
+                title: 'EEG Signal Analysis Dashboard',
+                description: 'Interactive dashboard for analyzing EEG signals with real-time visualization and frequency domain analysis.',
+                category: 'data-science',
+                featured: true,
+                tech: ['JavaScript', 'Plotly.js', 'Signal Processing', 'WebSockets'],
+                links: [
+                    { type: 'code', url: '#', label: 'Code' },
+                    { type: 'demo', modal: 'eegModal', label: 'Demo', icon: 'play' }
+                ]
+            },
+            {
+                id: 'crypto-tool',
+                title: 'Cryptography Tool',
+                description: 'A Python-based cryptography tool implementing various cipher methods including Caesar, Vigenère, Playfair, Rail Fence, and Atbash.',
+                category: 'other',
+                featured: true,
+                tech: ['Python', 'Cryptography', 'Algorithms'],
+                links: [
+                    { type: 'code', url: 'https://github.com/ShaddyB1/Cypher_Unload', label: 'Code' },
+                    { type: 'demo', modal: 'cryptoModal', label: 'Demo', icon: 'play' }
+                ]
+            },
+            {
+                id: 'spotify-manager',
+                title: 'Spotify Playlist Manager',
+                description: 'Automated solution for managing Spotify playlists, removing old songs and maintaining fresh content.',
+                category: 'web-dev',
+                featured: false,
+                tech: ['Python', 'Spotipy', 'Web API'],
+                links: [
+                    { type: 'site', url: 'https://spotify-playlist-manager.onrender.com', label: 'Live Site', icon: 'external-link-alt' }
+                ]
+            },
+            {
+                id: 'ecommerce-db',
+                title: 'E-commerce Database',
+                description: 'Designed and implemented a MySQL database for an e-commerce platform, optimizing query performance and providing insights through customer segmentation.',
+                category: 'other',
+                featured: false,
+                tech: ['MySQL', 'SQL Server', 'Power BI'],
+                links: [
+                    { type: 'code', url: 'https://github.com/ShaddyB1/Local-e-commerce', label: 'Code' }
+                ]
+            },
+            {
+                id: 'hospital-finder',
+                title: 'Ghana Hospital Finder',
+                description: 'A web application that helps users find hospitals in Ghana based on location, medical services, and specializations, aggregating data from multiple official sources.',
+                category: 'web-dev',
+                featured: true,
+                tech: ['Python', 'Flask', 'JavaScript', 'Bootstrap', 'Web Scraping', 'APIs'],
+                links: [
+                    { type: 'code', url: 'https://github.com/ShaddyB1/ghana-hospitals-finder', label: 'Code' },
+                    { type: 'site', url: 'https://ghana-hospitals-finder.onrender.com', label: 'Live Site', icon: 'external-link-alt' }
+                ]
+            }
+        ];
+
+        // Function to render projects
+        function renderProjects(projects) {
+            const projectsGrid = document.querySelector('.projects-grid');
+            projectsGrid.innerHTML = '';
+            
+            projects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('aria-labelledby', `${project.id}-title`);
+                card.setAttribute('data-category', project.category);
+                
+                // Project title
+                const title = document.createElement('h3');
+                title.className = 'project-title';
+                title.id = `${project.id}-title`;
+                title.textContent = project.title;
+                
+                // Project description
+                const description = document.createElement('p');
+                description.className = 'project-description';
+                description.textContent = project.description;
+                
+                // Project tech tags
+                const techContainer = document.createElement('div');
+                techContainer.className = 'project-tech';
+                
+                project.tech.forEach(tech => {
+                    const tag = document.createElement('span');
+                    tag.className = 'tech-tag';
+                    tag.textContent = tech;
+                    techContainer.appendChild(tag);
+                });
+                
+                // Project links
+                const linksContainer = document.createElement('div');
+                linksContainer.className = 'project-links';
+                
+                project.links.forEach(link => {
+                    if (link.type === 'demo') {
+                        const button = document.createElement('button');
+                        button.className = 'project-link demo-btn';
+                        button.setAttribute('onclick', `openModal('${link.modal}')`);
+                        button.setAttribute('aria-label', `View ${project.title} ${link.label.toLowerCase()}`);
+                        
+                        const icon = document.createElement('i');
+                        icon.className = `fas fa-${link.icon || 'play'}`;
+                        
+                        button.appendChild(icon);
+                        button.appendChild(document.createTextNode(` ${link.label}`));
+                        linksContainer.appendChild(button);
+                    } else {
+                        const a = document.createElement('a');
+                        a.href = link.url;
+                        a.className = 'project-link';
+                        a.setAttribute('aria-label', `${link.type === 'code' ? 'View source code for' : 'Explore'} ${project.title}`);
+                        a.setAttribute('target', '_blank');
+                        
+                        const icon = document.createElement('i');
+                        icon.className = `fas fa-${link.icon || (link.type === 'code' ? 'code' : 'external-link-alt')}`;
+                        
+                        a.appendChild(icon);
+                        a.appendChild(document.createTextNode(` ${link.label}`));
+                        linksContainer.appendChild(a);
+                    }
+                });
+                
+                // Append all elements to card
+                card.appendChild(title);
+                card.appendChild(description);
+                card.appendChild(techContainer);
+                card.appendChild(linksContainer);
+                
+                // Append card to grid
+                projectsGrid.appendChild(card);
+            });
+            
+            // Animate cards
+            setTimeout(() => {
+                document.querySelectorAll('.project-card').forEach(card => {
+                    card.classList.add('animate');
+                });
+            }, 100);
+        }
+
+        // Initialize project filters
+        function initializeProjectFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            let currentFilter = 'all';
+            let isShowingAll = false;
+            
+            // Get references to view more button and its span
+            const viewMoreBtn = document.getElementById('view-more-btn');
+            const viewMoreBtnText = viewMoreBtn.querySelector('span');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    // Get filter value
+                    currentFilter = btn.getAttribute('data-filter');
+                    
+                    // Re-apply current view state with new filter
+                    applyFilters(currentFilter, isShowingAll);
+                });
+            });
+            
+            // Handle view more button
+            viewMoreBtn.addEventListener('click', function() {
+                isShowingAll = !isShowingAll;
+                
+                if (isShowingAll) {
+                    viewMoreBtnText.textContent = 'Show Less';
+                    viewMoreBtn.classList.add('active');
+                } else {
+                    viewMoreBtnText.textContent = 'View More Projects';
+                    viewMoreBtn.classList.remove('active');
+                }
+                
+                applyFilters(currentFilter, isShowingAll);
+            });
+            
+            // Apply filters function
+            function applyFilters(category, showAll) {
+                let filteredProjects;
+                
+                if (showAll) {
+                    // If showing all, filter only by category
+                    filteredProjects = projectsData.filter(project => 
+                        category === 'all' || project.category === category
+                    );
+                } else {
+                    // If showing featured only, make sure we have at least one project 
+                    // from the selected category, even if not featured
+                    filteredProjects = projectsData.filter(project => 
+                        (category === 'all' && project.featured) || 
+                        (project.category === category && project.featured)
+                    );
+                    
+                    // If no featured projects for this category, show at least one non-featured
+                    if (filteredProjects.length === 0 && category !== 'all') {
+                        const nonFeaturedInCategory = projectsData.filter(project => 
+                            project.category === category
+                        );
+                        
+                        if (nonFeaturedInCategory.length > 0) {
+                            // Take up to 2 projects from this category
+                            filteredProjects = nonFeaturedInCategory.slice(0, 2);
+                        }
+                    }
+                }
+                
+                renderProjects(filteredProjects);
+            }
+            
+            // Initial setup - show featured projects with "all" filter
+            applyFilters('all', false);
+        }
+
         // Initialize all functionality
         document.addEventListener('DOMContentLoaded', function() {
             console.log("Document loaded, initializing functions...");
@@ -1942,8 +2290,8 @@
             // Initialize scroll behavior
             initializeScrollBehavior();
             
-            // Initialize project cards animation
-            initializeProjectCards();
+            // Initialize project filters (now handles both filtering and card creation)
+            initializeProjectFilters();
             
             // Initialize cipher type select
             initializeCipherTypeSelect();
