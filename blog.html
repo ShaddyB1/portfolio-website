@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
     <meta name="description" content="Shadrack Boateng Addo - Developer Journal and Experiences at Karrio">
     <meta name="keywords" content="Shadrack Boateng Addo, Software Developer, Blog, Journal, Karrio, Development Experience">
     <meta name="author" content="Shadrack Boateng Addo">
@@ -16,6 +16,9 @@
     
     <!-- Preload key resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
     <!-- Fonts and Scripts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -198,48 +201,41 @@
             padding: var(--spacing-md) 0 var(--spacing-lg);
         }
         
-        /* Month Section */
+        /* Journal Entries */
         .month-section {
             margin-bottom: var(--spacing-lg);
-            position: relative;
         }
         
         .month-header {
-            margin-bottom: var(--spacing-md);
             display: flex;
             align-items: center;
             gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
         }
         
         .month-icon {
-            font-size: 2rem;
-            background: var(--color-bg-secondary);
             width: 60px;
             height: 60px;
+            background: rgba(100, 255, 218, 0.1);
             border-radius: 50%;
             display: flex;
-            align-items: center;
             justify-content: center;
-            border: 2px solid var(--color-accent-primary);
-            box-shadow: 0 0 0 4px rgba(100, 255, 218, 0.1);
+            align-items: center;
+            font-size: 1.8rem;
         }
         
-        .march-section .month-icon {
-            border-color: var(--color-march);
-        }
-        
-        .month-title-container {
-            flex-grow: 1;
+        .february-section .month-icon {
+            background-color: rgba(76, 155, 232, 0.1);
         }
         
         .month-title {
-            font-size: 1.8rem;
             color: var(--color-accent-primary);
-            margin-bottom: 4px;
+            font-size: 1.8rem;
+            margin-bottom: var(--spacing-xs);
         }
         
-        .march-section .month-title {
-            color: var(--color-march);
+        .february-section .month-title {
+            color: var(--color-april);
         }
         
         .month-date {
@@ -247,105 +243,73 @@
             font-size: 1rem;
         }
         
-        .latest-tag {
-            background: var(--color-march);
-            color: var(--color-bg-primary);
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        
-        /* Journal Entry */
         .journal-entry {
             background: var(--color-bg-secondary);
             border-radius: 12px;
             padding: var(--spacing-md);
             margin-bottom: var(--spacing-md);
             border: 1px solid var(--color-border);
-            position: relative;
-            overflow: hidden;
+            transition: var(--transition-smooth);
         }
         
-        .journal-entry::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--color-accent-primary);
+        .journal-entry:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-accent-primary);
         }
         
-        .march-section .journal-entry::before {
-            background: var(--color-march);
+        .february-section .journal-entry:hover {
+            border-color: var(--color-april);
         }
         
         .entry-title {
-            font-size: 1.6rem;
             color: var(--color-accent-primary);
+            font-size: 1.5rem;
             margin-bottom: var(--spacing-sm);
         }
         
-        .march-section .entry-title {
-            color: var(--color-march);
+        .february-section .entry-title {
+            color: var(--color-april);
         }
         
         .entry-content {
-            color: var(--color-text-secondary);
-            line-height: 1.8;
+            color: var(--color-text-primary);
         }
         
         .entry-content p {
             margin-bottom: var(--spacing-sm);
+            line-height: 1.7;
         }
         
-        .entry-content ul {
-            list-style-type: none;
-            margin: var(--spacing-sm) 0;
-            padding-left: 20px;
+        .entry-content ul, .entry-content ol {
+            margin-bottom: var(--spacing-sm);
+            padding-left: 1.5rem;
         }
         
         .entry-content li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
         }
         
-        .entry-content li::before {
-            content: '▹';
-            position: absolute;
-            left: 0;
+        .entry-content strong {
             color: var(--color-accent-primary);
+            font-weight: 600;
         }
         
-        .march-section .entry-content li::before {
-            color: var(--color-march);
-        }
-        
-        .april-section .entry-title {
+        .february-section .entry-content strong {
             color: var(--color-april);
         }
         
-        .april-section .journal-entry::before {
-            background: var(--color-april);
-        }
-        
-        .april-section .entry-content li::before {
-            color: var(--color-april);
-        }
-        
-        .april-section .month-title {
-            color: var(--color-april);
-        }
-        
-        /* Code styling */
-        code {
-            background: rgba(20, 28, 47, 0.5);
+        .entry-content code {
+            background: rgba(100, 255, 218, 0.1);
             padding: 2px 6px;
             border-radius: 4px;
             font-family: monospace;
-            font-size: 0.9em;
+            color: var(--color-accent-primary);
+        }
+        
+        .february-section .entry-content code {
+            background: rgba(76, 155, 232, 0.1);
+            color: var(--color-april);
         }
         
         /* Footer */
@@ -377,6 +341,18 @@
             .entry-title {
                 font-size: 1.4rem;
             }
+            
+            /* Enhanced touch targets for mobile */
+            a, button {
+                min-height: 44px;
+                min-width: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
+            
+            .back-to-portfolio {
+                padding: 8px 0;
+            }
         }
         
         @media (max-width: 576px) {
@@ -407,6 +383,43 @@
             
             .journal-entry {
                 padding: var(--spacing-sm);
+            }
+            
+            .entry-title {
+                font-size: 1.2rem;
+            }
+            
+            .entry-content {
+                font-size: 0.95rem;
+            }
+            
+            ul, ol {
+                padding-left: 1.2rem;
+            }
+        }
+        
+        /* Add specific styles for very small screens */
+        @media (max-width: 375px) {
+            .blog-title {
+                font-size: 1.5rem;
+            }
+            
+            .blog-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .month-title {
+                font-size: 1.3rem;
+            }
+            
+            .entry-title {
+                font-size: 1.1rem;
+            }
+            
+            /* Improve code block display on small screens */
+            code {
+                font-size: 0.8rem;
+                word-break: break-word;
             }
         }
     </style>

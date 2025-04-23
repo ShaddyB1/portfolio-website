@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
     <meta name="description" content="Shadrack Boateng Addo - Software Developer and Data Analyst Portfolio showcasing projects, skills, and professional experience">
     <meta name="keywords" content="Shadrack Boateng Addo, Software Developer, Data Analyst, Portfolio, Python, JavaScript, Data Science, Web Development">
     <meta name="author" content="Shadrack Boateng Addo">
@@ -21,6 +21,9 @@
     <!-- Preload key resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
     <link rel="preload" href="https://cdn.plot.ly/plotly-latest.min.js" as="script">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
     <!-- Fonts and Scripts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1108,6 +1111,13 @@
             font-size: 1.5rem;
             cursor: pointer;
             z-index: 1001;
+            padding: 8px;
+            border-radius: 4px;
+            transition: var(--transition-smooth);
+        }
+        
+        .mobile-nav-toggle:hover {
+            background: rgba(100, 255, 218, 0.1);
         }
 
         .mobile-nav {
@@ -1124,6 +1134,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            overflow-y: auto;
         }
 
         .mobile-nav.active {
@@ -1205,6 +1216,10 @@
             .hero-title {
                 font-size: clamp(2rem, 6vw, 3.5rem);
             }
+            
+            .project-link {
+                padding: 10px 18px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1222,11 +1237,13 @@
 
             .projects-grid {
                 grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
             }
 
             .contact-links {
                 flex-direction: column;
                 align-items: center;
+                gap: var(--spacing-md);
             }
             
             .experience-header {
@@ -1282,6 +1299,16 @@
                 padding: 1px 6px;
                 font-size: 0.7rem;
             }
+            
+            /* Enhanced touch targets for mobile */
+            .nav-link, .mobile-nav-link, .project-link, button, input, select {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            .project-card {
+                padding: var(--spacing-md) var(--spacing-sm);
+            }
         }
 
         @media (max-width: 576px) {
@@ -1315,6 +1342,19 @@
             .tech-tag {
                 font-size: 0.7rem;
                 padding: 3px 8px;
+            }
+            
+            .project-links {
+                flex-wrap: wrap;
+                justify-content: space-between;
+                gap: var(--spacing-xs);
+            }
+            
+            .project-link {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: var(--spacing-xs);
             }
             
             .experience-milestone {
@@ -1389,17 +1429,35 @@
                 margin-right: var(--spacing-xs);
             }
             
-            .latest-badge {
-                font-size: 0.6rem;
-                padding: 1px 4px;
+            /* Fix mobile nav for small screens */
+            .mobile-nav {
+                width: 85%;
+                right: -85%;
             }
             
-            .journal-entries-container {
-                padding-right: 5px;
+            /* Improve form elements for touch */
+            input, select, textarea, button {
+                font-size: 16px;  /* Prevents iOS zoom on focus */
+            }
+        }
+        
+        /* Add specific styles for very small screens */
+        @media (max-width: 375px) {
+            .hero-title {
+                font-size: 1.6rem;
             }
             
-            .journal-entries-container::-webkit-scrollbar {
-                width: 4px;
+            .hero-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .project-card {
+                padding: var(--spacing-sm);
+            }
+            
+            .modal-content {
+                padding: var(--spacing-sm);
+                margin: 5% auto;
             }
         }
 
@@ -1939,6 +1997,35 @@
                     closeMobileNav();
                 }
             });
+            
+            // Add swipe gesture support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+            
+            document.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                const swipeThreshold = 100;
+                
+                // Swipe right to open menu (when near left edge)
+                if (touchEndX - touchStartX > swipeThreshold && touchStartX < 50) {
+                    mobileNav.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+                
+                // Swipe left to close menu
+                if (touchStartX - touchEndX > swipeThreshold && mobileNav.classList.contains('active')) {
+                    closeMobileNav();
+                }
+            }
         }
 
         // Initialize cipher type select
