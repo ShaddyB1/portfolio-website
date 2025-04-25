@@ -64,6 +64,10 @@
             --color-success: #10b981;
             --color-error: #ef4444;
             
+            --gradient-bg: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--color-accent-primary) 0%, var(--color-accent-secondary) 100%);
+            --gradient-dark: linear-gradient(180deg, rgba(10, 15, 28, 0.8) 0%, rgba(20, 28, 47, 0.9) 100%);
+            
             --spacing-xs: clamp(0.5rem, 1vw, 0.75rem);
             --spacing-sm: clamp(1rem, 2vw, 1.5rem);
             --spacing-md: clamp(2rem, 4vw, 3rem);
@@ -92,11 +96,12 @@
         }
 
         body {
-            background: var(--color-bg-primary);
+            background: var(--gradient-bg);
             color: var(--color-text-primary);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
+            background-attachment: fixed;
         }
 
         /* Custom Scrollbar */
@@ -109,7 +114,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--color-accent-secondary);
+            background: var(--gradient-accent);
             border-radius: 4px;
         }
 
@@ -127,7 +132,8 @@
             top: 0;
             left: 0;
             right: 0;
-            background: var(--color-bg-primary);
+            background: rgba(10, 15, 28, 0.85);
+            backdrop-filter: var(--blur-backdrop);
             z-index: 1000;
             padding: var(--spacing-sm) var(--spacing-md);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -229,7 +235,7 @@
         .projects {
             padding: var(--spacing-lg) 0;
             position: relative;
-            background: linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+            background: var(--gradient-dark);
         }
 
         .projects-grid {
@@ -254,7 +260,7 @@
         }
 
         .project-card {
-            background: var(--color-bg-secondary);
+            background: rgba(20, 28, 47, 0.7);
             border-radius: 12px;
             padding: var(--spacing-sm);
             border: 1px solid var(--color-border);
@@ -264,6 +270,8 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
         }
         
         .project-card::before {
@@ -271,22 +279,21 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 100%;
             height: 100%;
-            background: var(--color-accent-primary);
-            transform: scaleY(0);
-            transform-origin: bottom;
-            transition: transform 0.3s ease;
+            background: linear-gradient(120deg, rgba(100, 255, 218, 0.03) 0%, rgba(100, 255, 218, 0) 100%);
+            opacity: 0;
+            transition: var(--transition-smooth);
         }
         
         .project-card:hover {
             transform: translateY(-8px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--color-accent-primary);
+            box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+            border-color: rgba(100, 255, 218, 0.3);
         }
         
         .project-card:hover::before {
-            transform: scaleY(1);
+            opacity: 1;
         }
         
         .project-thumbnail {
@@ -353,16 +360,23 @@
             flex-wrap: wrap;
             gap: 6px;
             margin-bottom: 1rem;
+            margin-top: auto;
         }
 
         .tech-tag {
-            background: rgba(100, 255, 218, 0.1);
+            background: rgba(100, 255, 218, 0.08);
             color: var(--color-accent-primary);
             padding: 4px 12px;
             border-radius: 16px;
             font-size: 0.8rem;
             transition: var(--transition-smooth);
             white-space: nowrap;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .tech-tag:hover {
+            background: rgba(100, 255, 218, 0.15);
+            transform: translateY(-2px);
         }
 
         .project-links {
@@ -415,34 +429,39 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 15, 28, 0.95);
-            backdrop-filter: var(--blur-backdrop);
-            z-index: 2000;
+            background: rgba(10, 15, 28, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
             overflow-y: auto;
+            padding: 20px;
         }
-
+        
         .modal-content {
-            background: var(--color-bg-secondary);
-            border-radius: 12px;
-            padding: var(--spacing-md);
-            max-width: 800px;
-            width: 90%;
-            margin: 5% auto;
             position: relative;
-            border: 1px solid var(--color-border);
-            animation: modalFadeIn 0.3s ease forwards;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
+            background: var(--gradient-dark);
+            margin: 50px auto;
+            padding: 0;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            overflow: hidden;
         }
-
+        
         .modal-header {
+            background: rgba(20, 28, 47, 0.8);
+            padding: 20px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--spacing-sm);
-            padding-bottom: var(--spacing-sm);
-            border-bottom: 1px solid var(--color-border);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: var(--color-accent-primary);
+            font-weight: 600;
         }
 
         .modal-body {
@@ -1780,8 +1799,8 @@
         /* Blog Note */
         .blog-note {
             position: fixed;
-            bottom: 20px;
             right: 20px;
+            bottom: 20px;
             background: var(--color-bg-secondary);
             color: var(--color-text-primary);
             padding: 12px 18px;
@@ -1795,10 +1814,19 @@
             transition: all 0.3s ease;
             animation: pulse 3s infinite alternate;
         }
-
+        
         .blog-note:hover {
             transform: rotate(0deg) scale(1.05);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                box-shadow: 0 8px 20px rgba(100, 255, 218, 0.3);
+            }
         }
 
         .blog-note a {
@@ -1962,10 +1990,23 @@
 
         /* Footer */
         .footer {
-            background: rgba(13, 28, 47, 0.4);
-            backdrop-filter: blur(8px);
-            border-top: 1px solid rgba(100, 255, 218, 0.1);
+            background: rgba(13, 28, 47, 0.3);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(100, 255, 218, 0.07);
             padding: 2.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-accent);
+            opacity: 0.2;
         }
         
         .footer-title {
@@ -2050,6 +2091,49 @@
             margin-right: 8px;
             color: var(--color-accent-primary);
         }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: var(--spacing-lg);
+            z-index: 1;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 4px;
+        }
+
+        /* Section Transitions */
+        .section-transition {
+            height: 150px;
+            position: relative;
+            z-index: 1;
+            margin-top: -75px;
+            margin-bottom: -75px;
+            pointer-events: none;
+        }
+        
+        .transition-gradient {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(10, 15, 28, 0) 0%, 
+                rgba(20, 28, 47, 0.8) 50%, 
+                rgba(10, 15, 28, 0) 100%);
+        }
     </style>
 </head>
 <body>
@@ -2103,6 +2187,10 @@
             </div>
         </div>
     </section>
+
+    <div class="section-transition">
+        <div class="transition-gradient"></div>
+    </div>
 
     <!-- Projects Section -->
     <section id="projects" class="projects" aria-labelledby="projects-title">
@@ -2268,6 +2356,10 @@
         </div>
     </section>
 
+    <div class="section-transition">
+        <div class="transition-gradient"></div>
+    </div>
+
     <!-- Education Section -->
     <section id="education" class="education">
         <div class="container">
@@ -2285,6 +2377,10 @@
             </div>
         </div>
     </section>
+
+    <div class="section-transition">
+        <div class="transition-gradient"></div>
+    </div>
 
     <!-- Experience Section -->
     <section id="experience" class="experience" aria-labelledby="experience-title">
@@ -2358,6 +2454,10 @@
             </div>
         </div>
     </section>
+
+    <div class="section-transition">
+        <div class="transition-gradient"></div>
+    </div>
 
     <!-- Modals -->
     <!-- CX Analytics Platform Modal -->
@@ -2459,6 +2559,10 @@
         </div>
     </div>
 
+    <div class="section-transition">
+        <div class="transition-gradient"></div>
+    </div>
+
     <!-- AI Classifier Modal -->
     <div id="aiModal" class="modal" role="dialog" aria-labelledby="ai-modal-title" aria-hidden="true">
         <div class="modal-content">
@@ -2475,6 +2579,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="section-transition">
+        <div class="transition-gradient"></div>
     </div>
 
     <!-- EEG Modal -->
@@ -2496,6 +2604,10 @@
                 <div id="freqPlot" class="demo-plot" aria-label="Frequency domain visualization"></div>
             </div>
         </div>
+    </div>
+
+    <div class="section-transition">
+        <div class="transition-gradient"></div>
     </div>
 
     <!-- Crypto Modal -->
