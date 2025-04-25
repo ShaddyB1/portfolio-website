@@ -38,6 +38,11 @@
             --color-error: #ef4444;
             --color-march: #ffa500;
             --color-april: #4c9be8;
+            --color-tag-documentation: #9333ea;
+            --color-tag-api: #ec4899;
+            --color-tag-python: #3b82f6;
+            --color-tag-debugging: #f97316;
+            --color-tag-dev-environment: #84cc16;
             
             --spacing-xs: clamp(0.5rem, 1vw, 0.75rem);
             --spacing-sm: clamp(1rem, 2vw, 1.5rem);
@@ -201,6 +206,88 @@
             padding: var(--spacing-md) 0 var(--spacing-lg);
         }
         
+        /* Tag Filters */
+        .tag-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: var(--spacing-md) 0;
+            justify-content: center;
+        }
+        
+        .tag-filter {
+            background: transparent;
+            color: var(--color-text-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        
+        .tag-filter:hover {
+            transform: translateY(-2px);
+        }
+        
+        .tag-filter.active {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--color-accent-primary);
+            border-color: var(--color-accent-primary);
+        }
+        
+        /* Entry Tags */
+        .entry-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: var(--spacing-sm);
+        }
+        
+        .entry-tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        
+        .tag-documentation {
+            background: rgba(147, 51, 234, 0.1);
+            color: var(--color-tag-documentation);
+        }
+        
+        .tag-api {
+            background: rgba(236, 72, 153, 0.1);
+            color: var(--color-tag-api);
+        }
+        
+        .tag-python {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--color-tag-python);
+        }
+        
+        .tag-debugging {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--color-tag-debugging);
+        }
+        
+        .tag-dev-environment {
+            background: rgba(132, 204, 22, 0.1);
+            color: var(--color-tag-dev-environment);
+        }
+        
+        /* Latest Tag */
+        .latest-tag {
+            display: inline-block;
+            background: rgba(236, 72, 153, 0.1);
+            color: #ec4899;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-left: var(--spacing-sm);
+        }
+        
         /* Journal Entries */
         .month-section {
             margin-bottom: var(--spacing-lg);
@@ -353,6 +440,20 @@
             .back-to-portfolio {
                 padding: 8px 0;
             }
+            
+            .tag-filters {
+                justify-content: flex-start;
+                padding: 0 var(--spacing-xs);
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: var(--spacing-xs);
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            
+            .tag-filters::-webkit-scrollbar {
+                display: none;
+            }
         }
         
         @media (max-width: 576px) {
@@ -441,6 +542,16 @@
         <div class="container">
             <h1 class="blog-title">My Journey Through the Shipping API Ecosystem</h1>
             <p class="blog-subtitle">A detailed account of my experiences, challenges, and growth as a Software Developer at Karrio</p>
+            
+            <!-- Tag Filters -->
+            <div class="tag-filters">
+                <button class="tag-filter active" data-tag="all">All Topics</button>
+                <button class="tag-filter" data-tag="documentation">Documentation</button>
+                <button class="tag-filter" data-tag="api">API</button>
+                <button class="tag-filter" data-tag="python">Python</button>
+                <button class="tag-filter" data-tag="debugging">Debugging</button>
+                <button class="tag-filter" data-tag="dev-environment">Dev Environment</button>
+            </div>
         </div>
     </header>
 
@@ -457,7 +568,7 @@
                 </div>
                 
                 <!-- Journal Entry 5 -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="documentation,debugging">
                     <h3 class="entry-title">Documentation Advocate</h3>
                     <div class="entry-content">
                         <p>
@@ -491,10 +602,14 @@
                             environment running in just 2 hours, compared to the 2-3 days it previously took.
                         </p>
                     </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-documentation">Documentation</span>
+                        <span class="entry-tag tag-debugging">Debugging</span>
+                    </div>
                 </article>
                 
                 <!-- Journal Entry 4 -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="api,debugging">
                     <h3 class="entry-title">Connector Configuration Champion</h3>
                     <div class="entry-content">
                         <p>
@@ -528,10 +643,14 @@
                             the quirks, edge cases, and unwritten assumptions that come with each third-party service.
                         </p>
                     </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-api">API</span>
+                        <span class="entry-tag tag-debugging">Debugging</span>
+                    </div>
                 </article>
                 
                 <!-- Journal Entry 3 -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="python,dev-environment">
                     <h3 class="entry-title">Python Environment Wizardry</h3>
                     <div class="entry-content">
                         <p>
@@ -563,10 +682,14 @@
                             especially in a collaborative development setting with multiple environments.
                         </p>
                     </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-python">Python</span>
+                        <span class="entry-tag tag-dev-environment">Dev Environment</span>
+                    </div>
                 </article>
                 
                 <!-- Journal Entry 2 -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="debugging,dev-environment">
                     <h3 class="entry-title">Command Line Mastery</h3>
                     <div class="entry-content">
                         <p>
@@ -597,50 +720,50 @@
                             This methodical approach has become my signature troubleshooting style. Rather than making random changes 
                             and hoping for different results, I now approach every problem with a systematic strategy:
                         </p>
-                        <ul>
-                            <li>Gather all available logs and error messages</li>
-                            <li>Reproduce the issue in a controlled environment</li>
-                            <li>Trace step by step through the execution path</li>
-                            <li>Document both the issue and solution for future reference</li>
-                        </ul>
+                    </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-debugging">Debugging</span>
+                        <span class="entry-tag tag-dev-environment">Dev Environment</span>
                     </div>
                 </article>
                 
                 <!-- Journal Entry 1 -->
-                <article class="journal-entry">
-                    <h3 class="entry-title">The Dependency Detective</h3>
+                <article class="journal-entry" data-tags="python,api,documentation">
+                    <h3 class="entry-title">First Weeks with Karrio</h3>
                     <div class="entry-content">
                         <p>
                             <strong>Date: February 28, 2025</strong>
                         </p>
                         <p>
-                            My first major challenge at Karrio came when our team faced persistent installation failures with the 
-                            pycairo library. After days of investigation, I discovered that the issue stemmed from 
-                            incompatible binary dependencies. By implementing a custom solution using Homebrew and 
-                            creating symbolic links to the virtual environment, I unblocked our entire development team.
+                            My journey at Karrio began with a deep dive into the shipping API ecosystem. Fresh out of 
+                            onboarding, I was tasked with understanding how our platform integrates with various 
+                            carrier services—FedEx, UPS, DHL, and more. The complexity was both daunting and exciting.
                         </p>
                         <p>
-                            The issue began when several developers reported identical error messages: 
-                            <code>ImportError: No module named 'cairo'</code> followed by several cascade failures. 
-                            At first glance, it seemed like a simple pip installation issue, but the standard 
-                            <code>pip install pycairo</code> consistently failed with obscure compilation errors.
-                        </p>
-                        <p>
-                            After several deep dives into system logs and build processes, I identified that the root cause was a mismatch between 
-                            the Cairo graphics library versions provided by the system and those expected by the Python binding. To solve this, 
-                            I created a compound approach:
+                            What struck me immediately was how each carrier had its own idiosyncrasies:
                         </p>
                         <ul>
-                            <li>Used Homebrew to install the correct version of Cairo (<code>brew install cairo</code>)</li>
-                            <li>Located the Homebrew-installed binary libraries in <code>/usr/local/lib</code></li>
-                            <li>Created symbolic links to these libraries in our virtual environment's site-packages directory</li>
-                            <li>Added a custom initialization script to our project that adjusted the <code>LD_LIBRARY_PATH</code> environment variable</li>
+                            <li>Different authentication mechanisms (OAuth, API keys, certificates)</li>
+                            <li>Inconsistent data formats for seemingly identical concepts</li>
+                            <li>Varying levels of documentation quality</li>
+                            <li>Unique error handling approaches</li>
                         </ul>
                         <p>
-                            This experience taught me that sometimes the most valuable solutions aren't in the documentation 
-                            but require creative problem-solving and persistence. More importantly, it showed me how deeply interconnected 
-                            modern software dependencies are, and how solving one core issue can unblock an entire team's productivity.
+                            The first challenge came when setting up my local development environment. The platform is built on 
+                            a microservices architecture with Python/Django backends, React frontends, and a complex Docker 
+                            configuration that ties everything together. Getting this running locally was non-trivial, but the 
+                            lessons learned proved invaluable.
                         </p>
+                        <p>
+                            I quickly realized that this initial struggle was perhaps the most educational part of the onboarding process. 
+                            By navigating through the various components and understanding how they interconnect, I gained a holistic 
+                            view of the system that would have been difficult to achieve through documentation alone.
+                        </p>
+                    </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-python">Python</span>
+                        <span class="entry-tag tag-api">API</span>
+                        <span class="entry-tag tag-documentation">Documentation</span>
                     </div>
                 </article>
             </section>
@@ -655,7 +778,7 @@
                 </div>
                 
                 <!-- Journal Entry 4 -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="documentation,dev-environment">
                     <h3 class="entry-title">Additional Contributions</h3>
                     <div class="entry-content">
                         <p>
@@ -688,10 +811,14 @@
                             These ongoing contributions have further solidified my role within the team and continue to demonstrate my commitment to the project's success.
                         </p>
                     </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-documentation">Documentation</span>
+                        <span class="entry-tag tag-dev-environment">Dev Environment</span>
+                    </div>
                 </article>
                 
                 <!-- Journal Entry 3 -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="api,python,debugging">
                     <h3 class="entry-title">BoxKnight Integration for Karrio</h3>
                     <div class="entry-content">
                         <p>
@@ -769,10 +896,15 @@
                             This successful implementation of the BoxKnight carrier integration for Karrio includes core functionality for rates and tracking, JSON schema definitions and Python type generation, and comprehensive tests that verify the integration works correctly. The integration is now ready for further development and eventual registration with the Karrio gateway.
                         </p>
                     </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-api">API</span>
+                        <span class="entry-tag tag-python">Python</span>
+                        <span class="entry-tag tag-debugging">Debugging</span>
+                    </div>
                 </article>
                 
                 <!-- Journal Entry 2 -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="documentation,debugging">
                     <h3 class="entry-title">Website Footer Improvements</h3>
                     <div class="entry-content">
                         <p>
@@ -816,10 +948,14 @@
                             These changes have resulted in a cleaner, more professional footer that maintains all the important links while removing unnecessary visual elements. The footer now provides a better user experience with direct links to the correct resources.
                         </p>
                     </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-documentation">Documentation</span>
+                        <span class="entry-tag tag-debugging">Debugging</span>
+                    </div>
                 </article>
                 
                 <!-- Journal Entry 1 -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="dev-environment,python,debugging">
                     <h3 class="entry-title">Growth & Innovation</h3>
                     <div class="entry-content">
                         <p>
@@ -875,10 +1011,15 @@
                             enabling the team to develop features more quickly and with fewer friction points.
                         </p>
                     </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-dev-environment">Dev Environment</span>
+                        <span class="entry-tag tag-python">Python</span>
+                        <span class="entry-tag tag-debugging">Debugging</span>
+                    </div>
                 </article>
                 
                 <!-- New Journal Entry -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="dev-environment,python,documentation">
                     <h3 class="entry-title">CLI Tools Overhaul</h3>
                     <div class="entry-content">
                         <p>
@@ -933,10 +1074,15 @@
                             All these improvements focus on making the CLI more user-friendly and productive, especially for developers who are new to Karrio. The interactive prompts reduce the learning curve and make it easier to create plugins and carrier integrations without needing to memorize complex command structures or parameters.
                         </p>
                     </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-dev-environment">Dev Environment</span>
+                        <span class="entry-tag tag-python">Python</span>
+                        <span class="entry-tag tag-documentation">Documentation</span>
+                    </div>
                 </article>
                 
                 <!-- Journal Entry: ChitChats API Integration -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="api,debugging">
                     <h3 class="entry-title">ChitChats API Integration</h3>
                     <div class="entry-content">
                         <p>
@@ -978,6 +1124,10 @@
                             The addition makes Karrio more competitive in the Canadian e-commerce market.
                         </p>
                     </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-api">API</span>
+                        <span class="entry-tag tag-debugging">Debugging</span>
+                    </div>
                 </article>
             </section>
             
@@ -992,7 +1142,7 @@
                 </div>
                 
                 <!-- Journal Entry: Rate Sheet Editor Improvements -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="debugging,documentation">
                     <h3 class="entry-title">Rate Sheet Editor UX Overhaul</h3>
                     <div class="entry-content">
                         <p>
@@ -1040,10 +1190,14 @@
                             These improvements make rate management significantly more user-friendly, especially for carriers with complex rate structures. The enhanced interface reduces errors and speeds up rate configuration, addressing a critical area of the platform where users previously struggled.
                         </p>
                     </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-debugging">Debugging</span>
+                        <span class="entry-tag tag-documentation">Documentation</span>
+                    </div>
                 </article>
                 
                 <!-- Journal Entry: Rate Sheet Editor Improvements -->
-                <article class="journal-entry">
+                <article class="journal-entry" data-tags="debugging,api,documentation">
                     <h3 class="entry-title">Rate Sheet Editor Workflow Enhancements</h3>
                     <div class="entry-content">
                         <p>
@@ -1089,6 +1243,11 @@
                             These improvements transform the rate sheet editor from a basic form into a powerful rate management system. Users can now confidently create and maintain complex rate structures without technical expertise in JSON or rate logic. The enhanced workflow dramatically reduces the time required to set up and maintain carrier rates.
                         </p>
                     </div>
+                    <div class="entry-tags">
+                        <span class="entry-tag tag-debugging">Debugging</span>
+                        <span class="entry-tag tag-api">API</span>
+                        <span class="entry-tag tag-documentation">Documentation</span>
+                    </div>
                 </article>
             </section>
         </div>
@@ -1125,6 +1284,65 @@
             }
             
             lastScrollTop = scrollTop;
+        });
+
+        // Tag Filtering System
+        document.addEventListener('DOMContentLoaded', function() {
+            const tagFilters = document.querySelectorAll('.tag-filter');
+            const journalEntries = document.querySelectorAll('.journal-entry');
+            
+            tagFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    // Reset active class
+                    tagFilters.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const selectedTag = this.getAttribute('data-tag');
+                    
+                    journalEntries.forEach(entry => {
+                        if (selectedTag === 'all') {
+                            entry.style.display = 'block';
+                        } else {
+                            const entryTags = entry.getAttribute('data-tags').split(',');
+                            if (entryTags.includes(selectedTag)) {
+                                entry.style.display = 'block';
+                            } else {
+                                entry.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Mobile-friendly scroll for tag filters
+            const tagFiltersContainer = document.querySelector('.tag-filters');
+            if (tagFiltersContainer) {
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+                
+                tagFiltersContainer.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    startX = e.pageX - tagFiltersContainer.offsetLeft;
+                    scrollLeft = tagFiltersContainer.scrollLeft;
+                });
+                
+                tagFiltersContainer.addEventListener('mouseleave', () => {
+                    isDown = false;
+                });
+                
+                tagFiltersContainer.addEventListener('mouseup', () => {
+                    isDown = false;
+                });
+                
+                tagFiltersContainer.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - tagFiltersContainer.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    tagFiltersContainer.scrollLeft = scrollLeft - walk;
+                });
+            }
         });
     </script>
 </body>

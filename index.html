@@ -256,70 +256,103 @@
         .project-card {
             background: var(--color-bg-secondary);
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: var(--spacing-sm);
             border: 1px solid var(--color-border);
-            transition: var(--transition-bounce);
+            transition: var(--transition-smooth);
+            margin-bottom: var(--spacing-md);
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            height: 100%;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
-
-        .project-card.animate {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
+        
         .project-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                var(--color-accent-primary), 
-                var(--color-accent-secondary)
-            );
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: var(--transition-smooth);
+            width: 4px;
+            height: 100%;
+            background: var(--color-accent-primary);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.3s ease;
         }
-
+        
         .project-card:hover {
             transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-accent-primary);
         }
-
+        
         .project-card:hover::before {
-            transform: scaleX(1);
+            transform: scaleY(1);
+        }
+        
+        .project-thumbnail {
+            margin-bottom: var(--spacing-xs);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            padding-top: 46%; /* Reduced height aspect ratio */
+            background: rgba(20, 28, 47, 0.7);
+            border: 1px solid var(--color-border);
+        }
+        
+        .project-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .project-thumbnail .project-doodle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            background: var(--color-bg-secondary);
+            color: var(--color-accent-primary);
+            padding: 15px;
+        }
+        
+        .project-thumbnail .project-doodle svg {
+            width: 90%;
+            height: 90%;
+        }
+        
+        .project-card:hover .project-thumbnail img {
+            transform: scale(1.05);
         }
 
         .project-title {
             color: var(--color-accent-primary);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.7rem;
             line-height: 1.3;
         }
 
         .project-description {
             color: var(--color-text-secondary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             flex-grow: 1;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         .project-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 1.5rem;
+            gap: 6px;
+            margin-bottom: 1rem;
         }
 
         .tech-tag {
@@ -1633,6 +1666,431 @@
         .view-more-btn.active i {
             transform: rotate(180deg);
         }
+
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 1200px) {
+            .section-title {
+                text-align: center;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
+            }
+            
+            .project-info {
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+            
+            .nav-container {
+                padding: var(--spacing-xs) var(--spacing-sm);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-nav-toggle {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+            }
+            
+            .experience-timeline::before {
+                left: 20px;
+            }
+            
+            .experience-card {
+                margin-left: 40px;
+            }
+            
+            .experience-card::before {
+                left: -32px;
+            }
+            
+            .experience-year {
+                position: relative;
+                left: 0;
+                top: 0;
+                margin-bottom: var(--spacing-xs);
+            }
+            
+            /* Adjust project thumbnails for mobile */
+            .project-thumbnail {
+                padding-top: 66.67%; /* 3:2 aspect ratio on mobile */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            :root {
+                --spacing-xs: 0.5rem;
+                --spacing-sm: 0.75rem;
+                --spacing-md: 1.5rem;
+                --spacing-lg: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: var(--spacing-md);
+            }
+            
+            .project-title {
+                font-size: 1.4rem;
+            }
+            
+            .project-description {
+                font-size: 0.95rem;
+            }
+            
+            .project-tags {
+                flex-wrap: wrap;
+            }
+            
+            .contact-form {
+                padding: var(--spacing-sm);
+            }
+            
+            .contact-form-field {
+                margin-bottom: var(--spacing-sm);
+            }
+            
+            /* Even smaller thumbnails for very small screens */
+            .project-thumbnail {
+                padding-top: 75%; /* 4:3 aspect ratio on small mobile */
+            }
+        }
+
+        /* Blog Note */
+        .blog-note {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--color-bg-secondary);
+            color: var(--color-text-primary);
+            padding: 12px 18px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            font-size: 0.9rem;
+            max-width: 220px;
+            z-index: 100;
+            border-top: 3px solid var(--color-accent-primary);
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+            animation: pulse 3s infinite alternate;
+        }
+
+        .blog-note:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .blog-note a {
+            color: var(--color-accent-primary);
+            font-weight: 500;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .blog-note a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--color-accent-primary);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-note a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .blog-note-icon {
+            margin-right: 8px;
+            color: var(--color-accent-primary);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: rotate(-2deg) scale(1);
+            }
+            100% {
+                transform: rotate(-2deg) scale(1.05);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-note {
+                bottom: 70px;
+                right: 10px;
+                max-width: 200px;
+                font-size: 0.85rem;
+                padding: 10px 15px;
+            }
+        }
+
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 1200px) {
+            .section-title {
+                text-align: center;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
+            }
+            
+            .project-info {
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+            
+            .nav-container {
+                padding: var(--spacing-xs) var(--spacing-sm);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-nav-toggle {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+            }
+            
+            .experience-timeline::before {
+                left: 20px;
+            }
+            
+            .experience-card {
+                margin-left: 40px;
+            }
+            
+            .experience-card::before {
+                left: -32px;
+            }
+            
+            .experience-year {
+                position: relative;
+                left: 0;
+                top: 0;
+                margin-bottom: var(--spacing-xs);
+            }
+            
+            /* Adjust project thumbnails for mobile */
+            .project-thumbnail {
+                padding-top: 66.67%; /* 3:2 aspect ratio on mobile */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            :root {
+                --spacing-xs: 0.5rem;
+                --spacing-sm: 0.75rem;
+                --spacing-md: 1.5rem;
+                --spacing-lg: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: var(--spacing-md);
+            }
+            
+            .project-title {
+                font-size: 1.4rem;
+            }
+            
+            .project-description {
+                font-size: 0.95rem;
+            }
+            
+            .project-tags {
+                flex-wrap: wrap;
+            }
+            
+            .contact-form {
+                padding: var(--spacing-sm);
+            }
+            
+            .contact-form-field {
+                margin-bottom: var(--spacing-sm);
+            }
+            
+            /* Even smaller thumbnails for very small screens */
+            .project-thumbnail {
+                padding-top: 75%; /* 4:3 aspect ratio on small mobile */
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-bg-secondary);
+            padding: var(--spacing-lg) 0;
+            color: var(--color-text-primary);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        .footer-left, .footer-right {
+            flex: 1;
+        }
+
+        .footer-title {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--color-text-primary);
+            transition: var(--transition-smooth);
+        }
+
+        .footer-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-accent-primary);
+            transition: var(--transition-bounce);
+        }
+
+        .footer-link:hover .footer-icon {
+            transform: translateY(-4px);
+        }
+
+        .footer-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .footer-label {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .footer-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            background: rgba(20, 28, 47, 0.5);
+            color: var(--color-text-primary);
+            font-family: inherit;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-input:focus {
+            border-color: var(--color-accent-primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+        }
+
+        .footer-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            background: rgba(20, 28, 47, 0.5);
+            color: var(--color-text-primary);
+            font-family: inherit;
+            transition: var(--transition-smooth);
+            resize: vertical;
+        }
+
+        .footer-textarea:focus {
+            border-color: var(--color-accent-primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+        }
+
+        .footer-button {
+            background: var(--color-accent-primary);
+            color: var(--color-bg-primary);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-button:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: var(--spacing-md);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -1700,7 +2158,146 @@
             </div>
             
             <div class="projects-grid">
-                <!-- Projects will be loaded here -->
+                <!-- Project 1 -->
+                <div class="project-card" data-category="data-science">
+                    <div class="project-thumbnail">
+                        <div class="project-doodle">
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="45" stroke="#64ffda" stroke-width="3" fill="rgba(100, 255, 218, 0.08)" />
+                                <path d="M30,70 L45,30 L60,50 L75,35" stroke="#64ffda" stroke-width="3" fill="none" />
+                                <circle cx="30" cy="70" r="4" fill="#64ffda" />
+                                <circle cx="45" cy="30" r="4" fill="#64ffda" />
+                                <circle cx="60" cy="50" r="4" fill="#64ffda" />
+                                <circle cx="75" cy="35" r="4" fill="#64ffda" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Sentiment Analysis for Clothing Reviews</h3>
+                    <p class="project-description">
+                        Built an NLP model to analyze customer reviews of clothing products, 
+                        extracting sentiment insights and identifying key product feedback trends.
+                    </p>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">NLTK</span>
+                            <span class="project-tag">Pandas</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="View source code on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View live demo">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card" data-category="web-dev">
+                    <div class="project-thumbnail">
+                        <div class="project-doodle">
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="10" y="20" width="80" height="60" rx="4" stroke="#64ffda" stroke-width="3" fill="rgba(100, 255, 218, 0.05)" />
+                                <rect x="15" y="25" width="70" height="10" rx="2" fill="#64ffda" opacity="0.3" />
+                                <rect x="15" y="40" width="40" height="35" rx="2" fill="#64ffda" opacity="0.15" />
+                                <rect x="60" y="40" width="25" height="35" rx="2" fill="#64ffda" opacity="0.15" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="project-title">E-commerce Checkout System</h3>
+                    <p class="project-description">
+                        Developed a responsive checkout solution with cart management, discount application, 
+                        and secure payment integration for an e-commerce platform.
+                    </p>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Express.js</span>
+                            <span class="project-tag">Stripe</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="View source code on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View live demo">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card" data-category="data-science">
+                    <div class="project-thumbnail">
+                        <div class="project-doodle">
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" stroke="#64ffda" stroke-width="3" fill="rgba(100, 255, 218, 0.05)" />
+                                <polygon points="50,30 70,40 70,60 50,70 30,60 30,40" stroke="#64ffda" stroke-width="3" fill="#64ffda" fill-opacity="0.15" />
+                                <line x1="50" y1="10" x2="50" y2="30" stroke="#64ffda" stroke-width="3" />
+                                <line x1="90" y1="30" x2="70" y2="40" stroke="#64ffda" stroke-width="3" />
+                                <line x1="90" y1="70" x2="70" y2="60" stroke="#64ffda" stroke-width="3" />
+                                <line x1="50" y1="90" x2="50" y2="70" stroke="#64ffda" stroke-width="3" />
+                                <line x1="10" y1="70" x2="30" y2="60" stroke="#64ffda" stroke-width="3" />
+                                <line x1="10" y1="30" x2="30" y2="40" stroke="#64ffda" stroke-width="3" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Customer Segmentation Model</h3>
+                    <p class="project-description">
+                        Created a clustering algorithm to segment retail customers based on purchasing 
+                        behavior, enabling personalized marketing strategies and inventory optimization.
+                    </p>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Scikit-learn</span>
+                            <span class="project-tag">Matplotlib</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="View source code on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View live demo">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card" data-category="web-dev">
+                    <div class="project-thumbnail">
+                        <div class="project-doodle">
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="15" y="15" width="70" height="70" rx="6" stroke="#64ffda" stroke-width="2" fill="none" />
+                                <circle cx="50" cy="40" r="15" stroke="#64ffda" stroke-width="2" fill="none" />
+                                <path d="M30,65 C30,55 70,55 70,65 L70,75 L30,75 Z" stroke="#64ffda" stroke-width="2" fill="none" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="project-title">User Authentication System</h3>
+                    <p class="project-description">
+                        Built a secure authentication system with JWT, role-based access control, 
+                        and two-factor authentication for a multi-tenant enterprise application.
+                    </p>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">JWT</span>
+                            <span class="project-tag">MongoDB</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="View source code on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View live demo">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="view-more-container">
@@ -2113,6 +2710,53 @@
                 card.setAttribute('aria-labelledby', `${project.id}-title`);
                 card.setAttribute('data-category', project.category);
                 
+                // Create project thumbnail with SVG doodle
+                const thumbnailDiv = document.createElement('div');
+                thumbnailDiv.className = 'project-thumbnail';
+                
+                const doodleDiv = document.createElement('div');
+                doodleDiv.className = 'project-doodle';
+                
+                // Create SVG based on project category
+                let svgContent = '';
+                if (project.category === 'data-science') {
+                    svgContent = `
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="45" stroke="#64ffda" stroke-width="3" fill="rgba(100, 255, 218, 0.08)" />
+                            <path d="M30,70 L45,30 L60,50 L75,35" stroke="#64ffda" stroke-width="3" fill="none" />
+                            <circle cx="30" cy="70" r="4" fill="#64ffda" />
+                            <circle cx="45" cy="30" r="4" fill="#64ffda" />
+                            <circle cx="60" cy="50" r="4" fill="#64ffda" />
+                            <circle cx="75" cy="35" r="4" fill="#64ffda" />
+                        </svg>
+                    `;
+                } else if (project.category === 'web-dev') {
+                    svgContent = `
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="10" y="20" width="80" height="60" rx="4" stroke="#64ffda" stroke-width="3" fill="rgba(100, 255, 218, 0.05)" />
+                            <rect x="15" y="25" width="70" height="10" rx="2" fill="#64ffda" opacity="0.3" />
+                            <rect x="15" y="40" width="40" height="35" rx="2" fill="#64ffda" opacity="0.15" />
+                            <rect x="60" y="40" width="25" height="35" rx="2" fill="#64ffda" opacity="0.15" />
+                        </svg>
+                    `;
+                } else {
+                    svgContent = `
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" stroke="#64ffda" stroke-width="3" fill="rgba(100, 255, 218, 0.05)" />
+                            <polygon points="50,30 70,40 70,60 50,70 30,60 30,40" stroke="#64ffda" stroke-width="3" fill="#64ffda" fill-opacity="0.15" />
+                            <line x1="50" y1="10" x2="50" y2="30" stroke="#64ffda" stroke-width="3" />
+                            <line x1="90" y1="30" x2="70" y2="40" stroke="#64ffda" stroke-width="3" />
+                            <line x1="90" y1="70" x2="70" y2="60" stroke="#64ffda" stroke-width="3" />
+                            <line x1="50" y1="90" x2="50" y2="70" stroke="#64ffda" stroke-width="3" />
+                            <line x1="10" y1="70" x2="30" y2="60" stroke="#64ffda" stroke-width="3" />
+                            <line x1="10" y1="30" x2="30" y2="40" stroke="#64ffda" stroke-width="3" />
+                        </svg>
+                    `;
+                }
+                
+                doodleDiv.innerHTML = svgContent;
+                thumbnailDiv.appendChild(doodleDiv);
+                
                 // Project title
                 const title = document.createElement('h3');
                 title.className = 'project-title';
@@ -2169,6 +2813,7 @@
                 });
                 
                 // Append all elements to card
+                card.appendChild(thumbnailDiv);
                 card.appendChild(title);
                 card.appendChild(description);
                 card.appendChild(techContainer);
@@ -3191,5 +3836,247 @@
     2. Right-click on this HTML file in VS Code
     3. Select "Open with Live Server"
     -->
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <h2 class="footer-title">Let's Connect</h2>
+                    <p class="footer-text">Have a project in mind or just want to chat?</p>
+                    <div class="contact-links">
+                        <a href="mailto:shadracka@email.com" class="contact-link">
+                            <i class="fas fa-envelope contact-icon"></i>
+                            <span>shadracka@email.com</span>
+                        </a>
+                        <a href="https://linkedin.com/in/shadracka" target="_blank" rel="noopener noreferrer" class="contact-link">
+                            <i class="fab fa-linkedin contact-icon"></i>
+                            <span>linkedin.com/in/shadracka</span>
+                        </a>
+                        <a href="https://github.com/ShaddyB1" target="_blank" rel="noopener noreferrer" class="contact-link">
+                            <i class="fab fa-github contact-icon"></i>
+                            <span>github.com/ShaddyB1</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-right">
+                    <form class="contact-form" id="contact-form">
+                        <div class="contact-form-field">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="contact-form-field">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="contact-form-field">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="contact-form-submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Shadrack Addo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Blog Note -->
+    <div class="blog-note">
+        <i class="fas fa-book-open blog-note-icon"></i>
+        Don't forget to check out my <a href="blog.html">developer journal</a> before you go!
+    </div>
+
+    <!-- Modal Backgrounds -->
+    <div id="cxAnalyticsModal" class="modal" role="dialog" aria-labelledby="cx-analytics-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="cx-analytics-modal-title">Customer Experience Analytics Platform</h3>
+                <span class="close-modal" onclick="closeModal('cxAnalyticsModal')" aria-label="Close CX Analytics demo">&times;</span>
+            </div>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto; padding-right: 10px;">
+                <p>A comprehensive data science solution for customer experience optimization with predictive models and interactive dashboards.</p>
+                
+                <div class="project-features" style="margin-top: 20px; margin-bottom: 20px;">
+                    <h4>Key Components:</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li style="margin-bottom: 8px;"><strong>Predictive Models:</strong> Demand forecasting, ticket categorization, and agent assignment optimization</li>
+                        <li style="margin-bottom: 8px;"><strong>Data Engineering Pipeline:</strong> Data extraction and transformation using dbt, scheduled workflows with Airflow</li>
+                        <li style="margin-bottom: 8px;"><strong>Analytics Dashboard:</strong> Interactive KPI visualization, agent performance metrics, customer satisfaction tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="project-tech-stack" style="margin-top: 20px; margin-bottom: 20px;">
+                    <h4>Technology Stack:</h4>
+                    <div class="tech-tags" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">pandas</span>
+                        <span class="tech-tag">dbt</span>
+                        <span class="tech-tag">Apache Airflow</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Plotly</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">scikit-learn</span>
+                        <span class="tech-tag">Prophet</span>
+                        <span class="tech-tag">NLP</span>
+                    </div>
+                </div>
+                
+                <div class="project-image" style="margin-top: 25px; margin-bottom: 25px;">
+                    <h4 style="margin-bottom: 10px;">Architecture Diagram:</h4>
+                    <div style="background: var(--color-bg-primary); padding: 15px; border-radius: 8px; overflow-x: auto; white-space: nowrap;">
+                        <pre style="font-size: 0.7rem; line-height: 1.2; font-family: monospace; color: var(--color-text-primary);">┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│                     CUSTOMER EXPERIENCE ANALYTICS PLATFORM                  │
+│                                                                             │
+├─────────────────┬─────────────────┬────────────────────┬───────────────────┤
+│                 │                 │                    │                   │
+│  DATA SOURCES   │   PROCESSING    │     ANALYTICS      │  VISUALIZATION    │
+│                 │                 │                    │                   │
+├─────────────────┼─────────────────┼────────────────────┼───────────────────┤
+│                 │                 │                    │                   │
+│   ┌─────────┐   │   ┌─────────┐   │   ┌────────────┐   │   ┌───────────┐   │
+│   │Ticketing│   │   │         │   │   │   Demand   │   │   │           │   │
+│   │ System  │──────▶│  Data   │   │   │ Forecasting│◀──────▶│ Streamlit │   │
+│   │  API    │   │   │Extraction│──────▶│   Model   │   │   │ Dashboard │   │
+│   └─────────┘   │   │         │   │   └────────────┘   │   │           │   │
+│                 │   │         │   │                    │   │           │   │
+│   ┌─────────┐   │   │         │   │   ┌────────────┐   │   │           │   │
+│   │Customer │   │   │         │   │   │   Ticket   │   │   │           │   │
+│   │Database │──────▶│         │──────▶│Categorization│◀─────▶│           │   │
+│   │         │   │   │         │   │   │   Model    │   │   │           │   │
+│   └─────────┘   │   │         │   │   └────────────┘   │   │           │   │
+│                 │   │         │   │                    │   │           │   │
+│   ┌─────────┐   │   │         │   │   ┌────────────┐   │   │           │   │
+│   │ Agent   │   │   │         │   │   │   Agent    │   │   │           │   │
+│   │Workforce│──────▶│         │──────▶│ Assignment │◀─────▶│           │   │
+│   │  Data   │   │   │         │   │   │ Optimizer  │   │   │           │   │
+│   └─────────┘   │   └─────────┘   │   └────────────┘   │   └───────────┘   │
+│                 │                 │                    │                   │
+│                 │   ┌─────────┐   │                    │   ┌───────────┐   │
+│                 │   │         │   │   ┌────────────┐   │   │           │   │
+│                 │   │   dbt   │   │   │Performance │   │   │Operational│   │
+│                 │   │Transformations│◀──────▶│  Metrics  │──────▶│ Dashboards│   │
+│                 │   │         │   │   │ Calculator │   │   │           │   │
+│                 │   └─────────┘   │   └────────────┘   │   └───────────┘   │
+│                 │                 │                    │                   │
+├─────────────────┴─────────────────┴─────┬──────────────┴───────────────────┤
+│                                         │                                  │
+│                 ┌─────────────────────┐ │                                  │
+│                 │       Airflow       │ │                                  │
+│                 │    Orchestration    │ │                                  │
+│                 └─────────────────────┘ │                                  │
+│                                         │                                  │
+│                 ┌─────────────────────┐ │                                  │
+│                 │     PostgreSQL      │ │                                  │
+│                 │       Database      │ │                                  │
+│                 └─────────────────────┘ │                                  │
+│                                         │                                  │
+└─────────────────────────────────────────┴──────────────────────────────────┘</pre>
+                    </div>
+                </div>
+                
+                <div class="project-links" style="margin-top: 25px; margin-bottom: 15px;">
+                    <a href="https://github.com/ShaddyB1/cx_analytics_platform" class="project-link" target="_blank" aria-label="View CX Analytics Platform source code on GitHub">
+                        <i class="fas fa-code"></i> GitHub Repository
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Classifier Modal -->
+    <div id="aiModal" class="modal" role="dialog" aria-labelledby="ai-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="ai-modal-title">AI Classifier Demo</h3>
+                <span class="close-modal" onclick="closeModal('aiModal')" aria-label="Close AI Classifier demo">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Enter a paragraph to classify its quality:</p>
+                <textarea id="paragraph-input" class="demo-input" placeholder="Enter a paragraph here..." aria-label="Enter paragraph for classification"></textarea>
+                <button class="demo-btn" onclick="classifyParagraph()" style="background-color: #64ffda; color: #0a0f1c; font-weight: bold; padding: 10px 20px; cursor: pointer;" aria-label="Run AI classification">Classify</button>
+                <div id="result" class="result-container" aria-live="polite">
+                    <p>Classification result will appear here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EEG Modal -->
+    <div id="eegModal" class="modal" role="dialog" aria-labelledby="eeg-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="eeg-modal-title">EEG Signal Analysis Demo</h3>
+                <span class="close-modal" onclick="closeModal('eegModal')" aria-label="Close EEG Analysis demo">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Select a sample EEG recording:</p>
+                <select class="demo-select" aria-label="Select EEG recording sample">
+                    <option value="alpha">Alpha Waves (Relaxed)</option>
+                    <option value="beta">Beta Waves (Alert)</option>
+                    <option value="theta">Theta Waves (Drowsy)</option>
+                </select>
+                <button class="demo-btn" onclick="runEEGDemo()" aria-label="Run EEG analysis">Analyze</button>
+                <div id="eegPlot" class="demo-plot" aria-label="EEG signal visualization"></div>
+                <div id="freqPlot" class="demo-plot" aria-label="Frequency domain visualization"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crypto Modal -->
+    <div id="cryptoModal" class="modal" role="dialog" aria-labelledby="crypto-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="crypto-modal-title">Cryptography Tool Demo</h3>
+                <span class="close-modal" onclick="closeModal('cryptoModal')" aria-label="Close Cryptography demo">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Enter text to encrypt or decrypt:</p>
+                <textarea id="crypto-input" class="demo-input" placeholder="Enter text here..." aria-label="Enter text for encryption or decryption"></textarea>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <div style="flex: 1;">
+                        <label for="cipher-type">Cipher Method:</label>
+                        <select id="cipher-type" class="demo-select" aria-label="Select cipher method">
+                            <option value="caesar">Caesar Cipher</option>
+                            <option value="vigenere">Vigenère Cipher</option>
+                            <option value="atbash">Atbash Cipher</option>
+                            <option value="rail_fence">Rail Fence</option>
+                            <option value="playfair">Playfair Cipher</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="operation-type">Operation:</label>
+                        <select id="operation-type" class="demo-select" aria-label="Select operation">
+                            <option value="encode">Encrypt</option>
+                            <option value="decode">Decrypt</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="crypto-key-container" style="margin-bottom: 15px;">
+                    <label for="crypto-key">Key:</label>
+                    <input type="text" id="crypto-key" class="demo-input" placeholder="Enter key" aria-label="Enter encryption key">
+                </div>
+                
+                <div id="crypto-rails-container" style="display: none; margin-bottom: 15px;">
+                    <label for="crypto-rails">Number of Rails:</label>
+                    <input type="number" id="crypto-rails" class="demo-input" value="3" min="2" max="10" aria-label="Enter number of rails">
+                </div>
+                
+                <button class="demo-btn" onclick="performCryptoOperation()" aria-label="Process cryptography operation">Process</button>
+                
+                <div id="crypto-result" class="result-container" aria-live="polite">
+                    <p>Result will appear here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
