@@ -1962,7 +1962,7 @@
 
         /* Footer */
         .footer {
-            background: rgba(13, 28, 47, 0.7);
+            background: rgba(13, 28, 47, 0.4);
             backdrop-filter: blur(8px);
             border-top: 1px solid rgba(100, 255, 218, 0.1);
             padding: 2.5rem 0;
@@ -1990,13 +1990,6 @@
         .contact-icon {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
-            background: rgba(100, 255, 218, 0.1);
-            padding: 12px;
-            border-radius: 50%;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease;
         }
         
         .contact-link {
@@ -2008,13 +2001,20 @@
             transition: all 0.3s ease;
         }
         
-        .contact-link:hover .contact-icon {
-            background: rgba(100, 255, 218, 0.2);
-            transform: translateY(-5px);
-        }
-        
         .contact-link:hover span {
             color: var(--color-accent-primary);
+        }
+        
+        .footer-center {
+            text-align: center;
+            width: 100%;
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
         }
         
         .blog-note {
@@ -3780,7 +3780,7 @@
             <div class="footer-content">
                 <div class="footer-center">
                     <h2 class="footer-title">Let's Connect</h2>
-                    <p class="footer-text">Have a project in mind or just want to chat?</p>
+                    <p class="footer-text">Ready to collaborate on innovative projects? Let's connect!</p>
                     <div class="contact-links">
                         <a href="mailto:aaddoshadrack@gmail.com" class="contact-link">
                             <div class="contact-icon">📧</div>
@@ -3999,3 +3999,4 @@
     </div>
 </body>
 </html>
+
