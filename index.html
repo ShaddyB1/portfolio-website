@@ -1823,13 +1823,13 @@
             max-width: 220px;
             z-index: 100;
             border-top: 3px solid var(--color-accent-primary);
-            transform: rotate(-2deg);
+            transform: rotate(0deg);
             transition: all 0.3s ease;
             animation: pulse 3s infinite alternate;
         }
         
         .blog-note:hover {
-            transform: rotate(0deg) scale(1.05);
+            transform: scale(1.05);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
         }
         
@@ -1874,10 +1874,10 @@
 
         @keyframes pulse {
             0% {
-                transform: rotate(-2deg) scale(1);
+                transform: scale(1);
             }
             100% {
-                transform: rotate(-2deg) scale(1.05);
+                transform: scale(1.05);
             }
         }
         
@@ -2577,7 +2577,7 @@
     </div>
 
     <!-- AI Classifier Modal -->
-    <div id="aiModal" class="modal" role="dialog" aria-labelledby="ai-modal-title" aria-hidden="true">
+    <div id="aiModal" class="modal" style="display: none;" role="dialog" aria-labelledby="ai-modal-title" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="ai-modal-title">AI Classifier Demo</h3>
@@ -2599,7 +2599,7 @@
     </div>
 
     <!-- EEG Modal -->
-    <div id="eegModal" class="modal" role="dialog" aria-labelledby="eeg-modal-title" aria-hidden="true">
+    <div id="eegModal" class="modal" style="display: none;" role="dialog" aria-labelledby="eeg-modal-title" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="eeg-modal-title">EEG Signal Analysis Demo</h3>
@@ -2624,7 +2624,7 @@
     </div>
 
     <!-- Crypto Modal -->
-    <div id="cryptoModal" class="modal" role="dialog" aria-labelledby="crypto-modal-title" aria-hidden="true">
+    <div id="cryptoModal" class="modal" style="display: none;" role="dialog" aria-labelledby="crypto-modal-title" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="crypto-modal-title">Cryptography Tool Demo</h3>
@@ -2849,7 +2849,6 @@
                     if (link.type === 'demo') {
                         const button = document.createElement('button');
                         button.className = 'project-link demo-btn';
-                        button.setAttribute('onclick', `openModal('${link.modal}')`);
                         button.setAttribute('aria-label', `View ${project.title} ${link.label.toLowerCase()}`);
                         
                         const icon = document.createElement('i');
@@ -2857,6 +2856,10 @@
                         
                         button.appendChild(icon);
                         button.appendChild(document.createTextNode(` ${link.label}`));
+                        button.addEventListener('click', function() {
+                            console.log('Demo button clicked for', link.modal);
+                            openModal(link.modal);
+                        });
                         linksContainer.appendChild(button);
                     } else {
                         const a = document.createElement('a');
@@ -2974,6 +2977,16 @@
         // Initialize all functionality
         document.addEventListener('DOMContentLoaded', function() {
             console.log("Document loaded, initializing functions...");
+            
+            // Initialize project filters (now handles both filtering and card creation)
+            initializeProjectFilters();
+            
+            // Initialize cipher type select
+            initializeCipherTypeSelect();
+            
+            // Initialize mobile navigation
+            initializeMobileNavigation();
+            
             // Add a global click handler to the classify button as a backup
             const classifyBtn = document.querySelector('button[onclick="classifyParagraph()"]');
             if (classifyBtn) {
@@ -2985,6 +2998,19 @@
             } else {
                 console.error("Classify button not found!");
             }
+            
+            // Make sure all modals can be opened
+            const demoButtons = document.querySelectorAll('.project-link.demo-btn');
+            demoButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const modalId = this.getAttribute('data-modal') || 
+                                   (this.onclick ? this.onclick.toString().match(/'(.*?)'/) ? this.onclick.toString().match(/'(.*?)'/)[1] : null : null);
+                    if (modalId) {
+                        console.log("Demo button clicked, opening modal:", modalId);
+                        openModal(modalId);
+                    }
+                });
+            });
         });
 
         // Initialize loading screen
@@ -2997,14 +3023,16 @@
             // Initialize scroll behavior
             initializeScrollBehavior();
             
-            // Initialize project filters (now handles both filtering and card creation)
-            initializeProjectFilters();
-            
-            // Initialize cipher type select
-            initializeCipherTypeSelect();
-            
-            // Initialize mobile navigation
-            initializeMobileNavigation();
+            // Make sure all modal open buttons work properly
+            document.querySelectorAll('[onclick*="openModal"]').forEach(el => {
+                const modalId = el.getAttribute('onclick').match(/'(.*?)'/)[1];
+                console.log("Found modal button for:", modalId);
+                el.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log("Modal button clicked for:", modalId);
+                    openModal(modalId);
+                });
+            });
             
             // Note: To add new experiences in the future, use the addNewExperience() function
             // See the function definition for details on required parameters
@@ -3146,7 +3174,12 @@
 
         // Open modal function
         function openModal(modalId) {
+            console.log("Opening modal:", modalId);
             const modal = document.getElementById(modalId);
+            if (!modal) {
+                console.error("Modal not found:", modalId);
+                return;
+            }
             modal.style.display = 'block';
             modal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
@@ -3991,7 +4024,7 @@
     </div>
 
     <!-- Modal Backgrounds -->
-    <div id="cxAnalyticsModal" class="modal" role="dialog" aria-labelledby="cx-analytics-modal-title" aria-hidden="true">
+    <div id="cxAnalyticsModal" class="modal" style="display: none;" role="dialog" aria-labelledby="cx-analytics-modal-title" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="cx-analytics-modal-title">Customer Experience Analytics Platform</h3>
@@ -4090,7 +4123,7 @@
     </div>
 
     <!-- AI Classifier Modal -->
-    <div id="aiModal" class="modal" role="dialog" aria-labelledby="ai-modal-title" aria-hidden="true">
+    <div id="aiModal" class="modal" style="display: none;" role="dialog" aria-labelledby="ai-modal-title" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="ai-modal-title">AI Classifier Demo</h3>
@@ -4108,7 +4141,7 @@
     </div>
 
     <!-- EEG Modal -->
-    <div id="eegModal" class="modal" role="dialog" aria-labelledby="eeg-modal-title" aria-hidden="true">
+    <div id="eegModal" class="modal" style="display: none;" role="dialog" aria-labelledby="eeg-modal-title" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="eeg-modal-title">EEG Signal Analysis Demo</h3>
@@ -4129,7 +4162,7 @@
     </div>
 
     <!-- Crypto Modal -->
-    <div id="cryptoModal" class="modal" role="dialog" aria-labelledby="crypto-modal-title" aria-hidden="true">
+    <div id="cryptoModal" class="modal" style="display: none;" role="dialog" aria-labelledby="crypto-modal-title" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="crypto-modal-title">Cryptography Tool Demo</h3>
