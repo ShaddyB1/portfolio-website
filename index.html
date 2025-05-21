@@ -2261,7 +2261,7 @@
                         <a href="https://github.com/ShaddyB1" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="aiModalBtn" onclick="alert('AI Demo Button Clicked'); openModal('aiModal')">
+                        <button class="project-link demo-btn" type="button" id="aiModalBtn" onclick="alert('AI Demo Button Clicked'); openDemoModal('aiModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -4068,11 +4068,37 @@
         // Button animation function
         function animateButton(button) {
             console.log("Button clicked:", button);
-            button.classList.add('button-clicked');
+            // Create a visible pulse effect
+            const pulse = document.createElement('div');
+            pulse.className = 'button-pulse';
+            pulse.style.position = 'absolute';
+            pulse.style.top = '50%';
+            pulse.style.left = '50%';
+            pulse.style.transform = 'translate(-50%, -50%)';
+            pulse.style.width = '100%';
+            pulse.style.height = '100%';
+            pulse.style.backgroundColor = 'rgba(100, 255, 218, 0.4)';
+            pulse.style.borderRadius = 'inherit';
+            pulse.style.animation = 'pulse-animation 0.5s forwards';
+            button.style.position = 'relative';
+            button.style.overflow = 'hidden';
+            button.appendChild(pulse);
+            
+            // Remove after animation completes
             setTimeout(() => {
-                button.classList.remove('button-clicked');
-            }, 300);
+                pulse.remove();
+            }, 500);
         }
+        
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse-animation {
+                0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+                100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
         
         // Make animation function globally available
         window.animateButton = animateButton;
@@ -4143,6 +4169,20 @@
     <!-- Modal Backgrounds -->
     
     <!-- Custom Scripts -->
+    <script>
+        // Direct global access to ensure functions are available
+        window.openDemoModal = function(modalId) {
+            console.log("Direct openDemoModal called:", modalId);
+            alert("Opening modal: " + modalId);
+            var modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = "block";
+                document.body.style.overflow = "hidden";
+            } else {
+                alert("Modal not found: " + modalId);
+            }
+        }
+    </script>
     <script src="modal_handlers.js"></script>
 </body>
 </html>
