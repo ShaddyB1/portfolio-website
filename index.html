@@ -2302,7 +2302,7 @@
                         <a href="https://github.com/ShaddyB1/ecommerce-checkout" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="cryptoModalBtn" onclick="alert('Crypto Modal Opening'); openDemoModal('cryptoModal')">
+                        <button class="project-link demo-btn" type="button" id="cryptoModalBtn" onclick="openDemoModal('cryptoModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -2338,7 +2338,7 @@
                         <a href="https://github.com/ShaddyB1/customer-segmentation" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="eegModalBtn" onclick="alert('EEG Modal Opening'); openDemoModal('eegModal')">
+                        <button class="project-link demo-btn" type="button" id="eegModalBtn" onclick="openDemoModal('eegModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -2369,7 +2369,7 @@
                         <a href="https://github.com/ShaddyB1/user-auth-system" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="cxAnalyticsModalBtn" onclick="alert('CX Analytics Modal Opening'); openDemoModal('cxAnalyticsModal')">
+                        <button class="project-link demo-btn" type="button" id="cxAnalyticsModalBtn" onclick="openDemoModal('cxAnalyticsModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -4275,32 +4275,7 @@
         Don't forget to check out my <a href="blog.html">developer journal</a> before you go!
     </div>
     
-    <!-- Test Buttons (for debugging) -->
-    <div style="position: fixed; bottom: 100px; right: 20px; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 8px; z-index: 9999;">
-        <button onclick="openDemoModal('aiModal')" style="display: block; margin: 5px; padding: 5px;">Test AI Modal</button>
-        <button onclick="openDemoModal('cryptoModal')" style="display: block; margin: 5px; padding: 5px;">Test Crypto Modal</button>
-        <button onclick="openDemoModal('eegModal')" style="display: block; margin: 5px; padding: 5px;">Test EEG Modal</button>
-        <button onclick="openDemoModal('cxAnalyticsModal')" style="display: block; margin: 5px; padding: 5px;">Test CX Modal</button>
-        <div id="click-log" style="margin-top: 10px; color: white; font-size: 10px; max-height: 100px; overflow-y: auto;"></div>
-    </div>
-    
-    <script>
-        // Global click monitoring
-        document.addEventListener('click', function(e) {
-            const clickLog = document.getElementById('click-log');
-            if (clickLog) {
-                const target = e.target.tagName + (e.target.className ? ' .' + e.target.className.split(' ').join('.') : '');
-                const entry = document.createElement('div');
-                entry.textContent = 'Clicked: ' + target;
-                clickLog.prepend(entry);
-                
-                // Only keep last 5 entries
-                while (clickLog.children.length > 5) {
-                    clickLog.removeChild(clickLog.lastChild);
-                }
-            }
-        }, true);
-    </script>
+    <!-- Development notes have been removed -->
 
     <!-- Modal Backgrounds -->
     
@@ -4308,8 +4283,7 @@
     <script>
         // Direct global access to ensure functions are available
         window.openDemoModal = function(modalId) {
-            console.log("⚠️ Direct openDemoModal called:", modalId);
-            alert("OPENING MODAL: " + modalId);
+            console.log("Opening modal:", modalId);
             
             // Direct modal access without going through any functions
             try {
@@ -4388,60 +4362,43 @@
     </script>
     <script src="modal_handlers.js"></script>
     
-    <!-- Emergency fix script to make sure buttons work -->
+    <!-- Button functionality enhancement script -->
     <script>
-        // Final emergency button fix
+        // Ensure buttons work consistently across browsers
         setTimeout(function() {
-            // Method 1: Direct inline onclick
             document.querySelectorAll('.project-card').forEach(function(card) {
                 const title = card.querySelector('.project-title')?.textContent.toLowerCase() || '';
                 const demoBtn = card.querySelector('.demo-btn');
                 
                 if (demoBtn) {
-                    // Clear any existing handler
-                    const clonedBtn = demoBtn.cloneNode(true);
-                    if (demoBtn.parentNode) {
-                        demoBtn.parentNode.replaceChild(clonedBtn, demoBtn);
-                    }
-                    
-                    // Add direct onclick attributes
-                    if (title.includes('ai') || title.includes('classifier')) {
-                        clonedBtn.setAttribute('onclick', "alert('AI Modal'); var m=document.getElementById('aiModal'); if(m){m.style.display='block';document.body.style.overflow='hidden';}");
-                    } else if (title.includes('crypto')) {
-                        clonedBtn.setAttribute('onclick', "alert('Crypto Modal'); var m=document.getElementById('cryptoModal'); if(m){m.style.display='block';document.body.style.overflow='hidden';}");
-                    } else if (title.includes('eeg') || title.includes('signal')) {
-                        clonedBtn.setAttribute('onclick', "alert('EEG Modal'); var m=document.getElementById('eegModal'); if(m){m.style.display='block';document.body.style.overflow='hidden';}");
-                    } else if (title.includes('customer') || title.includes('analytics') || title.includes('cx')) {
-                        clonedBtn.setAttribute('onclick', "alert('CX Modal'); var m=document.getElementById('cxAnalyticsModal'); if(m){m.style.display='block';document.body.style.overflow='hidden';}");
-                    }
-                    
-                    // Method 2: Also add direct event listener
-                    clonedBtn.addEventListener('click', function(e) {
-                        console.log("DIRECT CLICK on button in card: " + title);
+                    // Add enhanced click handling for demo buttons
+                    demoBtn.addEventListener('click', function(e) {
                         e.preventDefault();
                         e.stopPropagation();
                         
+                        // Determine which modal to open based on project title
+                        let modalId = null;
                         if (title.includes('ai') || title.includes('classifier')) {
-                            var modal = document.getElementById('aiModal');
-                            if (modal) { modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
-                        } else if (title.includes('crypto')) {
-                            var modal = document.getElementById('cryptoModal');
-                            if (modal) { modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+                            modalId = 'aiModal';
+                        } else if (title.includes('crypto') || title.includes('cryptography')) {
+                            modalId = 'cryptoModal';
                         } else if (title.includes('eeg') || title.includes('signal')) {
-                            var modal = document.getElementById('eegModal');
-                            if (modal) { modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+                            modalId = 'eegModal';
                         } else if (title.includes('customer') || title.includes('analytics') || title.includes('cx')) {
-                            var modal = document.getElementById('cxAnalyticsModal');
-                            if (modal) { modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+                            modalId = 'cxAnalyticsModal';
                         }
-                        return false;
+                        
+                        if (modalId) {
+                            // Open the modal directly
+                            var modal = document.getElementById(modalId);
+                            if (modal) { 
+                                modal.style.display = 'block';
+                                document.body.style.overflow = 'hidden';
+                            }
+                        }
                     });
-                    
-                    // Method 3: Make the entire card clickable for demo
-                    card.style.cursor = 'pointer';
                 }
             });
-            console.log("Emergency button fix applied!");
         }, 500);
     </script>
 </body>
