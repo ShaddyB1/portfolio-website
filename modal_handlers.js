@@ -190,8 +190,8 @@ function setupModalButtons() {
     console.log("Modal handlers setup complete");
 }
 
-// Function to open a modal by ID
-function openModal(modalId) {
+// Function to open a modal by ID - accessible globally
+window.openModal = function(modalId) {
     console.log("openModal function called for:", modalId);
     var modal = document.getElementById(modalId);
     if (modal) {
@@ -213,7 +213,7 @@ function openModal(modalId) {
 }
 
 // Global function to close modals (used by onclick attributes)
-function closeModal(modalId) {
+window.closeModal = function(modalId) {
     console.log("closeModal function called for:", modalId);
     var modal = document.getElementById(modalId);
     if (modal) {

@@ -2246,7 +2246,7 @@
                         <a href="https://github.com/ShaddyB1" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="aiModalBtn">
+                        <button class="project-link demo-btn" type="button" id="aiModalBtn" onclick="openModal('aiModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -2278,7 +2278,7 @@
                         <a href="https://github.com/ShaddyB1" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="cryptoModalBtn">
+                        <button class="project-link demo-btn" type="button" id="cryptoModalBtn" onclick="openModal('cryptoModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -2314,7 +2314,7 @@
                         <a href="https://github.com/ShaddyB1" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="eegModalBtn">
+                        <button class="project-link demo-btn" type="button" id="eegModalBtn" onclick="openModal('eegModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -2345,7 +2345,7 @@
                         <a href="https://github.com/ShaddyB1" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="cxAnalyticsModalBtn">
+                        <button class="project-link demo-btn" type="button" id="cxAnalyticsModalBtn" onclick="openModal('cxAnalyticsModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -2697,27 +2697,7 @@
                 });
             });
             
-            // Add direct click handlers for demo buttons
-            document.querySelectorAll('[onclick*="openModal"]').forEach(button => {
-                const matches = button.getAttribute('onclick').match(/openModal\(['"]([^'"]+)['"]\)/);
-                if (matches && matches[1]) {
-                    const modalId = matches[1];
-                    console.log(`Adding direct click handler for ${modalId}`);
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.log(`Direct click for ${modalId}`);
-                        const modal = document.getElementById(modalId);
-                        if (modal) {
-                            modal.style.display = 'block';
-                            document.body.style.overflow = 'hidden';
-                        } else {
-                            console.error(`Modal not found: ${modalId}`);
-                        }
-                        return false;
-                    });
-                }
-            });
+            // Note: Modal buttons now use direct onclick attributes that call the openModal function in modal_handlers.js
         });
 
         // Project data
@@ -3067,16 +3047,7 @@
             // Initialize scroll behavior
             initializeScrollBehavior();
             
-            // Make sure all modal open buttons work properly
-            document.querySelectorAll('[onclick*="openModal"]').forEach(el => {
-                const modalId = el.getAttribute('onclick').match(/'(.*?)'/)[1];
-                console.log("Found modal button for:", modalId);
-                el.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log("Modal button clicked for:", modalId);
-                    openModal(modalId);
-                });
-            });
+            // No need to add additional event listeners to modal buttons since they now use onclick attributes
             
             // Note: To add new experiences in the future, use the addNewExperience() function
             // See the function definition for details on required parameters
@@ -3216,46 +3187,7 @@
             });
         }
 
-        // Open modal function
-        function openModal(modalId) {
-            console.log("Opening modal:", modalId);
-            const modal = document.getElementById(modalId);
-            if (!modal) {
-                console.error("Modal not found:", modalId);
-                alert("Modal not found: " + modalId);
-                return;
-            }
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            
-            if (modalId === 'eegModal') {
-                try {
-                    initEEGDemo();
-                } catch (e) {
-                    console.error("Error initializing EEG demo:", e);
-                }
-            }
-        }
-        
-        // Close modal function
-        function closeModal(modalId) {
-            console.log("Closing modal:", modalId);
-            const modal = document.getElementById(modalId);
-            if (!modal) {
-                console.error("Modal not found for closing:", modalId);
-                return;
-            }
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            
-            if (modalId === 'eegModal') {
-                try {
-                    stopEEGDemo();
-                } catch (e) {
-                    console.error("Error stopping EEG demo:", e);
-                }
-            }
-        }
+        // Note: openModal and closeModal functions are now defined in modal_handlers.js
 
         // Classifier functionality
         async function classifyParagraph() {
