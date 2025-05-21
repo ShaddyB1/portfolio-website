@@ -2261,7 +2261,7 @@
                         <a href="https://github.com/ShaddyB1" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="aiModalBtn" onclick="alert('AI Demo Button Clicked'); openDemoModal('aiModal')">
+                        <button class="project-link demo-btn" type="button" onclick="openDemoModal('aiModal')" style="position: relative;">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -3007,6 +3007,46 @@
                 }
                 
                 renderProjects(filteredProjects);
+                
+                // Make sure all buttons are directly clickable
+                setTimeout(function() {
+                    console.log("Adding direct click handlers to all project buttons");
+                    document.querySelectorAll('.project-link.demo-btn').forEach(function(btn) {
+                        // Clean up old handlers that might conflict
+                        const oldClone = btn.cloneNode(true);
+                        btn.parentNode.replaceChild(oldClone, btn);
+                        
+                        // Get the modal ID from the onclick attribute
+                        const onclickAttr = oldClone.getAttribute('onclick');
+                        let modalId = null;
+                        
+                        if (onclickAttr && onclickAttr.includes("openModal")) {
+                            const match = onclickAttr.match(/openModal\(['"]([^'"]+)['"]\)/);
+                            if (match && match[1]) modalId = match[1];
+                        } else if (onclickAttr && onclickAttr.includes("openDemoModal")) {
+                            const match = onclickAttr.match(/openDemoModal\(['"]([^'"]+)['"]\)/);
+                            if (match && match[1]) modalId = match[1];
+                        }
+                        
+                        if (modalId) {
+                            console.log("Setting direct handler for", modalId);
+                            oldClone.onclick = function(event) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                console.log("Direct button click for", modalId);
+                                alert("Direct opening: " + modalId);
+                                
+                                const modal = document.getElementById(modalId);
+                                if (modal) {
+                                    modal.style.display = "block";
+                                    document.body.style.overflow = "hidden";
+                                } else {
+                                    alert("Modal not found: " + modalId);
+                                }
+                            };
+                        }
+                    });
+                }, 500);
             }
             
             // Initial setup - show featured projects with "all" filter
@@ -3025,6 +3065,66 @@
             
             // Initialize mobile navigation
             initializeMobileNavigation();
+            
+            // Directly set up all demo buttons for maximum compatibility
+            setTimeout(function() {
+                console.log("Setting up all demo buttons directly");
+                
+                // Find all demo buttons by class
+                const allDemoButtons = document.querySelectorAll('.project-link.demo-btn');
+                console.log("Found", allDemoButtons.length, "demo buttons to set up");
+                
+                allDemoButtons.forEach(function(button) {
+                    // Extract modal ID from existing onclick attribute if possible
+                    let modalId = null;
+                    const buttonText = button.textContent.trim();
+                    const parentCard = button.closest('.project-card');
+                    
+                    if (parentCard) {
+                        const cardTitle = parentCard.querySelector('.project-title');
+                        if (cardTitle) {
+                            const titleText = cardTitle.textContent.toLowerCase();
+                            
+                            // Try to match title to modal
+                            if (titleText.includes('ai') || titleText.includes('classifier')) {
+                                modalId = 'aiModal';
+                            } else if (titleText.includes('crypto') || titleText.includes('cryptography')) {
+                                modalId = 'cryptoModal';
+                            } else if (titleText.includes('eeg') || titleText.includes('signal')) {
+                                modalId = 'eegModal';
+                            } else if (titleText.includes('customer') || titleText.includes('analytics') || titleText.includes('cx')) {
+                                modalId = 'cxAnalyticsModal';
+                            }
+                            
+                            if (modalId) {
+                                console.log(`Auto-assigned modal ${modalId} based on title: ${titleText}`);
+                                
+                                // Set a direct click handler that doesn't rely on other code
+                                button.onclick = function(event) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                    console.log("Opening modal:", modalId);
+                                    alert("Direct click: " + modalId);
+                                    
+                                    try {
+                                        const modal = document.getElementById(modalId);
+                                        if (modal) {
+                                            modal.style.display = 'block';
+                                            document.body.style.overflow = 'hidden';
+                                        } else {
+                                            console.error("Modal not found:", modalId);
+                                        }
+                                    } catch(err) {
+                                        console.error("Error opening modal:", err);
+                                    }
+                                    
+                                    return false;
+                                };
+                            }
+                        }
+                    }
+                });
+            }, 1000);
             
             // All buttons now use direct onclick attributes with globally available functions
             
@@ -4172,7 +4272,26 @@
         <button onclick="openDemoModal('cryptoModal')" style="display: block; margin: 5px; padding: 5px;">Test Crypto Modal</button>
         <button onclick="openDemoModal('eegModal')" style="display: block; margin: 5px; padding: 5px;">Test EEG Modal</button>
         <button onclick="openDemoModal('cxAnalyticsModal')" style="display: block; margin: 5px; padding: 5px;">Test CX Modal</button>
+        <div id="click-log" style="margin-top: 10px; color: white; font-size: 10px; max-height: 100px; overflow-y: auto;"></div>
     </div>
+    
+    <script>
+        // Global click monitoring
+        document.addEventListener('click', function(e) {
+            const clickLog = document.getElementById('click-log');
+            if (clickLog) {
+                const target = e.target.tagName + (e.target.className ? ' .' + e.target.className.split(' ').join('.') : '');
+                const entry = document.createElement('div');
+                entry.textContent = 'Clicked: ' + target;
+                clickLog.prepend(entry);
+                
+                // Only keep last 5 entries
+                while (clickLog.children.length > 5) {
+                    clickLog.removeChild(clickLog.lastChild);
+                }
+            }
+        }, true);
+    </script>
 
     <!-- Modal Backgrounds -->
     
