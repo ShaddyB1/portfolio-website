@@ -3011,30 +3011,9 @@
             // Initialize mobile navigation
             initializeMobileNavigation();
             
-            // Add a global click handler to the classify button as a backup
-            const classifyBtn = document.querySelector('button[onclick="classifyParagraph()"]');
-            if (classifyBtn) {
-                console.log("Classify button found, adding event listener");
-                classifyBtn.addEventListener('click', function() {
-                    console.log("Classify button clicked via event listener");
-                    classifyParagraph();
-                });
-            } else {
-                console.error("Classify button not found!");
-            }
+            // All buttons now use direct onclick attributes with globally available functions
             
-            // Make sure all modals can be opened
-            const demoButtons = document.querySelectorAll('.project-link.demo-btn');
-            demoButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const modalId = this.getAttribute('data-modal') || 
-                                   (this.onclick ? this.onclick.toString().match(/'(.*?)'/) ? this.onclick.toString().match(/'(.*?)'/)[1] : null : null);
-                    if (modalId) {
-                        console.log("Demo button clicked, opening modal:", modalId);
-                        openModal(modalId);
-                    }
-                });
-            });
+            // All demo buttons now have direct onclick attributes that call the openModal function in modal_handlers.js
         });
 
         // Initialize loading screen
@@ -3844,6 +3823,9 @@
             // Update ARIA attributes
             header.setAttribute('aria-expanded', isExpanded);
         }
+        
+        // Make toggleExperience globally available
+        window.toggleExperience = toggleExperience;
 
         // Helper function to add a new experience (for future use)
         function addNewExperience(options) {
@@ -4060,6 +4042,13 @@
                 startEEGDemo(); // Start again with fresh data
             }, 100);
         }
+        
+        // Make runEEGDemo globally available
+        window.runEEGDemo = runEEGDemo;
+        
+        // Make other functions globally available
+        window.classifyParagraph = classifyParagraph;
+        window.performCryptoOperation = performCryptoOperation;
 
     </script>
     
