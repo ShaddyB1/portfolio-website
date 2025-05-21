@@ -2,6 +2,29 @@
 document.addEventListener("DOMContentLoaded", function() {
     console.log("Modal handlers loaded");
     
+    // Test direct button click method
+    console.log("Testing direct button click...");
+    setTimeout(() => {
+        console.log("Direct code button test");
+        const testButtons = document.querySelectorAll('.project-link.demo-btn');
+        console.log("Found demo buttons:", testButtons.length);
+        
+        if (testButtons.length > 0) {
+            console.log("First demo button:", testButtons[0]);
+            console.log("First demo button onclick:", testButtons[0].onclick);
+            // testButtons[0].click(); // Uncomment to auto-click first button when page loads
+        }
+    }, 2000);
+    
+    // Add click animations to all code links
+    document.querySelectorAll('a.project-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Only handle the animation, let the default link behavior continue
+            animateButton(this);
+            console.log("Code link clicked:", this.href);
+        });
+    });
+    
     // Wait a short time to ensure the DOM is fully loaded and rendered
     setTimeout(function() {
         setupModalButtons();
@@ -192,15 +215,21 @@ function setupModalButtons() {
 
 // Function to open a modal by ID - accessible globally
 window.openModal = function(modalId) {
-    console.log("openModal function called for:", modalId);
+    console.log("🔔 openModal function called for:", modalId);
+    
+    // Log to ensure everyone knows this function was called
+    alert("Opening modal: " + modalId);
+    
     var modal = document.getElementById(modalId);
     if (modal) {
+        console.log("Modal found, setting display to block:", modal);
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
         
         // Initialize EEG demo if opening that modal
         if (modalId === "eegModal" && typeof initializeEEGDemo === 'function' && typeof startEEGDemo === 'function') {
             try {
+                console.log("Starting EEG demo");
                 initializeEEGDemo();
                 startEEGDemo();
             } catch(e) {
@@ -209,6 +238,7 @@ window.openModal = function(modalId) {
         }
     } else {
         console.error("Modal not found:", modalId);
+        alert("Error: Modal with ID '" + modalId + "' not found!");
     }
 }
 

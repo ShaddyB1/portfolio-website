@@ -429,6 +429,21 @@
             background: rgba(100, 255, 218, 0.1);
         }
 
+        .project-link:active {
+            transform: scale(0.95);
+            transition: transform 0.1s;
+        }
+
+        @keyframes buttonClick {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
+        .button-clicked {
+            animation: buttonClick 0.3s ease;
+        }
+
         .demo-btn:hover {
             background: var(--color-accent-primary);
             color: var(--color-bg-primary);
@@ -2246,7 +2261,7 @@
                         <a href="https://github.com/ShaddyB1" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="aiModalBtn" onclick="openModal('aiModal')">
+                        <button class="project-link demo-btn" type="button" id="aiModalBtn" onclick="animateButton(this); openModal('aiModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -2278,7 +2293,7 @@
                         <a href="https://github.com/ShaddyB1" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="cryptoModalBtn" onclick="openModal('cryptoModal')">
+                        <button class="project-link demo-btn" type="button" id="cryptoModalBtn" onclick="animateButton(this); openModal('cryptoModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -2314,7 +2329,7 @@
                         <a href="https://github.com/ShaddyB1" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="eegModalBtn" onclick="openModal('eegModal')">
+                        <button class="project-link demo-btn" type="button" id="eegModalBtn" onclick="animateButton(this); openModal('eegModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -2345,7 +2360,7 @@
                         <a href="https://github.com/ShaddyB1" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <button class="project-link demo-btn" type="button" id="cxAnalyticsModalBtn" onclick="openModal('cxAnalyticsModal')">
+                        <button class="project-link demo-btn" type="button" id="cxAnalyticsModalBtn" onclick="animateButton(this); openModal('cxAnalyticsModal')">
                             <i class="fas fa-play"></i> Demo
                         </button>
                     </div>
@@ -2353,7 +2368,7 @@
             </div>
             
             <div class="view-more-container">
-                <button id="view-more-btn" class="view-more-btn">
+                <button id="view-more-btn" class="view-more-btn" onclick="animateButton(this)">
                     <span>View More Projects</span>
                     <i class="fas fa-chevron-down"></i>
                 </button>
@@ -2470,7 +2485,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="cx-analytics-modal-title">Customer Experience Analytics Platform</h3>
-                <span class="close-modal" onclick="closeModal('cxAnalyticsModal')" aria-label="Close CX Analytics demo">&times;</span>
+                <span class="close-modal" onclick="animateButton(this); closeModal('cxAnalyticsModal')" aria-label="Close CX Analytics demo">&times;</span>
             </div>
             <div class="modal-body" style="max-height: 70vh; overflow-y: auto; padding-right: 10px;">
                 <p>A comprehensive data science solution for customer experience optimization with predictive models and interactive dashboards.</p>
@@ -2573,12 +2588,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="ai-modal-title">AI Classifier Demo</h3>
-                <span class="close-modal" onclick="closeModal('aiModal')" aria-label="Close AI Classifier demo">&times;</span>
+                <span class="close-modal" onclick="animateButton(this); closeModal('aiModal')" aria-label="Close AI Classifier demo">&times;</span>
             </div>
             <div class="modal-body">
                 <p>Enter a paragraph to classify its quality:</p>
                 <textarea id="paragraph-input" class="demo-input" placeholder="Enter a paragraph here..." aria-label="Enter paragraph for classification"></textarea>
-                <button class="demo-btn" onclick="classifyParagraph()" style="background-color: #64ffda; color: #0a0f1c; font-weight: bold; padding: 10px 20px; cursor: pointer;" aria-label="Run AI classification">Classify</button>
+                <button class="demo-btn" onclick="animateButton(this); classifyParagraph()" style="background-color: #64ffda; color: #0a0f1c; font-weight: bold; padding: 10px 20px; cursor: pointer;" aria-label="Run AI classification">Classify</button>
                 <div id="result" class="result-container" aria-live="polite">
                     <p>Classification result will appear here...</p>
                 </div>
@@ -2595,7 +2610,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="eeg-modal-title">EEG Signal Analysis Demo</h3>
-                <span class="close-modal" onclick="closeModal('eegModal')" aria-label="Close EEG Analysis demo">&times;</span>
+                <span class="close-modal" onclick="animateButton(this); closeModal('eegModal')" aria-label="Close EEG Analysis demo">&times;</span>
             </div>
             <div class="modal-body">
                 <p>Select a sample EEG recording:</p>
@@ -2604,7 +2619,7 @@
                     <option value="beta">Beta Waves (Alert)</option>
                     <option value="theta">Theta Waves (Drowsy)</option>
                 </select>
-                <button class="demo-btn" onclick="runEEGDemo()" aria-label="Run EEG analysis">Analyze</button>
+                <button class="demo-btn" onclick="animateButton(this); runEEGDemo()" aria-label="Run EEG analysis">Analyze</button>
                 <div id="eegPlot" class="demo-plot" aria-label="EEG signal visualization"></div>
                 <div id="freqPlot" class="demo-plot" aria-label="Frequency domain visualization"></div>
             </div>
@@ -2620,7 +2635,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="crypto-modal-title">Cryptography Tool Demo</h3>
-                <span class="close-modal" onclick="closeModal('cryptoModal')" aria-label="Close Cryptography demo">&times;</span>
+                <span class="close-modal" onclick="animateButton(this); closeModal('cryptoModal')" aria-label="Close Cryptography demo">&times;</span>
             </div>
             <div class="modal-body">
                 <p>Enter text to encrypt or decrypt:</p>
@@ -2656,7 +2671,7 @@
                     <input type="number" id="crypto-rails" class="demo-input" value="3" min="2" max="10" aria-label="Enter number of rails">
                 </div>
                 
-                <button class="demo-btn" onclick="performCryptoOperation()" aria-label="Process cryptography operation">Process</button>
+                <button class="demo-btn" onclick="animateButton(this); performCryptoOperation()" aria-label="Process cryptography operation">Process</button>
                 
                 <div id="crypto-result" class="result-container" aria-live="polite">
                     <p>Result will appear here...</p>
@@ -4049,6 +4064,18 @@
         // Make other functions globally available
         window.classifyParagraph = classifyParagraph;
         window.performCryptoOperation = performCryptoOperation;
+        
+        // Button animation function
+        function animateButton(button) {
+            console.log("Button clicked:", button);
+            button.classList.add('button-clicked');
+            setTimeout(() => {
+                button.classList.remove('button-clicked');
+            }, 300);
+        }
+        
+        // Make animation function globally available
+        window.animateButton = animateButton;
 
     </script>
     
