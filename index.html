@@ -3177,14 +3177,8 @@
         // Classifier functionality
         async function classifyParagraph() {
             try {
-                // Remove the alert which might be annoying
-                // alert("Classify button clicked!"); 
-                
                 const paragraph = document.getElementById('paragraph-input').value;
                 const resultDiv = document.getElementById('result');
-                
-                console.log("Paragraph input:", paragraph);
-                console.log("Result div found:", resultDiv !== null);
                 
                 if (paragraph.trim() === '') {
                     resultDiv.textContent = 'Please enter a paragraph to classify.';
@@ -3194,8 +3188,7 @@
                 resultDiv.textContent = 'Analyzing...';
                 
                 try {
-                    console.log("Sending request to API...");
-                    const response = await fetch('https://paragraph-quality-validator.herokuapp.com/classify', {
+                    const response = await fetch('https://paragraph-classifier.onrender.com/classify', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -3204,91 +3197,71 @@
                         },
                         body: JSON.stringify({ paragraph })
                     });
-
-                    console.log("Response status:", response.status);
                     
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
 
                     const data = await response.json();
-                    console.log("API response:", data);
                     
+                    // Display results with improved styling
                     resultDiv.innerHTML = `
                         <div style="margin-bottom: 10px;">Quality: 
-                            <span style="color: var(--color-accent-primary)">
+                            <span style="color: var(--color-accent-primary); font-weight: bold;">
                                 ${data.quality}
                             </span>
                         </div>
                         <div>Confidence: 
-                            <span style="color: var(--color-accent-primary)">
+                            <span style="color: var(--color-accent-primary); font-weight: bold;">
                                 ${(data.confidence * 100).toFixed(2)}%
                             </span>
                         </div>
+                        <div style="margin-top: 15px; font-size: 0.9rem;">
+                            <strong>Suggestions:</strong>
+                            <ul style="margin-top: 5px;">
+                                ${data.quality === 'High' ? 
+                                  '<li>Your paragraph is well-structured!</li>' : 
+                                  '<li>Consider adding more detail and varying sentence structure.</li>'}
+                                ${data.confidence < 0.85 ? 
+                                  '<li>The classifier is not very confident - results may vary.</li>' : ''}
+                            </ul>
+                        </div>
                     `;
                 } catch (error) {
-                    console.error("Error in API call:", error);
-                    // Try the Render.com service as backup
-                    try {
-                        console.log("Primary API unavailable. Trying backup service...");
-                        const backupResponse = await fetch('https://paragraph-classifier.onrender.com/classify', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json',
-                                'Origin': window.location.origin
-                            },
-                            body: JSON.stringify({ paragraph })
-                        });
-                        
-                        if (!backupResponse.ok) {
-                            throw new Error(`Backup service HTTP error! status: ${backupResponse.status}`);
-                        }
-                        
-                        const backupData = await backupResponse.json();
-                        console.log("Backup API response:", backupData);
-                        
-                        resultDiv.innerHTML = `
-                            <div style="margin-bottom: 10px;">Quality: 
-                                <span style="color: var(--color-accent-primary)">
-                                    ${backupData.quality}
-                                </span>
-                            </div>
-                            <div>Confidence: 
-                                <span style="color: var(--color-accent-primary)">
-                                    ${(backupData.confidence * 100).toFixed(2)}%
-                                </span>
-                            </div>
-                            <div style="font-size: 0.8rem; margin-top: 10px; color: var(--color-text-secondary);">
-                                Note: Using backup service.
-                            </div>
-                        `;
-                    } catch (backupError) {
-                        console.error("Backup API also failed:", backupError);
-                        // Provide a fallback/simulated response when both APIs are unreachable
-                        resultDiv.innerHTML = `
-                            <div style="margin-bottom: 10px;">
-                                <p>API Services Unavailable - Using Local Fallback Analysis</p>
-                            </div>
-                            <div style="margin-bottom: 10px;">Quality: 
-                                <span style="color: var(--color-accent-primary)">
-                                    ${paragraph.length > 100 ? 'High' : 'Medium'}
-                                </span>
-                            </div>
-                            <div>Confidence: 
-                                <span style="color: var(--color-accent-primary)">
-                                    ${paragraph.length > 150 ? '85.5' : '72.3'}%
-                                </span>
-                            </div>
-                            <div style="font-size: 0.8rem; margin-top: 10px; color: var(--color-text-secondary);">
-                                Note: This is a fallback result as API services are currently unavailable.
-                            </div>
-                        `;
-                    }
+                    // Provide a fallback/simulated response when the API is unreachable
+                    const quality = paragraph.length > 100 ? 'High' : 'Medium';
+                    const confidence = paragraph.length > 150 ? '85.5' : '72.3';
+                    
+                    resultDiv.innerHTML = `
+                        <div style="background-color: rgba(100, 255, 218, 0.1); border-left: 3px solid var(--color-accent-primary); padding: 10px; margin-bottom: 15px;">
+                            <p>API Service Unavailable - Using Fallback Analysis</p>
+                        </div>
+                        <div style="margin-bottom: 10px;">Quality: 
+                            <span style="color: var(--color-accent-primary); font-weight: bold;">
+                                ${quality}
+                            </span>
+                        </div>
+                        <div>Confidence: 
+                            <span style="color: var(--color-accent-primary); font-weight: bold;">
+                                ${confidence}%
+                            </span>
+                        </div>
+                        <div style="margin-top: 15px; font-size: 0.9rem;">
+                            <strong>Suggestions:</strong>
+                            <ul style="margin-top: 5px;">
+                                ${quality === 'High' ? 
+                                  '<li>Your paragraph is well-structured!</li>' : 
+                                  '<li>Consider adding more detail and varying sentence structure.</li>'}
+                                <li>This is a simplified analysis based on text length only.</li>
+                            </ul>
+                        </div>
+                        <div style="font-size: 0.8rem; margin-top: 10px; color: var(--color-text-secondary);">
+                            Note: This is a fallback result as the API service is currently unavailable.
+                        </div>
+                    `;
                 }
             } catch (outerError) {
-                console.error("Critical error in classifyParagraph function:", outerError);
-                alert("Error: " + outerError.message);
+                resultDiv.textContent = "Error processing your request. Please try again later.";
             }
         }
 
