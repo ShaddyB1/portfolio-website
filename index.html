@@ -411,6 +411,8 @@
             color: var(--color-accent-primary);
             border: 1px solid var(--color-accent-primary);
             cursor: pointer;
+            position: relative;
+            z-index: 10;
         }
 
         .project-link i {
@@ -421,6 +423,13 @@
             background: var(--color-accent-primary);
             color: var(--color-bg-primary);
             border: 1px solid var(--color-accent-primary);
+            width: 100%;
+            height: 44px;
+            min-height: 44px;
+            margin-top: 8px;
+            display: flex;
+            justify-content: center;
+            font-size: 1.05rem;
         }
 
         .project-link:hover {
@@ -4299,8 +4308,8 @@
     <script>
         // Direct global access to ensure functions are available
         window.openDemoModal = function(modalId) {
-            console.log("Direct openDemoModal called:", modalId);
-            alert("Opening modal: " + modalId);
+            console.log("⚠️ Direct openDemoModal called:", modalId);
+            alert("OPENING MODAL: " + modalId);
             
             // Direct modal access without going through any functions
             try {
@@ -4312,16 +4321,17 @@
                     modal.style.display = "block";
                     modal.style.visibility = "visible";
                     modal.style.opacity = "1";
+                    modal.style.zIndex = "9999";
                     document.body.style.overflow = "hidden";
                     
                     // Try to initialize EEG demo if it's that modal
-                    if (modalId === 'eegModal' && typeof initializeEEGDemo === 'function') {
+                    if (modalId === 'eegModal' && typeof window.initializeEEGDemo === 'function') {
                         console.log("Initializing EEG demo...");
                         setTimeout(function() {
                             try {
-                                initializeEEGDemo();
-                                if (typeof startEEGDemo === 'function') {
-                                    startEEGDemo();
+                                window.initializeEEGDemo();
+                                if (typeof window.startEEGDemo === 'function') {
+                                    window.startEEGDemo();
                                 }
                             } catch (e) {
                                 console.error("Error initializing EEG demo:", e);
@@ -4336,8 +4346,104 @@
                 alert("Error opening modal: " + error.message);
             }
         }
+        
+        // Add global click handler for the entire document
+        document.addEventListener('click', function(e) {
+            console.log("Document click:", e.target);
+            
+            // Check if the click is on or inside a project card
+            const projectCard = e.target.closest('.project-card');
+            if (projectCard) {
+                // Check if the click is on or near a demo button
+                const demoBtn = projectCard.querySelector('.demo-btn');
+                if (demoBtn) {
+                    // Get button text to help identify which modal to open
+                    const cardTitle = projectCard.querySelector('.project-title');
+                    if (cardTitle) {
+                        const title = cardTitle.textContent.toLowerCase();
+                        let modalId = null;
+                        
+                        // Determine which modal to open based on title
+                        if (title.includes('ai') || title.includes('classifier')) {
+                            modalId = 'aiModal';
+                        } else if (title.includes('crypto') || title.includes('cryptography')) {
+                            modalId = 'cryptoModal';
+                        } else if (title.includes('eeg') || title.includes('signal')) {
+                            modalId = 'eegModal';
+                        } else if (title.includes('customer') || title.includes('analytics') || title.includes('cx')) {
+                            modalId = 'cxAnalyticsModal';
+                        }
+                        
+                        if (modalId) {
+                            console.log("Card click - opening modal:", modalId);
+                            openDemoModal(modalId);
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return false;
+                        }
+                    }
+                }
+            }
+        }, true);
     </script>
     <script src="modal_handlers.js"></script>
+    
+    <!-- Emergency fix script to make sure buttons work -->
+    <script>
+        // Final emergency button fix
+        setTimeout(function() {
+            // Method 1: Direct inline onclick
+            document.querySelectorAll('.project-card').forEach(function(card) {
+                const title = card.querySelector('.project-title')?.textContent.toLowerCase() || '';
+                const demoBtn = card.querySelector('.demo-btn');
+                
+                if (demoBtn) {
+                    // Clear any existing handler
+                    const clonedBtn = demoBtn.cloneNode(true);
+                    if (demoBtn.parentNode) {
+                        demoBtn.parentNode.replaceChild(clonedBtn, demoBtn);
+                    }
+                    
+                    // Add direct onclick attributes
+                    if (title.includes('ai') || title.includes('classifier')) {
+                        clonedBtn.setAttribute('onclick', "alert('AI Modal'); var m=document.getElementById('aiModal'); if(m){m.style.display='block';document.body.style.overflow='hidden';}");
+                    } else if (title.includes('crypto')) {
+                        clonedBtn.setAttribute('onclick', "alert('Crypto Modal'); var m=document.getElementById('cryptoModal'); if(m){m.style.display='block';document.body.style.overflow='hidden';}");
+                    } else if (title.includes('eeg') || title.includes('signal')) {
+                        clonedBtn.setAttribute('onclick', "alert('EEG Modal'); var m=document.getElementById('eegModal'); if(m){m.style.display='block';document.body.style.overflow='hidden';}");
+                    } else if (title.includes('customer') || title.includes('analytics') || title.includes('cx')) {
+                        clonedBtn.setAttribute('onclick', "alert('CX Modal'); var m=document.getElementById('cxAnalyticsModal'); if(m){m.style.display='block';document.body.style.overflow='hidden';}");
+                    }
+                    
+                    // Method 2: Also add direct event listener
+                    clonedBtn.addEventListener('click', function(e) {
+                        console.log("DIRECT CLICK on button in card: " + title);
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        if (title.includes('ai') || title.includes('classifier')) {
+                            var modal = document.getElementById('aiModal');
+                            if (modal) { modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+                        } else if (title.includes('crypto')) {
+                            var modal = document.getElementById('cryptoModal');
+                            if (modal) { modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+                        } else if (title.includes('eeg') || title.includes('signal')) {
+                            var modal = document.getElementById('eegModal');
+                            if (modal) { modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+                        } else if (title.includes('customer') || title.includes('analytics') || title.includes('cx')) {
+                            var modal = document.getElementById('cxAnalyticsModal');
+                            if (modal) { modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+                        }
+                        return false;
+                    });
+                    
+                    // Method 3: Make the entire card clickable for demo
+                    card.style.cursor = 'pointer';
+                }
+            });
+            console.log("Emergency button fix applied!");
+        }, 500);
+    </script>
 </body>
 </html>
 
