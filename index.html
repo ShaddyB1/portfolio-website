@@ -25,14 +25,14 @@
     
     <!-- Preload key resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    <link rel="preload" href="https://cdn.plot.ly/plotly-latest.min.js" as="script">
+    <link rel="preload" href="https://cdn.plot.ly/plotly-2.26.0.min.js" as="script">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
     <!-- Fonts and Scripts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script defer src="https://cdn.plot.ly/plotly-latest.min.js" onerror="handlePlotlyError()"></script>
+    <script defer src="https://cdn.plot.ly/plotly-2.26.0.min.js" onerror="handlePlotlyError()"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
     <script>
@@ -2247,9 +2247,9 @@
                             <a href="#" class="project-link" aria-label="View source code on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <a href="#" class="project-link" aria-label="View live demo">
+                            <button type="button" class="project-link" aria-label="View live demo" onclick="javascript:openModal('aiModal')">
                                 <i class="fas fa-external-link-alt"></i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -2281,9 +2281,9 @@
                             <a href="#" class="project-link" aria-label="View source code on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <a href="#" class="project-link" aria-label="View live demo">
+                            <button type="button" class="project-link" aria-label="View live demo" onclick="javascript:openModal('cryptoModal')">
                                 <i class="fas fa-external-link-alt"></i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -2319,9 +2319,9 @@
                             <a href="#" class="project-link" aria-label="View source code on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <a href="#" class="project-link" aria-label="View live demo">
+                            <button type="button" class="project-link" aria-label="View live demo" onclick="javascript:openModal('eegModal')">
                                 <i class="fas fa-external-link-alt"></i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -2674,6 +2674,60 @@
     </div>
 
     <script>
+        // Debugging helper - run on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DEBUG: Checking for duplicate modal IDs...");
+            const modalIds = ['cxAnalyticsModal', 'aiModal', 'eegModal', 'cryptoModal'];
+            
+            modalIds.forEach(id => {
+                const elements = document.querySelectorAll(`#${id}`);
+                if (elements.length > 1) {
+                    console.error(`DUPLICATE MODAL ERROR: Found ${elements.length} elements with id "${id}"`);
+                } else if (elements.length === 0) {
+                    console.error(`MISSING MODAL ERROR: No element found with id "${id}"`);
+                } else {
+                    console.log(`Modal check OK: Found exactly 1 element with id "${id}"`);
+                    console.log(`Initial display style: ${elements[0].style.display}`);
+                }
+            });
+            
+            // Add direct clicks to each closeModal button
+            document.querySelectorAll('.close-modal').forEach(button => {
+                const modalId = button.closest('.modal').id;
+                console.log(`Adding close handler for ${modalId}`);
+                button.addEventListener('click', function() {
+                    console.log(`Close button clicked for ${modalId}`);
+                    const modal = document.getElementById(modalId);
+                    if (modal) {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+            
+            // Add direct click handlers for demo buttons
+            document.querySelectorAll('[onclick*="openModal"]').forEach(button => {
+                const matches = button.getAttribute('onclick').match(/openModal\(['"]([^'"]+)['"]\)/);
+                if (matches && matches[1]) {
+                    const modalId = matches[1];
+                    console.log(`Adding direct click handler for ${modalId}`);
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log(`Direct click for ${modalId}`);
+                        const modal = document.getElementById(modalId);
+                        if (modal) {
+                            modal.style.display = 'block';
+                            document.body.style.overflow = 'hidden';
+                        } else {
+                            console.error(`Modal not found: ${modalId}`);
+                        }
+                        return false;
+                    });
+                }
+            });
+        });
+
         // Project data
         const projectsData = [
             {
@@ -2850,16 +2904,14 @@
                         const button = document.createElement('button');
                         button.className = 'project-link demo-btn';
                         button.setAttribute('aria-label', `View ${project.title} ${link.label.toLowerCase()}`);
+                        button.setAttribute('onclick', `openModal('${link.modal}')`);
+                        button.setAttribute('type', 'button');
                         
                         const icon = document.createElement('i');
                         icon.className = `fas fa-${link.icon || 'play'}`;
                         
                         button.appendChild(icon);
                         button.appendChild(document.createTextNode(` ${link.label}`));
-                        button.addEventListener('click', function() {
-                            console.log('Demo button clicked for', link.modal);
-                            openModal(link.modal);
-                        });
                         linksContainer.appendChild(button);
                     } else {
                         const a = document.createElement('a');
@@ -3178,32 +3230,38 @@
             const modal = document.getElementById(modalId);
             if (!modal) {
                 console.error("Modal not found:", modalId);
+                alert("Modal not found: " + modalId);
                 return;
             }
             modal.style.display = 'block';
-            modal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
             
-            // Set focus on the first focusable element
-            const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-            if (focusableElements.length > 0) {
-                focusableElements[0].focus();
-            }
-            
             if (modalId === 'eegModal') {
-                initEEGDemo();
+                try {
+                    initEEGDemo();
+                } catch (e) {
+                    console.error("Error initializing EEG demo:", e);
+                }
             }
         }
         
         // Close modal function
         function closeModal(modalId) {
+            console.log("Closing modal:", modalId);
             const modal = document.getElementById(modalId);
+            if (!modal) {
+                console.error("Modal not found for closing:", modalId);
+                return;
+            }
             modal.style.display = 'none';
-            modal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = 'auto';
             
             if (modalId === 'eegModal') {
-                stopEEGDemo();
+                try {
+                    stopEEGDemo();
+                } catch (e) {
+                    console.error("Error stopping EEG demo:", e);
+                }
             }
         }
 
@@ -3505,118 +3563,237 @@
         let timeCounter = 0;
 
         function initializeEEGDemo() {
+            console.log("Initializing EEG demo...");
             // Check if Plotly is loaded
             if (typeof Plotly === 'undefined') {
                 console.error("Plotly is not loaded. EEG demo cannot run.");
-                const eegStatus = document.getElementById('eeg-status');
-                if (eegStatus) {
-                    eegStatus.textContent = 'Error: Required library not loaded';
-                    eegStatus.style.color = 'var(--color-error)';
-                }
+                alert("Error: Plotly library is not loaded. EEG demo cannot run.");
                 return;
             }
             
-            const trace = {
-                x: Array.from({length: sampleRate * 5}, (_, i) => i / sampleRate),
-                y: Array(sampleRate * 5).fill(0),
-                mode: 'lines',
-                line: { color: 'var(--color-accent-primary)', width: 2 },
-                type: 'scatter'
-            };
+            // Make sure the plot element exists
+            const eegPlotDiv = document.getElementById('eegPlot');
+            if (!eegPlotDiv) {
+                console.error("EEG plot div not found!");
+                alert("Error: EEG plot container not found!");
+                return;
+            }
+            
+            try {
+                console.log("Setting up EEG plot...");
+                const trace = {
+                    x: Array.from({length: sampleRate * 5}, (_, i) => i / sampleRate),
+                    y: Array(sampleRate * 5).fill(0),
+                    mode: 'lines',
+                    line: { color: 'var(--color-accent-primary)', width: 2 },
+                    type: 'scatter'
+                };
 
-            const layout = {
-                paper_bgcolor: 'rgba(0,0,0,0)',
-                plot_bgcolor: 'rgba(20,28,47,0.3)',
-                showlegend: false,
-                margin: { t: 20, r: 20, b: 50, l: 50 },
-                xaxis: {
-                    showgrid: true,
-                    gridcolor: 'rgba(255,255,255,0.1)',
-                    title: 'Time (s)',
-                    color: 'var(--color-text-secondary)',
-                    range: [0, 5]
-                },
-                yaxis: {
-                    showgrid: true,
-                    gridcolor: 'rgba(255,255,255,0.1)',
-                    title: 'Amplitude',
-                    range: [-4, 4],
-                    color: 'var(--color-text-secondary)'
-                },
-                font: { color: 'var(--color-text-secondary)' },
-                height: 400
-            };
+                const layout = {
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(20,28,47,0.3)',
+                    showlegend: false,
+                    margin: { t: 20, r: 20, b: 50, l: 50 },
+                    xaxis: {
+                        showgrid: true,
+                        gridcolor: 'rgba(255,255,255,0.1)',
+                        title: 'Time (s)',
+                        color: 'var(--color-text-secondary)',
+                        range: [0, 5]
+                    },
+                    yaxis: {
+                        showgrid: true,
+                        gridcolor: 'rgba(255,255,255,0.1)',
+                        title: 'Amplitude',
+                        range: [-4, 4],
+                        color: 'var(--color-text-secondary)'
+                    },
+                    font: { color: 'var(--color-text-secondary)' },
+                    height: 400
+                };
 
-            Plotly.newPlot('eeg-signal-plot', [trace], layout, {responsive: true});
+                Plotly.newPlot('eegPlot', [trace], layout, {responsive: true});
+                console.log("EEG plot initialized successfully!");
+                
+                // Add status indicator
+                const statusDiv = document.createElement('div');
+                statusDiv.id = 'eeg-status';
+                statusDiv.textContent = 'EEG Demo Ready';
+                statusDiv.style.color = 'var(--color-accent-primary)';
+                statusDiv.style.textAlign = 'center';
+                statusDiv.style.marginTop = '10px';
+                eegPlotDiv.after(statusDiv);
+                
+            } catch (error) {
+                console.error("Error initializing EEG demo:", error);
+                alert("Error initializing EEG plot: " + error.message);
+            }
         }
 
         function startEEGDemo() {
+            console.log("Starting EEG demo...");
             if (eegInterval) {
                 clearInterval(eegInterval);
             }
 
             const eegStatus = document.getElementById('eeg-status');
-            eegStatus.textContent = 'Monitoring active...';
-            eegStatus.style.color = 'var(--color-success)';
+            if (eegStatus) {
+                eegStatus.textContent = 'Monitoring active...';
+                eegStatus.style.color = 'var(--color-success)';
+            }
 
             timeCounter = 0;
             const updateInterval = 100;
 
-            eegInterval = setInterval(() => {
-                timeCounter += 0.5;
-                const newData = generateEEGData();
-                
-                Plotly.update('eeg-signal-plot', {
-                    y: [newData]
-                });
+            try {
+                eegInterval = setInterval(() => {
+                    timeCounter += 0.5;
+                    const newData = generateEEGData();
+                    
+                    Plotly.update('eegPlot', {
+                        y: [newData]
+                    });
 
-                updatePredictions();
-            }, updateInterval);
+                    updatePredictions();
+                }, updateInterval);
+                
+                console.log("EEG demo started successfully!");
+                
+                // Add a prediction container if it doesn't exist
+                if (!document.getElementById('prediction-results')) {
+                    const predDiv = document.createElement('div');
+                    predDiv.id = 'prediction-results';
+                    predDiv.style.marginTop = '20px';
+                    const eegPlotDiv = document.getElementById('eegPlot');
+                    if (eegPlotDiv) {
+                        eegPlotDiv.after(predDiv);
+                    }
+                }
+            } catch (error) {
+                console.error("Error starting EEG demo:", error);
+                alert("Error starting EEG visualization: " + error.message);
+            }
         }
 
         function stopEEGDemo() {
-            clearInterval(eegInterval);
-            const eegStatus = document.getElementById('eeg-status');
-            eegStatus.textContent = 'Monitoring stopped';
-            eegStatus.style.color = 'var(--color-text-secondary)';
+            console.log("Stopping EEG demo...");
+            try {
+                clearInterval(eegInterval);
+                const eegStatus = document.getElementById('eeg-status');
+                if (eegStatus) {
+                    eegStatus.textContent = 'Monitoring stopped';
+                    eegStatus.style.color = 'var(--color-text-secondary)';
+                }
+                console.log("EEG demo stopped successfully");
+            } catch (error) {
+                console.error("Error stopping EEG demo:", error);
+            }
         }
 
         function generateEEGData() {
-            const dataPoints = sampleRate * 5;
-            return Array.from({length: dataPoints}, (_, i) => {
-                const t = (timeCounter + i) / sampleRate;
-                const alpha = 0.5 * Math.sin(2 * Math.PI * 10 * t);
-                const beta = 0.3 * Math.sin(2 * Math.PI * 20 * t);
-                const theta = 0.4 * Math.sin(2 * Math.PI * 5 * t);
-                const noise = 0.2 * (Math.random() - 0.5);
+            try {
+                const dataPoints = sampleRate * 5;
+                // Get the selected wave type from the dropdown
+                let selectedWave = 'alpha'; // Default to alpha
+                const waveSelect = document.querySelector('#eegModal select');
+                if (waveSelect) {
+                    selectedWave = waveSelect.value;
+                }
                 
-                const seizureComponent = (timeCounter % 500 < 50) ? 
-                    2.0 * Math.sin(2 * Math.PI * 3 * t) : 0;
-                
-                return alpha + beta + theta + seizureComponent + noise;
-            });
+                return Array.from({length: dataPoints}, (_, i) => {
+                    const t = (timeCounter + i) / sampleRate;
+                    
+                    // Base components for all wave types
+                    let alpha = 0.2 * Math.sin(2 * Math.PI * 10 * t);
+                    let beta = 0.2 * Math.sin(2 * Math.PI * 20 * t);
+                    let theta = 0.2 * Math.sin(2 * Math.PI * 5 * t);
+                    const noise = 0.1 * (Math.random() - 0.5);
+                    
+                    // Enhance the selected wave type
+                    switch(selectedWave) {
+                        case 'alpha':
+                            alpha = 1.0 * Math.sin(2 * Math.PI * 10 * t);
+                            break;
+                        case 'beta':
+                            beta = 0.8 * Math.sin(2 * Math.PI * 22 * t);
+                            break;
+                        case 'theta':
+                            theta = 0.9 * Math.sin(2 * Math.PI * 5 * t);
+                            break;
+                    }
+                    
+                    // Add occasional "event" component
+                    const seizureComponent = (timeCounter % 500 < 50) ? 
+                        1.5 * Math.sin(2 * Math.PI * 3 * t) : 0;
+                    
+                    return alpha + beta + theta + seizureComponent + noise;
+                });
+            } catch (error) {
+                console.error("Error generating EEG data:", error);
+                return Array(sampleRate * 5).fill(0); // Return flat line on error
+            }
         }
 
         function updatePredictions() {
-            const results = document.getElementById('prediction-results');
-            const seizureProb = (timeCounter % 500 < 50) ? 0.8 + Math.random() * 0.15 : Math.random() * 0.3;
-            
-            results.innerHTML = `
-                <div style="margin-top: 20px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <span>Seizure Probability:</span>
-                        <span style="color: ${seizureProb > 0.6 ? 'var(--color-error)' : 'var(--color-success)'}">
-                            ${(seizureProb * 100).toFixed(1)}%
-                        </span>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); height: 20px; border-radius: 10px; overflow: hidden;">
-                        <div style="background: ${
-                            seizureProb > 0.6 ? 'var(--color-error)' : 'var(--color-success)'
-                        }; width: ${seizureProb * 100}%; height: 100%; transition: all 0.3s ease;">
+            try {
+                const results = document.getElementById('prediction-results');
+                if (!results) {
+                    console.warn("Prediction results container not found!");
+                    return;
+                }
+                
+                // Get the selected wave type for more relevant predictions
+                let selectedWave = 'alpha'; // Default to alpha
+                const waveSelect = document.querySelector('#eegModal select');
+                if (waveSelect) {
+                    selectedWave = waveSelect.value;
+                }
+                
+                // Calculate a probability based on time and selected wave
+                let baseProb = 0.2; // Default low probability
+                
+                // Periodic high probability "event"
+                const isEventPeriod = (timeCounter % 500 < 50);
+                
+                // Different probabilities based on wave type
+                if (selectedWave === 'beta') {
+                    baseProb = 0.3; // Higher baseline for beta
+                } else if (selectedWave === 'theta') {
+                    baseProb = 0.4; // Even higher for theta (drowsy)
+                }
+                
+                // Calculate final probability
+                const seizureProb = isEventPeriod ? 
+                    0.7 + Math.random() * 0.2 : // During event
+                    baseProb + Math.random() * 0.2; // Normal baseline
+                
+                results.innerHTML = `
+                    <div style="margin-top: 20px;">
+                        <div style="text-align: center; margin-bottom: 10px; font-weight: bold;">
+                            <span>EEG Analysis - ${selectedWave.charAt(0).toUpperCase() + selectedWave.slice(1)} Waves</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span>Anomaly Probability:</span>
+                            <span style="color: ${seizureProb > 0.6 ? 'var(--color-error)' : 'var(--color-success)'}; font-weight: bold;">
+                                ${(seizureProb * 100).toFixed(1)}%
+                            </span>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); height: 20px; border-radius: 10px; overflow: hidden;">
+                            <div style="background: ${
+                                seizureProb > 0.6 ? 'var(--color-error)' : 'var(--color-success)'
+                            }; width: ${seizureProb * 100}%; height: 100%; transition: all 0.3s ease;">
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px; font-size: 0.9em; color: var(--color-text-secondary);">
+                            ${seizureProb > 0.6 ? 
+                                'Warning: Abnormal pattern detected!' : 
+                                'Status: Normal brain activity pattern'}
                         </div>
                     </div>
-                </div>
-            `;
+                `;
+            } catch (error) {
+                console.error("Error updating predictions:", error);
+            }
         }
 
         // Close modals when clicking outside
