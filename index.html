@@ -3195,7 +3195,7 @@
                 
                 try {
                     console.log("Sending request to API...");
-                    const response = await fetch('https://paragraph-classifier.onrender.com/classify', {
+                    const response = await fetch('https://paragraph-quality-validator.herokuapp.com/classify', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -3228,25 +3228,63 @@
                     `;
                 } catch (error) {
                     console.error("Error in API call:", error);
-                    // Provide a fallback/simulated response when the API is unreachable
-                    resultDiv.innerHTML = `
-                        <div style="margin-bottom: 10px;">
-                            <p>API Service Unavailable - Using Fallback Analysis</p>
-                        </div>
-                        <div style="margin-bottom: 10px;">Quality: 
-                            <span style="color: var(--color-accent-primary)">
-                                ${paragraph.length > 100 ? 'High' : 'Medium'}
-                            </span>
-                        </div>
-                        <div>Confidence: 
-                            <span style="color: var(--color-accent-primary)">
-                                ${paragraph.length > 150 ? '85.5' : '72.3'}%
-                            </span>
-                        </div>
-                        <div style="font-size: 0.8rem; margin-top: 10px; color: var(--color-text-secondary);">
-                            Note: This is a fallback result as the API service is currently unavailable.
-                        </div>
-                    `;
+                    // Try the Render.com service as backup
+                    try {
+                        console.log("Primary API unavailable. Trying backup service...");
+                        const backupResponse = await fetch('https://paragraph-classifier.onrender.com/classify', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Origin': window.location.origin
+                            },
+                            body: JSON.stringify({ paragraph })
+                        });
+                        
+                        if (!backupResponse.ok) {
+                            throw new Error(`Backup service HTTP error! status: ${backupResponse.status}`);
+                        }
+                        
+                        const backupData = await backupResponse.json();
+                        console.log("Backup API response:", backupData);
+                        
+                        resultDiv.innerHTML = `
+                            <div style="margin-bottom: 10px;">Quality: 
+                                <span style="color: var(--color-accent-primary)">
+                                    ${backupData.quality}
+                                </span>
+                            </div>
+                            <div>Confidence: 
+                                <span style="color: var(--color-accent-primary)">
+                                    ${(backupData.confidence * 100).toFixed(2)}%
+                                </span>
+                            </div>
+                            <div style="font-size: 0.8rem; margin-top: 10px; color: var(--color-text-secondary);">
+                                Note: Using backup service.
+                            </div>
+                        `;
+                    } catch (backupError) {
+                        console.error("Backup API also failed:", backupError);
+                        // Provide a fallback/simulated response when both APIs are unreachable
+                        resultDiv.innerHTML = `
+                            <div style="margin-bottom: 10px;">
+                                <p>API Services Unavailable - Using Local Fallback Analysis</p>
+                            </div>
+                            <div style="margin-bottom: 10px;">Quality: 
+                                <span style="color: var(--color-accent-primary)">
+                                    ${paragraph.length > 100 ? 'High' : 'Medium'}
+                                </span>
+                            </div>
+                            <div>Confidence: 
+                                <span style="color: var(--color-accent-primary)">
+                                    ${paragraph.length > 150 ? '85.5' : '72.3'}%
+                                </span>
+                            </div>
+                            <div style="font-size: 0.8rem; margin-top: 10px; color: var(--color-text-secondary);">
+                                Note: This is a fallback result as API services are currently unavailable.
+                            </div>
+                        `;
+                    }
                 }
             } catch (outerError) {
                 console.error("Critical error in classifyParagraph function:", outerError);
