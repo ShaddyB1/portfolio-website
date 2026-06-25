@@ -2339,6 +2339,162 @@
         }
 
         /* Section Transitions */
+        /* Websites Section */
+        .websites {
+            padding: var(--spacing-lg) 0;
+            position: relative;
+        }
+
+        .websites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            margin: var(--spacing-lg) auto 0;
+            max-width: 1100px;
+        }
+
+        .website-card {
+            background: rgba(20, 28, 47, 0.7);
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+            transition: var(--transition-smooth);
+        }
+
+        .website-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+            border-color: rgba(100, 255, 218, 0.3);
+        }
+
+        /* Browser window mockup */
+        .browser-mockup {
+            display: block;
+            position: relative;
+        }
+
+        .browser-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: rgba(10, 15, 28, 0.9);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .browser-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .browser-dots span {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .browser-dots span { background: #28c840; }
+
+        .browser-url {
+            flex: 1;
+            background: rgba(100, 255, 218, 0.06);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.78rem;
+            color: var(--color-text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-decoration: none;
+        }
+
+        .website-preview {
+            position: relative;
+            width: 100%;
+            padding-top: 62.5%; /* 8:5 aspect ratio */
+            overflow: hidden;
+            background: var(--color-bg-secondary);
+        }
+
+        .website-preview img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 4s ease;
+        }
+
+        .website-card:hover .website-preview img {
+            transform: translateY(calc(-100% + 225px));
+        }
+
+        .website-info {
+            padding: var(--spacing-sm);
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .website-title {
+            color: var(--color-accent-primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .website-description {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .website-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 1.2rem;
+        }
+
+        .website-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .website-visit-btn {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient-accent);
+            color: var(--color-bg-primary);
+            border: none;
+            transition: var(--transition-smooth);
+        }
+
+        .website-visit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -8px rgba(100, 255, 218, 0.5);
+        }
+
+        @media (max-width: 480px) {
+            .websites-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .section-transition {
             height: 150px;
             position: relative;
@@ -2376,6 +2532,7 @@
             <a href="#" class="logo" aria-label="Home">SBA</a>
             <div class="nav-links">
                 <a href="#projects" class="nav-link" aria-label="View Projects">Projects</a>
+                <a href="#websites" class="nav-link" aria-label="View Websites">Websites</a>
                 <a href="#experience" class="nav-link" aria-label="View Experience">Experience</a>
                 <a href="#education" class="nav-link" aria-label="View Education">Education</a>
                 <a href="#contact" class="nav-link" aria-label="Contact Me">Contact</a>
@@ -2392,6 +2549,7 @@
         <div class="mobile-nav-links">
             <a href="#" class="mobile-nav-link" aria-label="Home">Home</a>
             <a href="#projects" class="mobile-nav-link" aria-label="View Projects">Projects</a>
+            <a href="#websites" class="mobile-nav-link" aria-label="View Websites">Websites</a>
             <a href="#experience" class="mobile-nav-link" aria-label="View Experience">Experience</a>
             <a href="#education" class="mobile-nav-link" aria-label="View Education">Education</a>
             <a href="#contact" class="mobile-nav-link" aria-label="Contact Me">Contact</a>
@@ -2566,6 +2724,55 @@
                     <span>View More Projects</span>
                     <i class="fas fa-chevron-down"></i>
                 </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-transition">
+        <div class="transition-gradient"></div>
+    </div>
+
+    <!-- Websites Section -->
+    <section id="websites" class="websites" aria-labelledby="websites-title">
+        <div class="container">
+            <h2 class="section-title" id="websites-title">Websites I've Built</h2>
+            <div class="websites-grid">
+                <!-- Website 1 -->
+                <div class="website-card">
+                    <a href="https://wcestudio.com/" class="browser-mockup" target="_blank" rel="noopener" aria-label="Open WCE Studio website">
+                        <div class="browser-bar">
+                            <div class="browser-dots">
+                                <span></span>
+                            </div>
+                            <div class="browser-url">wcestudio.com</div>
+                        </div>
+                        <div class="website-preview">
+                            <img src="https://image.thum.io/get/width/1000/crop/1400/noanimate/https://wcestudio.com/"
+                                 alt="Preview of the WCE Studio website"
+                                 loading="lazy"
+                                 onerror="this.onerror=null;this.src='https://api.microlink.io/?url=https://wcestudio.com&screenshot=true&meta=false&embed=screenshot.url';">
+                        </div>
+                    </a>
+                    <div class="website-info">
+                        <h3 class="website-title">WCE Studio</h3>
+                        <p class="website-description">
+                            Portfolio and consulting site for Whitney Chinonye Ernest, an African Data
+                            Artist & Creative Documentation Consultant. Designed and built with a clean,
+                            editorial layout that showcases her work and services.
+                        </p>
+                        <div class="website-tech">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Responsive Design</span>
+                        </div>
+                        <div class="website-links">
+                            <a href="https://wcestudio.com/" class="website-visit-btn" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i> Visit Site
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
