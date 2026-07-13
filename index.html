@@ -2893,6 +2893,190 @@
             .process-grid { grid-template-columns: 1fr; }
         }
 
+
+        /* Tableau Public gallery */
+        .tableau {
+            padding: var(--spacing-lg) 0;
+            position: relative;
+        }
+
+        .tableau-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.75rem;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tableau-header .section-title {
+            margin-bottom: 0.75rem;
+        }
+
+        .tableau-lede {
+            max-width: 48ch;
+            color: var(--color-text-secondary);
+            font-size: 0.98rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .tableau-profile-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1rem;
+            border: 1px solid rgba(232, 212, 77, 0.45);
+            color: var(--color-accent-primary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+        }
+
+        .tableau-profile-btn:hover {
+            background: rgba(232, 212, 77, 0.1);
+            color: var(--color-text-primary);
+        }
+
+        .tableau-profile-btn:active {
+            transform: scale(0.98) translateY(1px);
+        }
+
+        .tableau-featured {
+            max-width: 1100px;
+            margin: 0 auto 2rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--color-bg-elevated);
+        }
+
+        .tableau-featured-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--color-border);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--color-text-secondary);
+            letter-spacing: 0.04em;
+        }
+
+        .tableau-featured-bar strong {
+            color: var(--color-text-primary);
+            font-weight: 600;
+        }
+
+        .tableau-featured-bar a {
+            color: var(--color-accent-primary);
+            text-decoration: none;
+        }
+
+        .tableau-featured-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .tableau-embed {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #0a0a0a;
+        }
+
+        .tableau-embed iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .tableau-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .tableau-card {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--color-bg-elevated);
+            transition: var(--transition-smooth);
+        }
+
+        .tableau-card:hover {
+            border-color: rgba(232, 212, 77, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .tableau-card:active {
+            transform: scale(0.99) translateY(0);
+        }
+
+        .tableau-card-thumb {
+            aspect-ratio: 16 / 10;
+            background: #121212;
+            overflow: hidden;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .tableau-card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+        }
+
+        .tableau-card-body {
+            padding: 0.9rem 1rem 1.05rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            flex: 1;
+        }
+
+        .tableau-card-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+            margin: 0;
+            color: var(--color-text-primary);
+        }
+
+        .tableau-card-meta {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--color-text-secondary);
+            letter-spacing: 0.04em;
+        }
+
+        @media (max-width: 900px) {
+            .tableau-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 560px) {
+            .tableau-grid { grid-template-columns: 1fr; }
+            .tableau-embed { aspect-ratio: 4 / 5; min-height: 420px; }
+        }
+
         /* Work index + case studies */
         .work-lede {
             max-width: 52ch;
@@ -3417,6 +3601,7 @@
                 <a href="#about" class="nav-link" aria-label="About">About</a>
                 <a href="#projects" class="nav-link" aria-label="View Projects">Projects</a>
                 <a href="#process" class="nav-link" aria-label="Process">Process</a>
+                <a href="#tableau" class="nav-link" aria-label="Tableau Public">Tableau</a>
                 <a href="#experience" class="nav-link" aria-label="View Experience">Experience</a>
                 <a href="#education" class="nav-link" aria-label="View Education">Education</a>
                 <a href="#contact" class="nav-link" aria-label="Contact Me">Contact</a>
@@ -3435,6 +3620,7 @@
             <a href="#about" class="mobile-nav-link" aria-label="About">About</a>
             <a href="#projects" class="mobile-nav-link" aria-label="View Projects">Projects</a>
             <a href="#process" class="mobile-nav-link" aria-label="Process">Process</a>
+            <a href="#tableau" class="mobile-nav-link" aria-label="Tableau Public">Tableau</a>
             <a href="#experience" class="mobile-nav-link" aria-label="View Experience">Experience</a>
             <a href="#education" class="mobile-nav-link" aria-label="View Education">Education</a>
             <a href="#contact" class="mobile-nav-link" aria-label="Contact Me">Contact</a>
@@ -3601,6 +3787,44 @@
                     <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </button>
             </div>
+        </div>
+    </section>
+
+    <div class="section-transition">
+        <div class="transition-gradient"></div>
+    </div>
+
+
+    <!-- Tableau Public -->
+    <section id="tableau" class="tableau" aria-labelledby="tableau-title">
+        <div class="container">
+            <div class="tableau-header">
+                <div>
+                    <h2 class="section-title" id="tableau-title">Tableau Public</h2>
+                    <p class="tableau-lede">
+                        Live dashboards on wildlife–aircraft collisions, NYC street trees, and media ratings — published for anyone to explore.
+                    </p>
+                </div>
+                <a class="tableau-profile-btn" href="https://public.tableau.com/app/profile/shadrack.addo/vizzes" target="_blank" rel="noopener">
+                    Full profile →
+                </a>
+            </div>
+
+            <div class="tableau-featured">
+                <div class="tableau-featured-bar">
+                    <span><strong>Featured</strong> · Airplane–Wildlife Collisions</span>
+                    <a href="https://public.tableau.com/app/profile/shadrack.addo/viz/Airplane-WildlifeCollisions_17171999549850/Dashboard1" target="_blank" rel="noopener">Open in Tableau</a>
+                </div>
+                <div class="tableau-embed">
+                    <iframe
+                        title="Airplane-Wildlife Collisions Tableau dashboard"
+                        src="https://public.tableau.com/views/Airplane-WildlifeCollisions_17171999549850/Dashboard1?:embed=y&amp;:showVizHome=n&amp;:tabs=n&amp;:toolbar=yes&amp;:device=desktop"
+                        loading="lazy"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="tableau-grid" id="tableau-grid" role="list"></div>
         </div>
     </section>
 
@@ -3960,6 +4184,72 @@
             // Note: Modal buttons now use direct onclick attributes that call the openModal function in modal_handlers.js
         });
 
+
+        const tableauVizzes = [
+            {
+                title: 'Airplane–Wildlife Collisions',
+                view: 'Dashboard1',
+                repo: 'Airplane-WildlifeCollisions_17171999549850',
+                views: 38,
+                featured: true
+            },
+            {
+                title: 'Trees & Money in NYC',
+                view: 'Dashboard2',
+                repo: 'TreesMoneyinNYC_17158386682100',
+                views: 49
+            },
+            {
+                title: 'Most expensive wildlife strikes (2001–2015)',
+                view: 'howmuchandwhatspecies',
+                repo: 'Mostexpensivestrikesbetweenwildlifeandairplanesbetween2001and2015',
+                views: 44
+            },
+            {
+                title: 'Strikes between wildlife and airplanes',
+                view: 'Sheet2',
+                repo: 'Strikesbetweenwildlifeandairplanes',
+                views: 36
+            },
+            {
+                title: 'Collisions with wildlife over time',
+                view: 'top10collisionsovertime',
+                repo: 'Collisionswithwildlife_17171935831030',
+                views: 30
+            },
+            {
+                title: 'Rating per Genre',
+                view: 'Sheet6',
+                repo: 'RatingperGenre',
+                views: 30
+            }
+        ];
+
+        function tableauThumb(repo, view) {
+            return `https://public.tableau.com/thumb/views/${repo}/${view}`;
+        }
+
+        function tableauAppUrl(repo, view) {
+            return `https://public.tableau.com/app/profile/shadrack.addo/viz/${repo}/${view}`;
+        }
+
+        function renderTableauGallery() {
+            const grid = document.getElementById('tableau-grid');
+            if (!grid) return;
+            grid.innerHTML = tableauVizzes.map(v => `
+                <a class="tableau-card" role="listitem" href="${tableauAppUrl(v.repo, v.view)}" target="_blank" rel="noopener">
+                    <div class="tableau-card-thumb">
+                        <img src="${tableauThumb(v.repo, v.view)}" alt="Preview of ${v.title}" loading="lazy"
+                             onerror="this.style.opacity='0.35'; this.alt='Preview unavailable';">
+                    </div>
+                    <div class="tableau-card-body">
+                        <h3 class="tableau-card-title">${v.title}</h3>
+                        <div class="tableau-card-meta">${v.views} views · Tableau Public</div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
         // Project data — outcome-first editorial index
         const projectsData = [
             {
@@ -3981,6 +4271,47 @@
                     { type: 'demo', modal: 'cxAnalyticsModal', label: 'Live demo', icon: 'chart-line' }
                 ]
             },
+
+            {
+                id: 'tableau-wildlife',
+                outcome: 'Mapped wildlife–aircraft collision risk in Tableau',
+                title: 'Airplane–Wildlife Collisions',
+                category: 'data-science',
+                featured: true,
+                dash: 'cx',
+                dashLabel: 'Tableau Public',
+                thumb: 'https://public.tableau.com/thumb/views/Airplane-WildlifeCollisions_17171999549850/Dashboard1',
+                tech: ['Tableau', 'Spatial analysis', 'Public data'],
+                case: {
+                    problem: 'FAA wildlife-strike data is dense and hard to scan — stakeholders need a view of where, when, and which species drive costly collisions.',
+                    query: `-- Strike events by species and damage\nselect species, year, sum(cost) as total_cost,\n       count(*) as strikes\nfrom wildlife_strikes\ngroup by 1, 2\norder by total_cost desc`,
+                    impact: 'Interactive Tableau Public dashboard summarizing collision patterns. Featured viz on my profile with companion views for cost and species.'
+                },
+                links: [
+                    { type: 'site', url: 'https://public.tableau.com/app/profile/shadrack.addo/viz/Airplane-WildlifeCollisions_17171999549850/Dashboard1', label: 'Open viz', icon: 'chart-area' },
+                    { type: 'site', url: 'https://public.tableau.com/app/profile/shadrack.addo/vizzes', label: 'All vizzes', icon: 'external-link-alt' }
+                ]
+            },
+            {
+                id: 'tableau-trees',
+                outcome: 'Tied NYC street trees to borough economics',
+                title: 'Trees & Money in NYC',
+                category: 'data-science',
+                featured: true,
+                dash: 'warehouse',
+                dashLabel: 'Tableau Public',
+                thumb: 'https://public.tableau.com/thumb/views/TreesMoneyinNYC_17158386682100/Dashboard2',
+                tech: ['Tableau', 'NYC Open Data'],
+                case: {
+                    problem: 'Street-tree and borough economic indicators lived in separate tables — no single view of canopy vs. money context.',
+                    query: `select borough,\n       count(*) as trees,\n       avg(tree_dbh) as avg_dbh\nfrom nyc_trees\ngroup by borough`,
+                    impact: 'Tableau dashboard exploring the relationship between NYC street trees and borough-level money signals — published on Tableau Public.'
+                },
+                links: [
+                    { type: 'site', url: 'https://public.tableau.com/app/profile/shadrack.addo/viz/TreesMoneyinNYC_17158386682100/Dashboard2', label: 'Open viz', icon: 'chart-area' }
+                ]
+            },
+
             {
                 id: 'ecommerce-wh',
                 outcome: '40% faster warehouse queries',
@@ -4165,7 +4496,9 @@
                         <p class="work-title">${project.title}</p>
                         <div class="work-stack">${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
                     </div>
-                    <div class="work-thumb">${dashFrameMarkup(project.dash, project.dashLabel, false)}</div>
+                    <div class="work-thumb">${project.thumb
+                        ? `<img src="${project.thumb}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:top;">`
+                        : dashFrameMarkup(project.dash, project.dashLabel, false)}</div>
                     <span class="work-chevron" aria-hidden="true">+</span>
                 `;
 
@@ -4202,7 +4535,9 @@
                         </div>
                         <div class="case-block case-viz">
                             <div class="case-label">Dashboard frame</div>
-                            <div class="case-dash">${dashFrameMarkup(project.dash, project.dashLabel, true)}</div>
+                            <div class="case-dash">${project.thumb
+                                ? `<img src="${project.thumb}" alt="Dashboard preview for ${project.title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:top;">`
+                                : dashFrameMarkup(project.dash, project.dashLabel, true)}</div>
                         </div>
                     </div>
                     <div class="case-links">${linksHtml}</div>
@@ -4381,6 +4716,7 @@
         // Initialize all functionality
         document.addEventListener('DOMContentLoaded', function() {
             initializeProjectFilters();
+            renderTableauGallery();
             initializeCipherTypeSelect();
             initializeMobileNavigation();
             initStatCountUps();
@@ -5410,7 +5746,7 @@
             observeProjectCards();
             initializeJournalNavigation();
 
-            const revealEls = document.querySelectorAll('.about, .process, .projects, .education, .experience, .footer, .work-row, .about-stat, .kpi-strip, .process-step');
+            const revealEls = document.querySelectorAll('.about, .process, .projects, .tableau, .education, .experience, .footer, .work-row, .about-stat, .kpi-strip, .process-step, .tableau-card');
             revealEls.forEach((el, i) => {
                 el.classList.add('reveal');
                 el.style.transitionDelay = `${Math.min(i % 6, 5) * 0.05}s`;
