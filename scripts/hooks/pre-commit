@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Portfolio pre-commit hook: refresh the "last shipped" tag in index.html
+# and re-stage it before the commit finalizes.
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+
+if [ -x "$ROOT/scripts/update-build.sh" ]; then
+  "$ROOT/scripts/update-build.sh" || true
+  # Re-stage the file if it changed
+  if ! git diff --quiet -- "$ROOT/index.html"; then
+    git add "$ROOT/index.html"
+  fi
+fi
