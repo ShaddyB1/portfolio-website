@@ -1653,8 +1653,6 @@
                 margin-left: 0;
                 margin-right: 0;
             }
-                margin-right: auto;
-            }
             
             /* Projects grid */
             .projects-grid {
@@ -3579,6 +3577,350 @@
                 rgba(20, 28, 47, 0.8) 50%, 
                 rgba(10, 15, 28, 0) 100%);
         }
+
+        /* System Status Bar — analyst-style chrome pinned at the bottom */
+        .status-bar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 55;
+            display: grid;
+            grid-template-columns: auto 1fr auto auto auto;
+            gap: 0;
+            align-items: center;
+            height: 28px;
+            padding: 0 14px;
+            font-family: var(--font-mono);
+            font-size: 10.5px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--color-text-secondary);
+            background: rgba(10, 10, 10, 0.82);
+            backdrop-filter: var(--blur-backdrop);
+            -webkit-backdrop-filter: var(--blur-backdrop);
+            border-top: 1px solid var(--color-border);
+            pointer-events: auto;
+        }
+
+        .status-bar .status-cell {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 14px;
+            border-right: 1px solid var(--color-border);
+            height: 100%;
+            white-space: nowrap;
+        }
+
+        .status-bar .status-cell:last-child {
+            border-right: none;
+        }
+
+        .status-bar .status-cell.status-section {
+            justify-content: flex-end;
+        }
+
+        .status-bar .status-label {
+            color: rgba(168, 162, 158, 0.55);
+        }
+
+        .status-bar #status-current-section,
+        .status-bar #status-clock {
+            color: var(--color-text-primary);
+        }
+
+        .status-bar .status-pulse {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--color-success);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+            animation: statusPulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.55); }
+            50%      { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+        }
+
+        .status-bar .status-hint kbd,
+        .cmd-panel kbd {
+            display: inline-block;
+            padding: 1px 5px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            line-height: 1;
+            color: var(--color-text-primary);
+            background: rgba(245, 245, 244, 0.08);
+            border: 1px solid var(--color-border);
+            border-radius: 3px;
+        }
+
+        .status-bar .status-hint {
+            color: rgba(168, 162, 158, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .status-bar {
+                grid-template-columns: auto 1fr auto;
+                font-size: 10px;
+                padding: 0 8px;
+                height: 26px;
+            }
+            .status-bar .status-cell {
+                padding: 0 8px;
+                gap: 6px;
+            }
+            .status-bar .status-hint,
+            .status-bar .status-build {
+                display: none;
+            }
+        }
+
+        /* Command Palette — jump-to overlay */
+        .cmd-palette {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 12vh;
+            background: rgba(10, 10, 10, 0.55);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .cmd-palette.is-open {
+            display: flex;
+        }
+
+        .cmd-panel {
+            width: min(640px, 92vw);
+            max-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            background: rgba(20, 20, 20, 0.98);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            font-family: var(--font-body);
+            animation: cmdIn 180ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes cmdIn {
+            from { opacity: 0; transform: translateY(-6px) scale(0.985); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .cmd-input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .cmd-prompt {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--color-accent-primary);
+            line-height: 1;
+        }
+
+        #cmd-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--color-text-primary);
+            font-family: var(--font-body);
+            font-size: 15px;
+            letter-spacing: 0.01em;
+        }
+
+        #cmd-input::placeholder {
+            color: rgba(168, 162, 158, 0.6);
+        }
+
+        .cmd-list {
+            list-style: none;
+            margin: 0;
+            padding: 6px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .cmd-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--color-text-primary);
+            font-size: 14px;
+        }
+
+        .cmd-item[aria-selected="true"],
+        .cmd-item:hover {
+            background: rgba(232, 212, 77, 0.08);
+        }
+
+        .cmd-item .cmd-icon {
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--color-accent-primary);
+        }
+
+        .cmd-item .cmd-kind {
+            margin-left: auto;
+            font-family: var(--font-mono);
+            font-size: 10.5px;
+            color: rgba(168, 162, 158, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .cmd-item .cmd-meta {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-left: 4px;
+        }
+
+        .cmd-empty {
+            padding: 22px 18px;
+            color: var(--color-text-secondary);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .cmd-foot {
+            display: flex;
+            gap: 18px;
+            padding: 10px 18px;
+            font-family: var(--font-mono);
+            font-size: 10.5px;
+            color: rgba(168, 162, 158, 0.7);
+            border-top: 1px solid var(--color-border);
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            .cmd-panel { padding-top: 6vh; max-height: 80vh; }
+            .cmd-foot { display: none; }
+        }
+
+        /* Nudge site up so the status bar doesn't cover content */
+        body { padding-bottom: 28px; }
+        @media (max-width: 768px) { body { padding-bottom: 26px; } }
+
+        /* Hero field-notes ticker — analyst-style live feed */
+        .hero-ticker {
+            position: relative;
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--color-text-secondary);
+            overflow: hidden;
+        }
+
+        .hero-ticker-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px 10px 0;
+            margin-right: 16px;
+            border-right: 1px solid var(--color-border);
+            color: var(--color-accent-primary);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .hero-ticker-label::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--color-accent-primary);
+            box-shadow: 0 0 8px rgba(232, 212, 77, 0.55);
+        }
+
+        .hero-ticker-viewport {
+            position: relative;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
+        }
+
+        .hero-ticker-track {
+            display: inline-flex;
+            gap: 44px;
+            padding: 10px 44px 10px 16px;
+            white-space: nowrap;
+            animation: tickerRoll 48s linear infinite;
+            will-change: transform;
+        }
+
+        .hero-ticker-viewport:hover .hero-ticker-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes tickerRoll {
+            from { transform: translate3d(0, 0, 0); }
+            to   { transform: translate3d(-50%, 0, 0); }
+        }
+
+        .hero-ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-ticker-date {
+            color: var(--color-accent-primary);
+            opacity: 0.85;
+        }
+
+        .hero-ticker-sep {
+            color: rgba(168, 162, 158, 0.4);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-ticker-track { animation: none; }
+            .hero-ticker-viewport { mask-image: none; -webkit-mask-image: none; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-ticker {
+                margin-top: 2rem;
+                font-size: 10px;
+            }
+            .hero-ticker-label {
+                padding: 8px 12px 8px 0;
+                margin-right: 12px;
+            }
+            .hero-ticker-track {
+                padding: 8px 32px 8px 12px;
+                gap: 28px;
+                animation-duration: 36s;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3644,6 +3986,12 @@
                         <a href="resume.pdf" class="hero-cta hero-cta-ghost" download>Download resume</a>
                     </div>
                     <p class="hero-index">Based in Richmond, BC · Open to opportunities</p>
+                </div>
+            </div>
+            <div class="hero-ticker" role="log" aria-live="off" aria-label="Recent field notes">
+                <span class="hero-ticker-label">Field notes</span>
+                <div class="hero-ticker-viewport">
+                    <div class="hero-ticker-track" id="hero-ticker-track"></div>
                 </div>
             </div>
         </div>
@@ -4366,6 +4714,25 @@
                 },
                 links: [
                     { type: 'site', url: 'https://wcestudio.com/', label: 'Visit site', icon: 'external-link-alt' }
+                ]
+            },
+            {
+                id: 'canada-citizenship',
+                outcome: 'Turned IRCC residency math into a live countdown',
+                title: 'Canada Citizenship Countdown',
+                category: 'web-dev',
+                featured: true,
+                dash: 'web',
+                dashLabel: 'canadacitizenshipcountdown.com',
+                tech: ['Next.js', 'TypeScript', 'IRCC rules engine', 'iOS'],
+                case: {
+                    problem: 'Permanent residents track the 1,095-day physical-presence rule in spreadsheets that miss pre-PR half-day credit, the rolling five-year window, and trip deductions — so people file weeks off from the true eligibility date.',
+                    query: `// Physical-presence math per IRCC guidelines\nconst prDays       = daysInCanada(prEntry, today) - absencesAsPR;\nconst preprCredit  = Math.min(365, tempResidentDays * 0.5);\nconst daysCounted  = prDays + preprCredit;\nconst eligibleOn   = addDays(today, 1095 - daysCounted);`,
+                    impact: 'Assessment-driven web app that models pre-PR half-day credit, absences, and the rolling 5-year window into a real-time countdown — with a companion iOS app on the App Store.'
+                },
+                links: [
+                    { type: 'site', url: 'https://canadacitizenshipcountdown.com/', label: 'Visit site', icon: 'external-link-alt' },
+                    { type: 'site', url: 'https://apps.apple.com/ca/app/canada-citizenship-countdown/id6756274864', label: 'iOS app', icon: 'mobile-alt' }
                 ]
             },
             {
@@ -5945,7 +6312,360 @@
 
     </script>
     <script src="modal_handlers.js"></script>
-    
+
+    <!-- System Status Bar -->
+    <div class="status-bar" role="status" aria-label="Site status bar">
+        <div class="status-cell" title="Availability">
+            <span class="status-pulse" aria-hidden="true"></span>
+            <span>Available for work</span>
+        </div>
+        <div class="status-cell status-section">
+            <span class="status-label">Section</span>
+            <span id="status-current-section">Hero</span>
+        </div>
+        <div class="status-cell" title="Local time in Richmond, BC">
+            <span class="status-label">Richmond, BC</span>
+            <span id="status-clock">--:--</span>
+        </div>
+        <div class="status-cell status-hint" aria-hidden="true">
+            <kbd>/</kbd><span>&nbsp;Jump</span>
+        </div>
+        <div class="status-cell status-build" title="Last shipped commit">
+            <span class="status-label">Shipped</span>
+            <!-- BUILD:BEGIN -->
+            <a id="status-build"
+               href="https://github.com/ShaddyB1/portfolio-website/commit/2a14277"
+               target="_blank" rel="noopener"
+               data-date="2026-07-13" data-hash="2a14277"
+               style="color:var(--color-text-primary);text-decoration:none;">2026-07-13 · 2a14277</a>
+            <!-- BUILD:END -->
+        </div>
+    </div>
+
+    <!-- Command Palette -->
+    <div id="cmd-palette" class="cmd-palette" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Jump-to command palette">
+        <div class="cmd-panel" role="document">
+            <div class="cmd-input-row">
+                <span class="cmd-prompt" aria-hidden="true">&gt;</span>
+                <input id="cmd-input" type="text" autocomplete="off" spellcheck="false"
+                       placeholder="Jump to a section, project, or link…" aria-label="Filter jump commands" />
+                <kbd aria-hidden="true">ESC</kbd>
+            </div>
+            <ul id="cmd-list" class="cmd-list" role="listbox" aria-label="Available commands"></ul>
+            <div class="cmd-foot" aria-hidden="true">
+                <span><kbd>↑↓</kbd>&nbsp; Navigate</span>
+                <span><kbd>↵</kbd>&nbsp; Open</span>
+                <span><kbd>ESC</kbd>&nbsp; Close</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ----- Hero field-notes ticker -----
+    (function () {
+        const track = document.getElementById('hero-ticker-track');
+        if (!track) return;
+        const notes = [
+            { date: '2026-07-26', text: 'Shipped canadacitizenshipcountdown.com v1 — IRCC-accurate residency countdown' },
+            { date: '2026-07-13', text: 'Rebuilt portfolio as an editorial work-index instead of a card grid' },
+            { date: '2025-11-04', text: 'Cut simulated resolve time 18% with dbt + Airflow + Tableau on CX ops' },
+            { date: '2025-08-15', text: '1M+ transactions/year running through Python + T-SQL pipelines' },
+            { date: '2025-05-10', text: 'Launched WCE Studio — editorial site for African data art' },
+            { date: '2025-02-22', text: 'Warehouse queries ~40% faster after re-modeling to a star schema' },
+            { date: '2024-10-01', text: 'Executive dashboards live for 4+ teams across Tableau, Power BI, SSRS' }
+        ];
+
+        const itemHtml = (n) => `
+            <span class="hero-ticker-item">
+                <span class="hero-ticker-date">${n.date}</span>
+                <span class="hero-ticker-sep">·</span>
+                <span>${n.text}</span>
+            </span>
+        `;
+        const inner = notes.map(itemHtml).join('');
+        track.innerHTML = inner + inner;
+    })();
+
+    // ----- System status bar -----
+    (function () {
+        const clock = document.getElementById('status-clock');
+        const sectionOut = document.getElementById('status-current-section');
+        if (!clock || !sectionOut) return;
+
+        function tickClock() {
+            try {
+                const now = new Date();
+                clock.textContent = new Intl.DateTimeFormat('en-CA', {
+                    hour: '2-digit', minute: '2-digit', hour12: false,
+                    timeZone: 'America/Vancouver'
+                }).format(now);
+            } catch (_) {
+                const d = new Date();
+                clock.textContent = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+            }
+        }
+        tickClock();
+        setInterval(tickClock, 15000);
+
+        const sectionLabels = {
+            hero: 'Hero',
+            about: 'About',
+            process: 'Process',
+            projects: 'Selected work',
+            tableau: 'Tableau',
+            education: 'Education',
+            experience: 'Experience',
+            contact: 'Contact'
+        };
+
+        const hero = document.querySelector('section.hero');
+        if (hero && !hero.id) hero.id = 'hero';
+
+        const targets = Array.from(document.querySelectorAll('section[id]'))
+            .filter(s => sectionLabels[s.id]);
+
+        let currentId = 'hero';
+        function setCurrent(id) {
+            if (!id || id === currentId) return;
+            currentId = id;
+            sectionOut.textContent = sectionLabels[id] || id;
+        }
+
+        if ('IntersectionObserver' in window && targets.length) {
+            const io = new IntersectionObserver((entries) => {
+                const visible = entries
+                    .filter(e => e.isIntersecting)
+                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+                if (visible) setCurrent(visible.target.id);
+            }, { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.25, 0.5, 0.75] });
+            targets.forEach(t => io.observe(t));
+        }
+    })();
+
+    // ----- Live "last shipped" tag from GitHub API (with baked-in fallback) -----
+    (function () {
+        const el = document.getElementById('status-build');
+        if (!el) return;
+
+        function relative(iso) {
+            const now = Date.now();
+            const then = new Date(iso).getTime();
+            if (!then) return null;
+            const diff = Math.max(0, now - then);
+            const s = diff / 1000;
+            if (s < 60) return 'just now';
+            const m = s / 60;
+            if (m < 60) return `${Math.round(m)}m ago`;
+            const h = m / 60;
+            if (h < 24) return `${Math.round(h)}h ago`;
+            const d = h / 24;
+            if (d < 30) return `${Math.round(d)}d ago`;
+            const mo = d / 30;
+            if (mo < 12) return `${Math.round(mo)}mo ago`;
+            return `${Math.round(mo / 12)}y ago`;
+        }
+
+        function paint(dateIso, hash) {
+            const dateShort = dateIso.slice(0, 10);
+            const rel = relative(dateIso);
+            el.textContent = `${dateShort} · ${hash}${rel ? ' · ' + rel : ''}`;
+            el.setAttribute('data-date', dateShort);
+            el.setAttribute('data-hash', hash);
+            el.setAttribute('href', `https://github.com/ShaddyB1/portfolio-website/commit/${hash}`);
+        }
+
+        const seededDate = el.getAttribute('data-date');
+        const seededHash = el.getAttribute('data-hash');
+        if (seededDate && seededHash) paint(`${seededDate}T00:00:00Z`, seededHash);
+
+        fetch('https://api.github.com/repos/ShaddyB1/portfolio-website/commits?per_page=1', {
+            headers: { 'Accept': 'application/vnd.github+json' }
+        })
+            .then(r => r.ok ? r.json() : Promise.reject(r.status))
+            .then(data => {
+                if (!Array.isArray(data) || !data.length) return;
+                const c = data[0];
+                const hash = (c.sha || '').slice(0, 7);
+                const iso = c.commit && (c.commit.committer && c.commit.committer.date || c.commit.author && c.commit.author.date);
+                if (hash && iso) paint(iso, hash);
+            })
+            .catch(() => { /* keep the baked-in value */ });
+    })();
+
+    // ----- Command palette -----
+    (function () {
+        const overlay = document.getElementById('cmd-palette');
+        const input = document.getElementById('cmd-input');
+        const list = document.getElementById('cmd-list');
+        if (!overlay || !input || !list) return;
+
+        const baseCommands = [
+            { label: 'About', kind: 'section', hash: '#about', icon: 'i' },
+            { label: 'How I work', kind: 'section', hash: '#process', icon: 'i' },
+            { label: 'Selected work', kind: 'section', hash: '#projects', icon: 'i' },
+            { label: 'Tableau Public', kind: 'section', hash: '#tableau', icon: 'i' },
+            { label: 'Education', kind: 'section', hash: '#education', icon: 'i' },
+            { label: 'Experience', kind: 'section', hash: '#experience', icon: 'i' },
+            { label: 'Contact', kind: 'section', hash: '#contact', icon: 'i' },
+            { label: 'Download resume (PDF)', kind: 'download', href: 'resume.pdf', icon: '↓' },
+            { label: 'GitHub', kind: 'external', href: 'https://github.com/ShaddyB1', icon: '↗' },
+            { label: 'LinkedIn', kind: 'external', href: 'https://www.linkedin.com/in/shadrack-boateng-addo/', icon: '↗' },
+            { label: 'Tableau Public profile', kind: 'external', href: 'https://public.tableau.com/app/profile/shadrack.addo/vizzes', icon: '↗' },
+            { label: 'Email — sboatengaddo@gmail.com', kind: 'email', href: 'mailto:sboatengaddo@gmail.com', icon: '@' }
+        ];
+
+        function commandsFromProjects() {
+            const rows = document.querySelectorAll('#work-index .work-row');
+            const out = [];
+            rows.forEach(r => {
+                const title = r.querySelector('.work-title');
+                const outcome = r.querySelector('.work-outcome');
+                if (!title || !r.id) return;
+                out.push({
+                    label: title.textContent.trim(),
+                    meta: outcome ? outcome.textContent.trim() : '',
+                    kind: 'project',
+                    hash: `#${r.id}`,
+                    projectId: r.id,
+                    icon: '▸'
+                });
+            });
+            return out;
+        }
+
+        let filtered = [];
+        let activeIndex = 0;
+
+        function render(items) {
+            filtered = items;
+            activeIndex = 0;
+            if (!items.length) {
+                list.innerHTML = `<li class="cmd-empty">No matches — try “work”, “resume”, or a project name.</li>`;
+                return;
+            }
+            list.innerHTML = items.map((cmd, i) => `
+                <li class="cmd-item" role="option" data-idx="${i}" aria-selected="${i === 0 ? 'true' : 'false'}">
+                    <span class="cmd-icon" aria-hidden="true">${cmd.icon || '·'}</span>
+                    <span>${escapeHtml(cmd.label)}</span>
+                    ${cmd.meta ? `<span class="cmd-meta">— ${escapeHtml(cmd.meta)}</span>` : ''}
+                    <span class="cmd-kind">${cmd.kind}</span>
+                </li>
+            `).join('');
+        }
+
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, c => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[c]));
+        }
+
+        function allCommands() {
+            return baseCommands.concat(commandsFromProjects());
+        }
+
+        function open() {
+            overlay.classList.add('is-open');
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            input.value = '';
+            render(allCommands());
+            requestAnimationFrame(() => input.focus());
+        }
+
+        function close() {
+            overlay.classList.remove('is-open');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        function updateActive(i) {
+            const items = list.querySelectorAll('.cmd-item');
+            if (!items.length) return;
+            activeIndex = (i + items.length) % items.length;
+            items.forEach((el, idx) => el.setAttribute('aria-selected', idx === activeIndex ? 'true' : 'false'));
+            const el = items[activeIndex];
+            if (el && el.scrollIntoView) el.scrollIntoView({ block: 'nearest' });
+        }
+
+        function runCommand(cmd) {
+            if (!cmd) return;
+            close();
+            if (cmd.kind === 'external' || cmd.kind === 'email') {
+                window.open(cmd.href, cmd.kind === 'email' ? '_self' : '_blank', 'noopener');
+                return;
+            }
+            if (cmd.kind === 'download') {
+                const a = document.createElement('a');
+                a.href = cmd.href;
+                a.download = '';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                return;
+            }
+            if (cmd.hash) {
+                const id = cmd.hash.slice(1);
+                const target = document.getElementById(id);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (cmd.kind === 'project') {
+                    setTimeout(() => {
+                        const row = document.getElementById(cmd.projectId);
+                        const toggle = row && row.querySelector('.work-row-toggle');
+                        if (row && !row.classList.contains('is-open') && toggle) toggle.click();
+                    }, 320);
+                }
+            }
+        }
+
+        input.addEventListener('input', () => {
+            const q = input.value.trim().toLowerCase();
+            if (!q) return render(allCommands());
+            const scored = allCommands()
+                .map(c => {
+                    const hay = `${c.label} ${c.meta || ''} ${c.kind}`.toLowerCase();
+                    const idx = hay.indexOf(q);
+                    return { c, idx };
+                })
+                .filter(x => x.idx !== -1)
+                .sort((a, b) => a.idx - b.idx)
+                .map(x => x.c);
+            render(scored);
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') { e.preventDefault(); updateActive(activeIndex + 1); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); updateActive(activeIndex - 1); }
+            else if (e.key === 'Enter') { e.preventDefault(); runCommand(filtered[activeIndex]); }
+            else if (e.key === 'Escape') { e.preventDefault(); close(); }
+        });
+
+        list.addEventListener('mousemove', (e) => {
+            const li = e.target.closest('.cmd-item');
+            if (li) updateActive(Number(li.dataset.idx));
+        });
+
+        list.addEventListener('click', (e) => {
+            const li = e.target.closest('.cmd-item');
+            if (li) runCommand(filtered[Number(li.dataset.idx)]);
+        });
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) close();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            const tag = (e.target && e.target.tagName) || '';
+            const isTyping = tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable);
+            const cmdK = (e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey);
+            if (cmdK) { e.preventDefault(); overlay.classList.contains('is-open') ? close() : open(); return; }
+            if (e.key === '/' && !isTyping && !overlay.classList.contains('is-open')) {
+                e.preventDefault();
+                open();
+            }
+        });
+    })();
+    </script>
+
 </body>
 </html>
 
