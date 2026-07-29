@@ -4207,8 +4207,10 @@
                         <p class="website-role">Design + Build · 2026</p>
                         <h3 class="website-title">Canada Citizenship Countdown</h3>
                         <p class="website-description">
-                            Assessment-driven countdown that models IRCC's 1,095-day rule — pre-PR half-day credit,
-                            absences, and the rolling five-year window — with a companion iOS app on the App Store.
+                            A countdown app that calculates when you become eligible for Canadian citizenship using
+                            official IRCC rules. It tracks days as a temporary resident, days as a permanent
+                            resident, and time spent outside Canada across the rolling 5 year window. Also
+                            available as an iOS app on the App Store.
                         </p>
                         <div class="website-tech">
                             <span class="tech-tag">Next.js</span>
@@ -4901,9 +4903,9 @@
                 dashLabel: 'canadacitizenshipcountdown.com',
                 tech: ['Next.js', 'TypeScript', 'IRCC rules engine', 'iOS'],
                 case: {
-                    problem: 'Permanent residents track the 1,095-day physical-presence rule in spreadsheets that miss pre-PR half-day credit, the rolling five-year window, and trip deductions — so people file weeks off from the true eligibility date.',
-                    query: `// Physical-presence math per IRCC guidelines\nconst prDays       = daysInCanada(prEntry, today) - absencesAsPR;\nconst preprCredit  = Math.min(365, tempResidentDays * 0.5);\nconst daysCounted  = prDays + preprCredit;\nconst eligibleOn   = addDays(today, 1095 - daysCounted);`,
-                    impact: 'Assessment-driven web app that models pre-PR half-day credit, absences, and the rolling 5-year window into a real-time countdown — with a companion iOS app on the App Store.'
+                    problem: 'Permanent residents track their 1,095 days of physical presence in spreadsheets that miss the half day credit for time as a temporary resident, the rolling 5 year window, and trip deductions. That leads to citizenship applications being filed weeks off from the true eligibility date.',
+                    query: `// Physical presence math per IRCC guidelines\nconst prDays       = daysInCanada(prEntry, today) - absencesAsPR;\nconst preprCredit  = Math.min(365, tempResidentDays * 0.5);\nconst daysCounted  = prDays + preprCredit;\nconst eligibleOn   = addDays(today, 1095 - daysCounted);`,
+                    impact: 'A web app that calculates when you become eligible for Canadian citizenship using official IRCC rules. It handles days as a temporary resident, days as a permanent resident, and absences across the rolling 5 year window. Also ships as an iOS app.'
                 },
                 links: [
                     { type: 'site', url: 'https://canadacitizenshipcountdown.com/', label: 'Visit site', icon: 'external-link-alt' },
@@ -6509,10 +6511,10 @@
             <span class="status-label">Shipped</span>
             <!-- BUILD:BEGIN -->
             <a id="status-build"
-               href="https://github.com/ShaddyB1/portfolio-website/commit/f2c1020"
+               href="https://github.com/ShaddyB1/portfolio-website/commit/5b97419"
                target="_blank" rel="noopener"
-               data-date="2026-07-26" data-hash="f2c1020"
-               style="color:var(--color-text-primary);text-decoration:none;">2026-07-26 · f2c1020</a>
+               data-date="2026-07-29" data-hash="5b97419"
+               style="color:var(--color-text-primary);text-decoration:none;">2026-07-29 · 5b97419</a>
             <!-- BUILD:END -->
         </div>
     </div>
@@ -6541,7 +6543,7 @@
         const track = document.getElementById('hero-ticker-track');
         if (!track) return;
         const notes = [
-            { date: '2026-07-26', text: 'Shipped canadacitizenshipcountdown.com v1 — IRCC-accurate residency countdown' },
+            { date: '2026-07-26', text: 'Shipped canadacitizenshipcountdown.com v1 · IRCC accurate residency countdown' },
             { date: '2026-07-13', text: 'Rebuilt portfolio as an editorial work-index instead of a card grid' },
             { date: '2025-11-04', text: 'Cut simulated resolve time 18% with dbt + Airflow + Tableau on CX ops' },
             { date: '2025-08-15', text: '1M+ transactions/year running through Python + T-SQL pipelines' },
