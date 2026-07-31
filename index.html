@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Shadrack Boateng Addo, Data Analyst and BI Engineer in Richmond, BC. Dashboards, SQL pipelines, and shipped websites.">
     <meta name="author" content="Shadrack Boateng Addo">
-    <meta name="theme-color" content="#101014">
+    <meta name="theme-color" content="#011627">
+    <meta name="color-scheme" content="dark">
     <meta property="og:title" content="Shadrack Boateng Addo | Data Analyst">
     <meta property="og:description" content="Data Analyst and BI Engineer. Dashboards, pipelines, and sites that help teams decide faster.">
     <meta property="og:type" content="website">
@@ -16,21 +17,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
     <style>
+        /* Palette from Cursor theme: Winter is Coming (Dark Blue) */
         :root {
-            --preloader: #131318;
-            --preloader-dot: #f2efe4;
-            --text: #f2efe4;
-            --bg: #101014;
-            --surface: #17171d;
-            --c-mint: #87daba;
-            --c-coral: #e2939d;
-            --c-sky: #afdae0;
-            --primary: #77bfdb;
+            --preloader: #011627;
+            --preloader-dot: #80cbc4;
+            --text: #d6deeb;
+            --bg: #011627;
+            --surface: #0b2942;
+            --c-mint: #80cbc4;
+            --c-coral: #57cdff;
+            --c-sky: #a7dbf7;
+            --primary: #219fd5;
+            --shadow: rgba(1, 22, 39, 0.65);
+            --line: rgba(167, 219, 247, 0.16);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html { scroll-behavior: auto; }
+        html {
+            scroll-behavior: auto;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
 
         body {
             font-family: Nunito, system-ui, sans-serif;
@@ -38,11 +46,19 @@
             color: var(--text);
             line-height: 1.7;
             overflow-x: hidden;
+            overflow-x: clip;
+            padding-left: env(safe-area-inset-left, 0);
+            padding-right: env(safe-area-inset-right, 0);
         }
 
         body.is-loading { overflow: hidden; }
 
         a { color: inherit; }
+
+        img, svg, video {
+            max-width: 100%;
+            height: auto;
+        }
 
         /* Preloader: Nik Luong style */
         .preloader {
@@ -142,10 +158,14 @@
         /* Hero */
         .hero {
             min-height: 100dvh;
+            min-height: 100svh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 2.5rem clamp(1.25rem, 4vw, 3rem) 2rem;
+            padding:
+                max(1.75rem, env(safe-area-inset-top, 0px))
+                clamp(1.15rem, 4vw, 3rem)
+                max(1.5rem, env(safe-area-inset-bottom, 0px));
             position: relative;
         }
 
@@ -240,16 +260,19 @@
         .hero-main { text-align: right; }
 
         .hero-title {
-            font-size: clamp(2.4rem, 7vw, 4.25rem);
+            font-size: clamp(2.15rem, 7vw, 4.25rem);
             font-weight: 800;
             line-height: 1.05;
             letter-spacing: -0.03em;
+            text-wrap: balance;
+            overflow-wrap: anywhere;
         }
 
         .hero-role {
-            font-size: clamp(1.15rem, 2.5vw, 1.75rem);
+            font-size: clamp(1.05rem, 2.5vw, 1.75rem);
             font-weight: 500;
             margin-top: 0.35rem;
+            text-wrap: balance;
         }
 
         /* Scroll runway between chapters (camera-move feel without Three.js) */
@@ -262,7 +285,8 @@
         /* Sections: Nik-style half panels */
         .chapter {
             width: min(52%, 720px);
-            padding: clamp(3.5rem, 8vw, 6rem) clamp(1.5rem, 4vw, 3rem) clamp(4rem, 10vw, 7rem);
+            max-width: 100%;
+            padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 4vw, 3rem) clamp(3.5rem, 10vw, 7rem);
             background: var(--surface);
             position: relative;
             margin: 0;
@@ -270,16 +294,16 @@
 
         .chapter.left {
             margin-right: auto;
-            border-top-right-radius: 220px;
+            border-top-right-radius: clamp(80px, 18vw, 220px);
             border-bottom-right-radius: 40px;
-            box-shadow: 12px 0 48px rgba(0, 0, 0, 0.5);
+            box-shadow: 12px 0 48px var(--shadow);
         }
 
         .chapter.right {
             margin-left: auto;
-            border-top-left-radius: 220px;
+            border-top-left-radius: clamp(80px, 18vw, 220px);
             border-bottom-left-radius: 40px;
-            box-shadow: -12px 0 48px rgba(0, 0, 0, 0.5);
+            box-shadow: -12px 0 48px var(--shadow);
         }
 
         .chapter-rail {
@@ -304,6 +328,7 @@
         .chapter-intro {
             position: relative;
             padding-bottom: 2.5rem;
+            padding-right: clamp(2.5rem, 8vw, 4rem);
             margin-bottom: 2rem;
             border-bottom: 2px solid currentColor;
         }
@@ -312,12 +337,13 @@
             position: relative;
             display: inline-block;
             margin-bottom: 1.5rem;
-            min-height: 5.5rem;
+            min-height: clamp(4.25rem, 12vw, 5.5rem);
+            max-width: 100%;
         }
 
         .chapter-title {
             display: block;
-            font-size: clamp(1.75rem, 4vw, 2.4rem);
+            font-size: clamp(1.55rem, 4vw, 2.4rem);
             font-weight: 800;
             text-transform: uppercase;
             transform: skewY(12deg);
@@ -325,22 +351,23 @@
             position: relative;
             z-index: 2;
             line-height: 1.1;
+            text-wrap: balance;
         }
 
         .deco {
             position: absolute;
             left: 0;
             width: min(100%, 260px);
-            height: 52px;
+            height: clamp(40px, 8vw, 52px);
             border: 2px solid currentColor;
             transform-origin: left;
             pointer-events: none;
         }
 
         .deco-1 { top: 0; transform: skewY(-12deg); }
-        .deco-2 { top: 58px; transform: skewY(-12deg); }
+        .deco-2 { top: clamp(46px, 9vw, 58px); transform: skewY(-12deg); }
         .deco-3 {
-            top: 58px;
+            top: clamp(46px, 9vw, 58px);
             transform: skewY(12deg);
             background: currentColor;
             opacity: 0.2;
@@ -350,7 +377,7 @@
             position: absolute;
             right: 0;
             bottom: 0.5rem;
-            font-size: 1.35rem;
+            font-size: clamp(1.05rem, 2.5vw, 1.35rem);
             font-weight: 700;
         }
 
@@ -367,19 +394,21 @@
         }
 
         .chapter-body h3 {
-            font-size: 1.15rem;
+            font-size: clamp(1.05rem, 2.4vw, 1.15rem);
             font-weight: 800;
             margin: 2.25rem 0 0.5rem;
             line-height: 1.35;
+            text-wrap: balance;
         }
 
         .chapter-body h3:first-child { margin-top: 0; }
 
         .chapter-body p {
-            font-size: 1.02rem;
-            line-height: 2;
+            font-size: clamp(0.98rem, 1.8vw, 1.02rem);
+            line-height: 1.85;
             margin-top: 0.85rem;
             max-width: 48ch;
+            overflow-wrap: break-word;
         }
 
         .chapter-body a.work-link {
@@ -405,8 +434,8 @@
             margin-top: 1.1rem;
             border-radius: 20px;
             overflow: hidden;
-            border: 1px solid rgba(242, 239, 228, 0.14);
-            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--line);
+            box-shadow: 0 18px 44px var(--shadow);
             transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -432,7 +461,7 @@
         .fun {
             margin-top: 2.5rem;
             padding-top: 1.5rem;
-            border-top: 1px dashed rgba(250, 244, 229, 0.25);
+            border-top: 1px dashed rgba(128, 203, 196, 0.35);
         }
 
         .contact-list {
@@ -464,7 +493,13 @@
             font-size: 0.9rem;
             opacity: 0.55;
             text-align: center;
-            padding: 2rem;
+            padding: 2rem 1.25rem calc(2rem + env(safe-area-inset-bottom, 0px));
+        }
+
+        a:focus-visible,
+        .scroll-cue:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 3px;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -480,22 +515,200 @@
             body.is-loading { overflow: auto; }
         }
 
-        @media (max-width: 900px) {
-            .section-margin { height: min(28vh, 180px); }
-
-            .chapter {
-                width: 100%;
-                margin: 0;
-                border-radius: 48px 48px 24px 24px !important;
-                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+        /* Large desktops: keep hero + panels from stretching too thin */
+        @media (min-width: 1440px) {
+            .hero {
+                padding-inline: clamp(3rem, 7vw, 8rem);
             }
 
-            .hero-bottom { grid-template-columns: 1fr; gap: 2rem; }
+            .chapter {
+                width: min(48%, 760px);
+            }
+        }
+
+        /* Mid / laptop: widen panels so copy stays readable */
+        @media (max-width: 1200px) {
+            .chapter {
+                width: min(64%, 680px);
+            }
+        }
+
+        /* Tablet + below */
+        @media (max-width: 900px) {
+            .section-margin { height: min(24vh, 160px); }
+
+            .hero-center {
+                padding: 1.25rem 0;
+                gap: 1.15rem;
+            }
+
+            .chapter {
+                width: calc(100% - 1.5rem);
+                max-width: none;
+                margin-inline: 0.75rem;
+                border-radius: 44px 44px 24px 24px !important;
+                box-shadow: 0 12px 40px var(--shadow) !important;
+            }
+
+            .hero-bottom { grid-template-columns: 1fr; gap: 1.75rem; }
             .hero-main { text-align: left; }
             .hero-aside { order: 2; }
             .chapter-title { transform: skewY(8deg); }
             .deco-1, .deco-2 { transform: skewY(-8deg); }
             .deco-3 { transform: skewY(8deg); }
+
+            .scroll-cue svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            .contact-list a,
+            .chapter-body a.work-link {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
+        }
+
+        /* Phones */
+        @media (max-width: 640px) {
+            .section-margin { height: min(16vh, 100px); }
+
+            .blob {
+                filter: blur(52px);
+                opacity: 0.22;
+            }
+
+            .hero-mark,
+            .hero-aside {
+                font-size: 0.82rem;
+                letter-spacing: 0.08em;
+            }
+
+            .intro-text {
+                font-size: clamp(1.15rem, 5.2vw, 1.45rem);
+                gap: 0.22em;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 10.5vw, 2.85rem);
+            }
+
+            .hero-role {
+                font-size: clamp(1rem, 4.4vw, 1.3rem);
+            }
+
+            .chapter {
+                width: calc(100% - 1rem);
+                margin-inline: 0.5rem;
+                padding: 2.6rem 1.2rem 3rem;
+                border-radius: 32px 32px 20px 20px !important;
+            }
+
+            .chapter-intro {
+                padding-bottom: 1.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .chapter-title {
+                transform: skewY(6deg);
+            }
+
+            .deco-1, .deco-2 { transform: skewY(-6deg); }
+            .deco-3 { transform: skewY(6deg); }
+
+            .chapter-body p {
+                line-height: 1.75;
+                max-width: none;
+            }
+
+            .chapter-body h3 {
+                margin-top: 1.75rem;
+            }
+
+            .site-preview {
+                border-radius: 14px;
+                margin-top: 0.9rem;
+            }
+
+            .site-preview:hover,
+            .site-preview:hover img {
+                transform: none;
+            }
+
+            .fun {
+                margin-top: 2rem;
+            }
+
+            .contact-list li {
+                margin-top: 1.35rem;
+            }
+
+            .site-note {
+                padding: 1.5rem 1rem 2.5rem;
+                margin-top: 2rem;
+            }
+        }
+
+        /* Small phones */
+        @media (max-width: 400px) {
+            .hero {
+                padding-inline: 1rem;
+            }
+
+            .chapter {
+                width: 100%;
+                margin-inline: 0;
+                border-radius: 0 !important;
+                padding: 2.35rem 1rem 2.75rem;
+            }
+
+            .chapter-intro {
+                padding-right: 0;
+            }
+
+            .chapter-number {
+                position: static;
+                display: inline-block;
+                margin-top: 0.85rem;
+            }
+
+            .chapter-title-wrap {
+                display: block;
+                min-height: 3.75rem;
+            }
+
+            .deco {
+                width: min(100%, 180px);
+            }
+        }
+
+        /* Short landscape phones / foldables */
+        @media (max-height: 520px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding-block: 1.1rem;
+            }
+
+            .hero-center {
+                padding: 0.35rem 0;
+                gap: 0.65rem;
+            }
+
+            .section-margin {
+                height: 40px;
+            }
+
+            .blob {
+                opacity: 0.14;
+            }
+        }
+
+        /* Touch devices: keep hover transforms from sticking */
+        @media (hover: none) {
+            .site-preview:hover { transform: none; }
+            .site-preview:hover img { transform: none; }
+            .chapter-body a.work-link:hover { opacity: 1; }
         }
     </style>
 </head>
@@ -825,16 +1038,18 @@
                 });
             });
 
-            // Chapters slide in from their own side of the screen
+            // Chapters enter from their side on wide screens; fade-up on small ones
+            const narrow = window.matchMedia('(max-width: 900px)').matches;
             gsap.utils.toArray('.chapter').forEach((chapter) => {
                 const fromLeft = chapter.classList.contains('left');
                 gsap.from(chapter, {
-                    x: fromLeft ? -90 : 90,
-                    duration: 1.1,
+                    x: narrow ? 0 : (fromLeft ? -72 : 72),
+                    y: narrow ? 36 : 0,
+                    duration: narrow ? 0.85 : 1.1,
                     ease: 'power3.out',
                     scrollTrigger: {
                         trigger: chapter,
-                        start: 'top 85%',
+                        start: 'top 88%',
                         toggleActions: 'play none none reverse'
                     }
                 });
@@ -884,22 +1099,23 @@
                 });
             });
 
-            // Soft “room camera”: blobs drift with scroll
+            // Soft “room camera”: blobs drift with scroll (lighter on phones)
+            const blobMul = narrow ? 0.45 : 1;
             gsap.to('.blob-a', {
-                y: -120,
-                x: 40,
+                y: -120 * blobMul,
+                x: 40 * blobMul,
                 ease: 'none',
                 scrollTrigger: { trigger: root, start: 'top top', end: 'bottom bottom', scrub: 1.2 }
             });
             gsap.to('.blob-b', {
-                y: 160,
-                x: -60,
+                y: 160 * blobMul,
+                x: -60 * blobMul,
                 ease: 'none',
                 scrollTrigger: { trigger: root, start: 'top top', end: 'bottom bottom', scrub: 1.4 }
             });
             gsap.to('.blob-c', {
-                y: -80,
-                x: 30,
+                y: -80 * blobMul,
+                x: 30 * blobMul,
                 ease: 'none',
                 scrollTrigger: { trigger: root, start: 'top top', end: 'bottom bottom', scrub: 1 }
             });
